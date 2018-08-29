@@ -1,0 +1,50 @@
+﻿@using XDbAccess.Demo.Models
+
+@model User
+
+<div>
+    <div>
+        <form asp-controller="Home" asp-action="ModifyUser" method="post">
+            <div>
+                <label asp-for="Name"></label>
+                <input asp-for="Name" />
+            </div>
+            <div>
+                <label asp-for="Birthday"></label>
+                <input asp-for="Birthday" />
+            </div>
+            <div>
+                <label asp-for="Description"></label>
+                <input asp-for="Description" />
+            </div>
+            <div>
+                <input type="hidden" asp-for="Id" />
+            </div>
+            <div>
+                <button type="submit">Modify</button>
+            </div>
+        </form>
+    </div>
+    <div>
+        <form asp-controller="Home" asp-action="ModifyEntityUser" method="post">
+            <div>
+                <label asp-for="Name"></label>
+                <input asp-for="Name" />
+            </div>
+            <div>
+                <label asp-for="Birthday"></label>
+                <input asp-for="Birthday" />
+            </div>
+            <div>
+                <label asp-for="Description"></label>
+                <input asp-for="Description" />
+            </div>
+            <div>
+                <input type="hidden" asp-for="Id" />
+            </div>
+            <div>
+                <button type="submit">ModifyEntity</button>
+            </div>
+        </form>
+    </div>
+</div>

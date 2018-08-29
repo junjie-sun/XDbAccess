@@ -1,0 +1,38 @@
+﻿@using XDbAccess.Demo.Models
+
+@model List<Order>
+
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model[0].Id)</th>
+                <th>@Html.DisplayNameFor(model => model[0].UserId)</th>
+                <th>@Html.DisplayNameFor(model => model[0].Total)</th>
+                <th>@Html.DisplayNameFor(model => model[0].CreateTime)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <td>
+                        <span>@Html.DisplayFor(orderList => order.Id)</span>
+                    </td>
+                    <td>
+                        <span>@Html.DisplayFor(orderList => order.UserId)</span>
+                    </td>
+                    <td>
+                        <span>@Html.DisplayFor(orderList => order.Total)</span>
+                    </td>
+                    <td>
+                        <span>@Html.DisplayFor(orderList => order.CreateTime)</span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@section Scripts {
+
+}

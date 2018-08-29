@@ -1,0 +1,62 @@
+﻿@using XDbAccess.Demo.Models
+
+@model List<User>
+
+<div>
+    <div>
+        <form asp-controller="Home" asp-action="PagedQueryDemo" method="get">
+            <div>
+                <label>@Html.DisplayNameFor(model => model[0].Name)</label>
+                <input name="name" type="text" value="" style="width: 100px" />
+                <label>PageIndex</label>
+                <input name="pageIndex" type="text" value="@ViewBag.PageIndex" style="width: 100px" />
+                <label>PageSize</label>
+                <input name="pageSize" type="text" value="@ViewBag.PageSize" style="width: 100px" />
+                <input name="total" type="hidden" value="@ViewBag.Total" style="width: 100px" />
+                <input type="submit" value="Query" style="width: 50px" />
+            </div>
+        </form>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model[0].Id)</th>
+                <th>@Html.DisplayNameFor(model => model[0].Name)</th>
+                <th>@Html.DisplayNameFor(model => model[0].Birthday)</th>
+                <th>@Html.DisplayNameFor(model => model[0].Age)</th>
+                <th>@Html.DisplayNameFor(model => model[0].Description)</th>
+                <th>Opration</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>
+                        <span>@Html.DisplayFor(userList => user.Id)</span>
+                    </td>
+                    <td>
+                        <span>@Html.DisplayFor(userList => user.Name)</span>
+                    </td>
+                    <td>
+                        <span>@Html.DisplayFor(userList => user.Birthday)</span>
+                    </td>
+                    <td>
+                        <span>@Html.DisplayFor(userList => user.Age)</span>
+                    </td>
+                    <td>
+                        <span>@Html.DisplayFor(userList => user.Description)</span>
+                    </td>
+                    <td>
+                        <span><a asp-action="ModifyDemo" asp-route-id="@user.Id">Modify</a></span>
+                        <span><a class="removeUser" href="javascript:;" userId="@user.Id">Remove</a></span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <span>Totle: @ViewBag.Total</span>
+</div>
+@section Scripts {
+    <script src="~/js/app/Home/QueryDemo.js"></script>
+}

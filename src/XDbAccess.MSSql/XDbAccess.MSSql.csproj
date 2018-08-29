@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Sun junjie</Authors>
+    <Description>MSSql extension for XDbAccess.</Description>
+    <PackageTags>xdbaccess</PackageTags>
+    <PackageLicenseUrl>https://github.com/junjie-sun/XDbAccess/blob/master/LICENSE.txt</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/junjie-sun/XDbAccess</PackageProjectUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Data.SqlClient" Version="4.4.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\XDbAccess.AutoTrans\XDbAccess.AutoTrans.csproj" />
+  </ItemGroup>
+
+</Project>
