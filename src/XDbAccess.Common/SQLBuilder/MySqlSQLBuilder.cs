@@ -5,11 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace XDbAccess.Dapper
+namespace XDbAccess.Common
 {
-    public class MSSqlSQLBuilder : ISQLBuilder
+    public class MySqlSQLBuilder : ISQLBuilder
     {
         public string BuildInsertSql(MapInfo meta)
         {
@@ -19,10 +18,10 @@ namespace XDbAccess.Dapper
             }
 
             StringBuilder sqlBuilder = new StringBuilder();
-            sqlBuilder.AppendFormat("INSERT INTO [{0}] (", meta.TableName);
+            sqlBuilder.AppendFormat("INSERT INTO `{0}` (", meta.TableName);
 
             bool isFirst = true;
-            for(var i = 0; i < meta.Fields.Count; i++)
+            for (var i = 0; i < meta.Fields.Count; i++)
             {
                 var field = meta.Fields[i];
                 if (field.IsIdentity)
@@ -39,9 +38,9 @@ namespace XDbAccess.Dapper
                     isFirst = false;
                 }
 
-                sqlBuilder.Append("[");
+                sqlBuilder.Append("`");
                 sqlBuilder.Append(field.FieldName);
-                sqlBuilder.Append("]");
+                sqlBuilder.Append("`");
             }
 
             isFirst = true;
@@ -71,12 +70,12 @@ namespace XDbAccess.Dapper
 
             if (meta.HasIdentity)
             {
-                sqlBuilder.Append(" SELECT CAST(SCOPE_IDENTITY() AS bigint) as Id;");
+                sqlBuilder.Append(" SELECT CAST(LAST_INSERT_ID() AS SIGNED);");
 
             }
             else
             {
-                sqlBuilder.Append(" SELECT  CAST(0 AS bigint) as Id;");
+                sqlBuilder.Append(" SELECT CAST(0 AS SIGNED);");
 
             }
 
@@ -96,7 +95,7 @@ namespace XDbAccess.Dapper
             }
 
             StringBuilder sqlBuilder = new StringBuilder();
-            sqlBuilder.AppendFormat("UPDATE [{0}] SET ", meta.TableName);
+            sqlBuilder.AppendFormat("UPDATE `{0}` SET ", meta.TableName);
 
             bool isFirst = true;
             for (var i = 0; i < meta.Fields.Count; i++)
@@ -116,9 +115,9 @@ namespace XDbAccess.Dapper
                     isFirst = false;
                 }
 
-                sqlBuilder.Append("[");
+                sqlBuilder.Append("`");
                 sqlBuilder.Append(field.FieldName);
-                sqlBuilder.Append("]=@");
+                sqlBuilder.Append("`=@");
                 sqlBuilder.Append(field.PropertyName);
             }
 
@@ -135,9 +134,9 @@ namespace XDbAccess.Dapper
             foreach (var conditionField in conditionFields)
             {
                 sqlBuilder.Append(" AND ");
-                sqlBuilder.Append("[");
+                sqlBuilder.Append("`");
                 sqlBuilder.Append(conditionField.FieldName);
-                sqlBuilder.Append("]=@");
+                sqlBuilder.Append("`=@");
                 sqlBuilder.Append(conditionField.PropertyName);
             }
 
@@ -163,15 +162,12 @@ namespace XDbAccess.Dapper
                 throw new ArgumentNullException("Need to specify SqlOrderPart");
             }
 
-            int pageStartIndex = options.PageSize * options.PageIndex + 1;
-            int pageEndIndex = options.PageSize * (options.PageIndex + 1);
+            int pageStartIndex = options.PageSize * options.PageIndex;
+            int currentPageCount = options.PageSize;
 
-            var sql = string.Format(@"SELECT * FROM (
-                    SELECT {0},ROW_NUMBER() OVER(ORDER BY {1}) AS RowNumber FROM {2}
-                    WHERE 1=1 {3}
-                ) as pageTable where RowNumber>={4} and RowNumber<={5};",
-                options.SqlFieldsPart, options.SqlOrderPart, options.SqlFromPart,
-                string.IsNullOrEmpty(options.SqlConditionPart) ? string.Empty : "AND " + options.SqlConditionPart, pageStartIndex, pageEndIndex);
+            var sql = string.Format(@"SELECT {0} FROM {1} WHERE 1=1 {2} {3} LIMIT {4},{5};",
+                options.SqlFieldsPart, options.SqlFromPart, string.IsNullOrEmpty(options.SqlConditionPart) ? string.Empty : "AND " + options.SqlConditionPart,
+                string.IsNullOrEmpty(options.SqlOrderPart) ? string.Empty : "ORDER BY " + options.SqlOrderPart, pageStartIndex, currentPageCount);
 
             return sql;
         }
@@ -187,6 +183,67 @@ namespace XDbAccess.Dapper
                 , sqlFromPart, string.IsNullOrEmpty(sqlConditionPart) ? string.Empty : "AND " + sqlConditionPart);
 
             return sql;
+        }
+
+        public string BuildReplaceSql(MapInfo meta)
+        {
+            if (meta == null || meta.Fields.Count == 0)
+            {
+                return string.Empty;
+            }
+
+            StringBuilder sqlBuilder = new StringBuilder();
+            sqlBuilder.AppendFormat("REPLACE INTO `{0}` (", meta.TableName);
+
+            bool isFirst = true;
+            for (var i = 0; i < meta.Fields.Count; i++)
+            {
+                var field = meta.Fields[i];
+                if (field.IsIdentity)
+                {
+                    continue;
+                }
+
+                if (!isFirst)
+                {
+                    sqlBuilder.Append(",");
+                }
+                else
+                {
+                    isFirst = false;
+                }
+
+                sqlBuilder.Append("`");
+                sqlBuilder.Append(field.FieldName);
+                sqlBuilder.Append("`");
+            }
+
+            isFirst = true;
+            sqlBuilder.Append(") VALUES (");
+            for (var i = 0; i < meta.Fields.Count; i++)
+            {
+                var field = meta.Fields[i];
+                if (field.IsIdentity)
+                {
+                    continue;
+                }
+
+                if (!isFirst)
+                {
+                    sqlBuilder.Append(",");
+                }
+                else
+                {
+                    isFirst = false;
+                }
+
+                sqlBuilder.Append("@");
+                sqlBuilder.Append(field.PropertyName);
+            }
+
+            sqlBuilder.Append(");");
+
+            return sqlBuilder.ToString();
         }
     }
 }

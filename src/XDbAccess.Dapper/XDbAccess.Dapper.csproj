@@ -7,14 +7,16 @@
     <PackageLicenseUrl>https://github.com/junjie-sun/XDbAccess/blob/master/LICENSE.txt</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/junjie-sun/XDbAccess</PackageProjectUrl>
     <PackageTags>xdbaccess,db,dapper</PackageTags>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dapper" Version="1.50.4" />
+    <PackageReference Include="Dapper" Version="1.50.5" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\XDbAccess.AutoTrans\XDbAccess.AutoTrans.csproj" />
+    <ProjectReference Include="..\XDbAccess.Common\XDbAccess.Common.csproj" />
   </ItemGroup>
 
 </Project>

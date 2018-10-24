@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using XDbAccess.Demo.Interfaces;
 using XDbAccess.Demo.Models;
 using XDbAccess.Dapper;
+using XDbAccess.Common;
 
 namespace XDbAccess.Demo.Repositories
 {

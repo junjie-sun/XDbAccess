@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using XDbAccess.Demo.Interfaces;
 using XDbAccess.Demo.Models;
 using XDbAccess.Demo.Repositories;
-using XDbAccess.Dapper;
 using XDbAccess.AutoTrans;
+using XDbAccess.Common;
 
 namespace XDbAccess.Demo.Services
 {

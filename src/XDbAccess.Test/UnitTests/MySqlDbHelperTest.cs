@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using XDbAccess.AutoTrans;
+using XDbAccess.Common;
 using XDbAccess.Dapper;
 using XDbAccess.MySql;
 using Xunit;

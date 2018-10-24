@@ -3,11 +3,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 
-namespace XDbAccess.Dapper
+namespace XDbAccess.Common
 {
     public static class MapParser
     {
@@ -19,8 +17,11 @@ namespace XDbAccess.Dapper
             {
                 lock (type)
                 {
-                    var metaInfo = BuildMapMetaInfo(type);
-                    _MetaInfoContainer.Add(type, metaInfo);
+                    if (!_MetaInfoContainer.ContainsKey(type))
+                    {
+                        var metaInfo = BuildMapMetaInfo(type);
+                        _MetaInfoContainer.Add(type, metaInfo);
+                    }
                 }
             }
 

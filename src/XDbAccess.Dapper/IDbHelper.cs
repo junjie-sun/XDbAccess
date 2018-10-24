@@ -7,6 +7,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using XDbAccess.AutoTrans;
+using XDbAccess.Common;
 
 namespace XDbAccess.Dapper
 {

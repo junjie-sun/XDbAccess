@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using XDbAccess.Demo.Models;
-using XDbAccess.Dapper;
+using XDbAccess.Common;
 
 namespace XDbAccess.Demo.Interfaces
 {

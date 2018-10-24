@@ -3,19 +3,10 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Sun junjie</Authors>
-    <Description>MSSql extension for XDbAccess.</Description>
-    <PackageTags>xdbaccess</PackageTags>
+    <Description>XDbAccess common objects.</Description>
     <PackageLicenseUrl>https://github.com/junjie-sun/XDbAccess/blob/master/LICENSE.txt</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/junjie-sun/XDbAccess</PackageProjectUrl>
-    <Version>1.0.1</Version>
+    <PackageTags>xdbaccess,db</PackageTags>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="System.Data.SqlClient" Version="4.5.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\XDbAccess.AutoTrans\XDbAccess.AutoTrans.csproj" />
-  </ItemGroup>
 
 </Project>
