@@ -8,6 +8,7 @@
     <PackageLicenseUrl>https://github.com/junjie-sun/XDbAccess/blob/master/LICENSE.txt</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/junjie-sun/XDbAccess</PackageProjectUrl>
     <PackageTags>xdbaccess,db,transaction</PackageTags>
+    <Version>1.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>

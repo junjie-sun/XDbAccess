@@ -4,6 +4,7 @@
 --------------------------------------------------------------------------------
 
 2018-10-24
+XDbAccess Tag：1.0.1
 
 XDbAccess.Dapper
 1.0.1
@@ -21,5 +22,29 @@ XDbAccess.MSSql
 XDbAccess.Common
 1.0.0
 新增，从XDbAccess.Dapper中分离部分通用代码
+
+--------------------------------------------------------------------------------
+
+2018-10-25
+XDbAccess Tag：1.1.0
+
+XDbAccess.Dapper
+1.1.0
+修改IDbHelper.Update与IDbHelper.UpdateAsync方法及相关实现
+新增IDbHelper.QuerySingleTable方法
+
+XDbAccess.Common
+1.1.0
+修改ISQLBuilder.BuildUpdateSql方法及相关实现
+新增ISQLBuilder.BuildSelectSql方法
+
+XDbAccess.AutoTrans
+1.1.0
+
+XDbAccess.MSSql
+1.1.0
+
+XDbAccess.MySql
+1.1.0
 
 --------------------------------------------------------------------------------

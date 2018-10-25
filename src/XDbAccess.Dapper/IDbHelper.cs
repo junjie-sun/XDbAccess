@@ -52,13 +52,17 @@ namespace XDbAccess.Dapper
 
         Task<long> InsertAsync<T>(T entity, int? commandTimeout = default(int?));
 
-        int Update<T>(T entity, int? commandTimeout = default(int?));
+        int Update<T>(T entity, bool useConditionFields = false, int? commandTimeout = default(int?));
 
-        Task<int> UpdateAsync<T>(T entity, int? commandTimeout = default(int?));
+        Task<int> UpdateAsync<T>(T entity, bool useConditionFields = false, int? commandTimeout = default(int?));
 
         PagedQueryResult<T> PagedQuery<T>(PagedQueryOptions options, object param = null, bool buffered = true, int? commandTimeout = default(int?));
 
         Task<PagedQueryResult<T>> PagedQueryAsync<T>(PagedQueryOptions options, object param = null, int? commandTimeout = default(int?));
+
+        IEnumerable<T> QuerySingleTable<T>(bool hasConditionPart = false, object param = null, bool useConditionFields = false, bool buffered = true, int? commandTimeout = default(int?));
+
+        Task<IEnumerable<T>> QuerySingleTableAsync<T>(bool hasConditionPart = false, object param = null, bool useConditionFields = false, int? commandTimeout = default(int?));
 
         #endregion
     }

@@ -9,10 +9,12 @@ namespace XDbAccess.Common
     {
         string BuildInsertSql(MapInfo meta);
 
-        string BuildUpdateSql(MapInfo meta);
+        string BuildUpdateSql(MapInfo meta, bool useConditionFields = false);
 
         string BuidlPagedQuerySql(PagedQueryOptions options);
 
         string BuildQueryCountSql(string sqlFromPart, string sqlConditionPart = null);
+
+        string BuildSelectSql(MapInfo meta, bool hasFromPart = false, bool hasConditionPart = false, bool useConditionFields = false);
     }
 }

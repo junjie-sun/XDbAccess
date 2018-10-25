@@ -693,6 +693,68 @@ namespace XDbAccess.Test.UnitTests
             Assert.Equal("UpdateAsyncTest", queryResult.Description);
         }
 
+        [Fact]
+        public void UpdateWithConditionTest()
+        {
+            var org = new Org()
+            {
+                Name = "UpdateWithConditionOrg"
+            };
+
+            org.Id = Convert.ToInt32(DbHelper.Insert<Org>(org));
+            Assert.Equal(1, org.Id);
+
+            var user = new User()
+            {
+                Name = "UpdateWithConditionUser",
+                Birthday = new DateTime(1996, 8, 9),
+                Description = "Test",
+                OrgId = org.Id
+            };
+            user.Id = Convert.ToInt32(DbHelper.Insert<User>(user));
+            Assert.Equal(1, user.Id);
+            Assert.Equal(1, user.OrgId);
+
+            user.Description = "UpdateWithConditionTest";
+            var r = DbHelper.Update<User>(user, true);
+            Assert.Equal(1, r);
+
+            var sql = "select * from `user` where Id=@Id";
+            var queryResult = DbHelper.QueryFirst<User>(sql, new { Id = user.Id });
+            Assert.Equal("UpdateWithConditionTest", queryResult.Description);
+        }
+
+        [Fact]
+        public async void UpdateWithConditionAsyncTest()
+        {
+            var org = new Org()
+            {
+                Name = "UpdateWithConditionAsyncOrg"
+            };
+
+            org.Id = Convert.ToInt32(DbHelper.Insert<Org>(org));
+            Assert.Equal(1, org.Id);
+
+            var user = new User()
+            {
+                Name = "UpdateWithConditionAsyncUser",
+                Birthday = new DateTime(1996, 8, 9),
+                Description = "Test",
+                OrgId = org.Id
+            };
+            user.Id = Convert.ToInt32(DbHelper.Insert<User>(user));
+            Assert.Equal(1, user.Id);
+            Assert.Equal(1, user.OrgId);
+
+            user.Description = "UpdateWithConditionAsyncTest";
+            var r = await DbHelper.UpdateAsync<User>(user, true);
+            Assert.Equal(1, r);
+
+            var sql = "select * from `user` where Id=@Id";
+            var queryResult = DbHelper.QueryFirst<User>(sql, new { Id = user.Id });
+            Assert.Equal("UpdateWithConditionAsyncTest", queryResult.Description);
+        }
+
         #endregion
 
         #region PagedQuery
@@ -2743,5 +2805,111 @@ namespace XDbAccess.Test.UnitTests
         }
 
         #endregion
+
+        #region QuerySingleTable
+
+        [Fact]
+        public void QuerySingleTableTest()
+        {
+            var org = new Org()
+            {
+                Name = "QuerySingleTableOrg"
+            };
+
+            org.Id = Convert.ToInt32(DbHelper.Insert<Org>(org));
+            Assert.Equal(1, org.Id);
+
+            var user1 = new User()
+            {
+                Name = "QuerySingleTableUser1",
+                Birthday = new DateTime(1996, 8, 9),
+                Description = "Test",
+                OrgId = 1
+            };
+            user1.Id = Convert.ToInt32(DbHelper.Insert<User>(user1));
+            Assert.Equal(1, user1.Id);
+            Assert.Equal(1, user1.OrgId);
+
+            var user2 = new User()
+            {
+                Name = "QuerySingleTableUser2",
+                Birthday = new DateTime(1996, 8, 9),
+                Description = "Test",
+                OrgId = 2
+            };
+            user2.Id = Convert.ToInt32(DbHelper.Insert<User>(user2));
+            Assert.Equal(2, user2.Id);
+            Assert.Equal(2, user2.OrgId);
+
+            var result1 = DbHelper.QuerySingleTable<User>();
+            Assert.Equal(2, result1.Count());
+
+            var condition2 = new User
+            {
+                Id = 2
+            };
+            var result2 = DbHelper.QuerySingleTable<User>(true, condition2).Single();
+            Assert.Equal(2, result2.Id);
+
+            var condition3 = new User
+            {
+                OrgId = 2
+            };
+            var result3 = DbHelper.QuerySingleTable<User>(true, condition3, true).Single();
+            Assert.Equal(2, result2.Id);
+        }
+
+        [Fact]
+        public void QuerySingleTableAsyncTest()
+        {
+            var org = new Org()
+            {
+                Name = "QuerySingleTableOrg"
+            };
+
+            org.Id = Convert.ToInt32(DbHelper.Insert<Org>(org));
+            Assert.Equal(1, org.Id);
+
+            var user1 = new User()
+            {
+                Name = "QuerySingleTableUser1",
+                Birthday = new DateTime(1996, 8, 9),
+                Description = "Test",
+                OrgId = 1
+            };
+            user1.Id = Convert.ToInt32(DbHelper.Insert<User>(user1));
+            Assert.Equal(1, user1.Id);
+            Assert.Equal(1, user1.OrgId);
+
+            var user2 = new User()
+            {
+                Name = "QuerySingleTableUser2",
+                Birthday = new DateTime(1996, 8, 9),
+                Description = "Test",
+                OrgId = 2
+            };
+            user2.Id = Convert.ToInt32(DbHelper.Insert<User>(user2));
+            Assert.Equal(2, user2.Id);
+            Assert.Equal(2, user2.OrgId);
+
+            var result1 = DbHelper.QuerySingleTableAsync<User>().Result;
+            Assert.Equal(2, result1.Count());
+
+            var condition2 = new User
+            {
+                Id = 2
+            };
+            var result2 = DbHelper.QuerySingleTableAsync<User>(true, condition2).Result.Single();
+            Assert.Equal(2, result2.Id);
+
+            var condition3 = new User
+            {
+                OrgId = 2
+            };
+            var result3 = DbHelper.QuerySingleTableAsync<User>(true, condition3, true).Result.Single();
+            Assert.Equal(2, result2.Id);
+        }
+
+        #endregion QuerySingleTable
     }
 }

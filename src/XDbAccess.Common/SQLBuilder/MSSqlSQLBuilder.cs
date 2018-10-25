@@ -82,7 +82,7 @@ namespace XDbAccess.Common
             return sqlBuilder.ToString();
         }
 
-        public string BuildUpdateSql(MapInfo meta)
+        public string BuildUpdateSql(MapInfo meta, bool useConditionFields = false)
         {
             if (meta == null || meta.Fields.Count == 0)
             {
@@ -123,7 +123,8 @@ namespace XDbAccess.Common
 
             sqlBuilder.Append(" WHERE 1=1");
             IEnumerable<FieldInfo> conditionFields;
-            if (meta.HasCondition)
+            //如果使用Condition字段且实体中存在Condition字段，则用Condition字段生成WHERE子句，否则用主键生成WHERE子句
+            if (useConditionFields && meta.HasCondition)
             {
                 conditionFields = meta.Fields.Where(field => field.IsCondition);
             }
@@ -186,6 +187,73 @@ namespace XDbAccess.Common
                 , sqlFromPart, string.IsNullOrEmpty(sqlConditionPart) ? string.Empty : "AND " + sqlConditionPart);
 
             return sql;
+        }
+
+        public string BuildSelectSql(MapInfo meta, bool hasFromPart = false, bool hasConditionPart = false, bool useConditionFields = false)
+        {
+            if (meta == null || meta.Fields.Count == 0)
+            {
+                throw new ArgumentException("Need to specify fields.");
+            }
+
+            StringBuilder sqlBuilder = new StringBuilder();
+            sqlBuilder.Append("SELECT ");
+
+            bool isFirst = true;
+            for (var i = 0; i < meta.Fields.Count; i++)
+            {
+                var field = meta.Fields[i];
+
+                if (!isFirst)
+                {
+                    sqlBuilder.Append(",");
+                }
+                else
+                {
+                    isFirst = false;
+                }
+
+                sqlBuilder.Append("[");
+                sqlBuilder.Append(field.FieldName);
+                sqlBuilder.Append("] ");
+                sqlBuilder.Append(field.PropertyName);
+            }
+
+            if (hasFromPart)
+            {
+                sqlBuilder.AppendFormat(" FROM [{0}]", meta.TableName);
+
+                if (hasConditionPart)
+                {
+                    IEnumerable<FieldInfo> conditionFields = null;
+                    //用Condition字段生成WHERE子句
+                    if (useConditionFields && meta.HasCondition)
+                    {
+                        conditionFields = meta.Fields.Where(field => field.IsCondition);
+                    }
+                    //用主键生成WHERE子句
+                    else if (!useConditionFields && meta.HasPrimaryKey)
+                    {
+                        conditionFields = meta.Fields.Where(field => field.IsPrimaryKey);
+                    }
+
+                    if (conditionFields != null)
+                    {
+                        sqlBuilder.Append(" WHERE 1=1");
+
+                        foreach (var conditionField in conditionFields)
+                        {
+                            sqlBuilder.Append(" AND ");
+                            sqlBuilder.Append("[");
+                            sqlBuilder.Append(conditionField.FieldName);
+                            sqlBuilder.Append("]=@");
+                            sqlBuilder.Append(conditionField.PropertyName);
+                        }
+                    }
+                }
+            }
+
+            return sqlBuilder.ToString();
         }
     }
 }

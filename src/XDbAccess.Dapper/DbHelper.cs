@@ -291,17 +291,17 @@ namespace XDbAccess.Dapper
             return await this.ExecuteScalarAsync<long>(sql, entity, commandTimeout);
         }
 
-        public virtual int Update<T>(T entity, int? commandTimeout = default(int?))
+        public virtual int Update<T>(T entity, bool useConditionFields = false, int? commandTimeout = default(int?))
         {
             var meta = MapParser.GetMapMetaInfo(typeof(T));
-            var sql = SQLBuilder.BuildUpdateSql(meta);
+            var sql = SQLBuilder.BuildUpdateSql(meta, useConditionFields);
             return this.Execute(sql, entity, commandTimeout);
         }
 
-        public virtual async Task<int> UpdateAsync<T>(T entity, int? commandTimeout = default(int?))
+        public virtual async Task<int> UpdateAsync<T>(T entity, bool useConditionFields = false, int? commandTimeout = default(int?))
         {
             var meta = MapParser.GetMapMetaInfo(typeof(T));
-            var sql = SQLBuilder.BuildUpdateSql(meta);
+            var sql = SQLBuilder.BuildUpdateSql(meta, useConditionFields);
             return await this.ExecuteAsync(sql, entity, commandTimeout);
         }
 
@@ -340,6 +340,42 @@ namespace XDbAccess.Dapper
             result.Data = data.ToList();
 
             return result;
+        }
+
+        public virtual IEnumerable<T> QuerySingleTable<T>(bool hasConditionPart = false, object param = null, bool useConditionFields = false, bool buffered = true, int? commandTimeout = default(int?))
+        {
+            string sql;
+
+            var meta = MapParser.GetMapMetaInfo(typeof(T));
+
+            if (hasConditionPart)
+            {
+                sql = SQLBuilder.BuildSelectSql(meta, true, true, useConditionFields);
+            }
+            else
+            {
+                sql = SQLBuilder.BuildSelectSql(meta, true);
+            }
+
+            return this.Query<T>(sql, param, buffered, commandTimeout);
+        }
+
+        public virtual Task<IEnumerable<T>> QuerySingleTableAsync<T>(bool hasConditionPart = false, object param = null, bool useConditionFields = false, int? commandTimeout = default(int?))
+        {
+            string sql;
+
+            var meta = MapParser.GetMapMetaInfo(typeof(T));
+
+            if (hasConditionPart)
+            {
+                sql = SQLBuilder.BuildSelectSql(meta, true, true, useConditionFields);
+            }
+            else
+            {
+                sql = SQLBuilder.BuildSelectSql(meta, true);
+            }
+
+            return this.QueryAsync<T>(sql, param, commandTimeout);
         }
 
         #endregion
