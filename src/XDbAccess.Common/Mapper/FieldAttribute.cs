@@ -8,12 +8,11 @@ namespace XDbAccess.Common
     [AttributeUsage(AttributeTargets.Property)]
     public class FieldAttribute : Attribute
     {
-        public FieldAttribute(string fieldName, bool isPrimaryKey = false, bool isIdentity = false, bool isCondition = false)
+        public FieldAttribute(string fieldName, bool isPrimaryKey = false, bool isIdentity = false)
         {
             FieldName = fieldName;
             IsPrimaryKey = isPrimaryKey;
             IsIdentity = isIdentity;
-            IsCondition = isCondition;
         }
 
         public string FieldName { get; }
@@ -21,7 +20,5 @@ namespace XDbAccess.Common
         public bool IsPrimaryKey { get; }
 
         public bool IsIdentity { get; }
-
-        public bool IsCondition { get; set; }
     }
 }

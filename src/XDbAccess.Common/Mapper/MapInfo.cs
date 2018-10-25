@@ -16,8 +16,6 @@ namespace XDbAccess.Common
 
         public bool HasPrimaryKey { get; set; }
 
-        public bool HasCondition { get; set; }
-
         public IList<FieldInfo> Fields
         {
             get
@@ -40,7 +38,5 @@ namespace XDbAccess.Common
         public bool IsPrimaryKey { get; set; }
 
         public bool IsIdentity { get; set; }
-
-        public bool IsCondition { get; set; }
     }
 }

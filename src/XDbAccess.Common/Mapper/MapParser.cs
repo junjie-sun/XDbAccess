@@ -55,7 +55,6 @@ namespace XDbAccess.Common
                 {
                     fieldInfo.IsIdentity = fieldAttribute.IsIdentity;
                     fieldInfo.IsPrimaryKey = fieldAttribute.IsPrimaryKey;
-                    fieldInfo.IsCondition = fieldAttribute.IsCondition;
                 }
 
                 if (!metaInfo.HasIdentity && fieldInfo.IsIdentity)
@@ -66,11 +65,6 @@ namespace XDbAccess.Common
                 if (!metaInfo.HasPrimaryKey && fieldInfo.IsPrimaryKey)
                 {
                     metaInfo.HasPrimaryKey = true;
-                }
-
-                if (!metaInfo.HasCondition && fieldInfo.IsCondition)
-                {
-                    metaInfo.HasCondition = true;
                 }
 
                 metaInfo.Fields.Add(fieldInfo);

@@ -18,7 +18,6 @@ namespace XDbAccess.Test
 
         public string Description { get; set; }
 
-        [Field("OrgId", false, false, true)]
         public int OrgId { get; set; }
 
         [Ignore]

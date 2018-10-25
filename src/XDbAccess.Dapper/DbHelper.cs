@@ -291,17 +291,17 @@ namespace XDbAccess.Dapper
             return await this.ExecuteScalarAsync<long>(sql, entity, commandTimeout);
         }
 
-        public virtual int Update<T>(T entity, bool useConditionFields = false, int? commandTimeout = default(int?))
+        public virtual int Update<T>(T entity, int? commandTimeout = default(int?))
         {
             var meta = MapParser.GetMapMetaInfo(typeof(T));
-            var sql = SQLBuilder.BuildUpdateSql(meta, useConditionFields);
+            var sql = SQLBuilder.BuildUpdateSql(meta);
             return this.Execute(sql, entity, commandTimeout);
         }
 
-        public virtual async Task<int> UpdateAsync<T>(T entity, bool useConditionFields = false, int? commandTimeout = default(int?))
+        public virtual async Task<int> UpdateAsync<T>(T entity, int? commandTimeout = default(int?))
         {
             var meta = MapParser.GetMapMetaInfo(typeof(T));
-            var sql = SQLBuilder.BuildUpdateSql(meta, useConditionFields);
+            var sql = SQLBuilder.BuildUpdateSql(meta);
             return await this.ExecuteAsync(sql, entity, commandTimeout);
         }
 
@@ -342,40 +342,22 @@ namespace XDbAccess.Dapper
             return result;
         }
 
-        public virtual IEnumerable<T> QuerySingleTable<T>(bool hasConditionPart = false, object param = null, bool useConditionFields = false, bool buffered = true, int? commandTimeout = default(int?))
+        public virtual IEnumerable<T> QuerySingleTable<T>(string sqlConditionPart = null, object condition = null, bool buffered = true, int? commandTimeout = default(int?))
         {
-            string sql;
-
             var meta = MapParser.GetMapMetaInfo(typeof(T));
 
-            if (hasConditionPart)
-            {
-                sql = SQLBuilder.BuildSelectSql(meta, true, true, useConditionFields);
-            }
-            else
-            {
-                sql = SQLBuilder.BuildSelectSql(meta, true);
-            }
+            var sql = SQLBuilder.BuildSelectSql(meta, true, sqlConditionPart);
 
-            return this.Query<T>(sql, param, buffered, commandTimeout);
+            return this.Query<T>(sql, condition, buffered, commandTimeout);
         }
 
-        public virtual Task<IEnumerable<T>> QuerySingleTableAsync<T>(bool hasConditionPart = false, object param = null, bool useConditionFields = false, int? commandTimeout = default(int?))
+        public virtual Task<IEnumerable<T>> QuerySingleTableAsync<T>(string sqlConditionPart = null, object condition = null, int? commandTimeout = default(int?))
         {
-            string sql;
-
             var meta = MapParser.GetMapMetaInfo(typeof(T));
 
-            if (hasConditionPart)
-            {
-                sql = SQLBuilder.BuildSelectSql(meta, true, true, useConditionFields);
-            }
-            else
-            {
-                sql = SQLBuilder.BuildSelectSql(meta, true);
-            }
+            var sql = SQLBuilder.BuildSelectSql(meta, true, sqlConditionPart);
 
-            return this.QueryAsync<T>(sql, param, commandTimeout);
+            return this.QueryAsync<T>(sql, condition, commandTimeout);
         }
 
         #endregion

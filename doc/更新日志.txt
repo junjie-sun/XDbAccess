@@ -48,3 +48,25 @@ XDbAccess.MySql
 1.1.0
 
 --------------------------------------------------------------------------------
+
+2018-10-25
+XDbAccess Tag：1.2.0
+
+XDbAccess.Dapper
+1.2.0
+修改IDbHelper.Update与IDbHelper.QuerySingleTable方法
+
+XDbAccess.Common
+1.2.0
+去除Condition属性
+
+XDbAccess.AutoTrans
+1.2.0
+
+XDbAccess.MSSql
+1.2.0
+
+XDbAccess.MySql
+1.2.0
+
+--------------------------------------------------------------------------------

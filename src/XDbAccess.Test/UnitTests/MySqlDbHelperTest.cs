@@ -693,68 +693,6 @@ namespace XDbAccess.Test.UnitTests
             Assert.Equal("UpdateAsyncTest", queryResult.Description);
         }
 
-        [Fact]
-        public void UpdateWithConditionTest()
-        {
-            var org = new Org()
-            {
-                Name = "UpdateWithConditionOrg"
-            };
-
-            org.Id = Convert.ToInt32(DbHelper.Insert<Org>(org));
-            Assert.Equal(1, org.Id);
-
-            var user = new User()
-            {
-                Name = "UpdateWithConditionUser",
-                Birthday = new DateTime(1996, 8, 9),
-                Description = "Test",
-                OrgId = org.Id
-            };
-            user.Id = Convert.ToInt32(DbHelper.Insert<User>(user));
-            Assert.Equal(1, user.Id);
-            Assert.Equal(1, user.OrgId);
-
-            user.Description = "UpdateWithConditionTest";
-            var r = DbHelper.Update<User>(user, true);
-            Assert.Equal(1, r);
-
-            var sql = "select * from `user` where Id=@Id";
-            var queryResult = DbHelper.QueryFirst<User>(sql, new { Id = user.Id });
-            Assert.Equal("UpdateWithConditionTest", queryResult.Description);
-        }
-
-        [Fact]
-        public async void UpdateWithConditionAsyncTest()
-        {
-            var org = new Org()
-            {
-                Name = "UpdateWithConditionAsyncOrg"
-            };
-
-            org.Id = Convert.ToInt32(DbHelper.Insert<Org>(org));
-            Assert.Equal(1, org.Id);
-
-            var user = new User()
-            {
-                Name = "UpdateWithConditionAsyncUser",
-                Birthday = new DateTime(1996, 8, 9),
-                Description = "Test",
-                OrgId = org.Id
-            };
-            user.Id = Convert.ToInt32(DbHelper.Insert<User>(user));
-            Assert.Equal(1, user.Id);
-            Assert.Equal(1, user.OrgId);
-
-            user.Description = "UpdateWithConditionAsyncTest";
-            var r = await DbHelper.UpdateAsync<User>(user, true);
-            Assert.Equal(1, r);
-
-            var sql = "select * from `user` where Id=@Id";
-            var queryResult = DbHelper.QueryFirst<User>(sql, new { Id = user.Id });
-            Assert.Equal("UpdateWithConditionAsyncTest", queryResult.Description);
-        }
-
         #endregion
 
         #region PagedQuery
@@ -2844,18 +2782,18 @@ namespace XDbAccess.Test.UnitTests
             var result1 = DbHelper.QuerySingleTable<User>();
             Assert.Equal(2, result1.Count());
 
-            var condition2 = new User
+            var condition2 = new
             {
                 Id = 2
             };
-            var result2 = DbHelper.QuerySingleTable<User>(true, condition2).Single();
+            var result2 = DbHelper.QuerySingleTable<User>("Id=@Id", condition2).Single();
             Assert.Equal(2, result2.Id);
 
-            var condition3 = new User
+            var condition3 = new
             {
                 OrgId = 2
             };
-            var result3 = DbHelper.QuerySingleTable<User>(true, condition3, true).Single();
+            var result3 = DbHelper.QuerySingleTable<User>("OrgId=@OrgId", condition3).Single();
             Assert.Equal(2, result2.Id);
         }
 
@@ -2895,18 +2833,18 @@ namespace XDbAccess.Test.UnitTests
             var result1 = DbHelper.QuerySingleTableAsync<User>().Result;
             Assert.Equal(2, result1.Count());
 
-            var condition2 = new User
+            var condition2 = new
             {
                 Id = 2
             };
-            var result2 = DbHelper.QuerySingleTableAsync<User>(true, condition2).Result.Single();
+            var result2 = DbHelper.QuerySingleTableAsync<User>("Id=@Id", condition2).Result.Single();
             Assert.Equal(2, result2.Id);
 
-            var condition3 = new User
+            var condition3 = new
             {
                 OrgId = 2
             };
-            var result3 = DbHelper.QuerySingleTableAsync<User>(true, condition3, true).Result.Single();
+            var result3 = DbHelper.QuerySingleTableAsync<User>("OrgId=@OrgId", condition3).Result.Single();
             Assert.Equal(2, result2.Id);
         }
 
