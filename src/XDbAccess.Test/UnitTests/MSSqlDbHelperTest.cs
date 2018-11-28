@@ -536,7 +536,7 @@ namespace XDbAccess.Test.UnitTests
         #region Update
 
         [Fact]
-        public void UpdateTest()
+        public void UpdateByPrimaryKeyTest()
         {
             var org = new Org()
             {
@@ -557,6 +557,17 @@ namespace XDbAccess.Test.UnitTests
             Assert.Equal(1, user.Id);
             Assert.Equal(1, user.OrgId);
 
+            var user2 = new User()
+            {
+                Name = "UpdateUser2",
+                Birthday = new DateTime(1996, 8, 9),
+                Description = "Test",
+                OrgId = org.Id
+            };
+            user2.Id = Convert.ToInt32(DbHelper.Insert<User>(user2));
+            Assert.Equal(2, user2.Id);
+            Assert.Equal(1, user2.OrgId);
+
             user.Description = "UpdateTest";
             var r =DbHelper.Update<User>(user);
             Assert.Equal(1, r);
@@ -564,10 +575,14 @@ namespace XDbAccess.Test.UnitTests
             var sql = "select * from [user] where Id=@Id";
             var queryResult = DbHelper.QueryFirst<User>(sql, new { Id = user.Id });
             Assert.Equal("UpdateTest", queryResult.Description);
+
+            var sql2 = "select * from [user] where Id=@Id";
+            var queryResult2 = DbHelper.QueryFirst<User>(sql2, new { Id = user2.Id });
+            Assert.Equal("Test", queryResult2.Description);
         }
 
         [Fact]
-        public async void UpdateAsyncTest()
+        public async void UpdateByPrimaryKeyAsyncTest()
         {
             var org = new Org()
             {
@@ -588,6 +603,17 @@ namespace XDbAccess.Test.UnitTests
             Assert.Equal(1, user.Id);
             Assert.Equal(1, user.OrgId);
 
+            var user2 = new User()
+            {
+                Name = "UpdateUser2",
+                Birthday = new DateTime(1996, 8, 9),
+                Description = "Test",
+                OrgId = org.Id
+            };
+            user2.Id = Convert.ToInt32(DbHelper.Insert<User>(user2));
+            Assert.Equal(2, user2.Id);
+            Assert.Equal(1, user2.OrgId);
+
             user.Description = "UpdateAsyncTest";
             var r = await DbHelper.UpdateAsync<User>(user);
             Assert.Equal(1, r);
@@ -595,6 +621,464 @@ namespace XDbAccess.Test.UnitTests
             var sql = "select * from [user] where Id=@Id";
             var queryResult = DbHelper.QueryFirst<User>(sql, new { Id = user.Id });
             Assert.Equal("UpdateAsyncTest", queryResult.Description);
+
+            var sql2 = "select * from [user] where Id=@Id";
+            var queryResult2 = DbHelper.QueryFirst<User>(sql2, new { Id = user2.Id });
+            Assert.Equal("Test", queryResult2.Description);
+        }
+
+        [Fact]
+        public void UpdateByConditionTest()
+        {
+            var org = new Org()
+            {
+                Name = "UpdateOrg"
+            };
+
+            org.Id = Convert.ToInt32(DbHelper.Insert<Org>(org));
+            Assert.Equal(1, org.Id);
+
+            var user = new User()
+            {
+                Name = "UpdateUser",
+                Birthday = new DateTime(1996, 8, 9),
+                Description = "Test",
+                OrgId = org.Id
+            };
+            user.Id = Convert.ToInt32(DbHelper.Insert<User>(user));
+            Assert.Equal(1, user.Id);
+            Assert.Equal(1, user.OrgId);
+
+            var user2 = new User()
+            {
+                Name = "UpdateUser2",
+                Birthday = new DateTime(1996, 8, 9),
+                Description = "Test2",
+                OrgId = org.Id
+            };
+            user2.Id = Convert.ToInt32(DbHelper.Insert<User>(user2));
+            Assert.Equal(2, user2.Id);
+            Assert.Equal(1, user2.OrgId);
+
+            user2.Description = "UpdateTest";
+            var r = DbHelper.Update<User>(user2, false, "CAST([Description] AS VARCHAR)=@Description", new { Description = "Test2" });
+            Assert.Equal(1, r);
+
+            var sql = "select * from [user] where Id=@Id";
+            var queryResult = DbHelper.QueryFirst<User>(sql, new { Id = user.Id });
+            Assert.Equal("Test", queryResult.Description);
+
+            var sql2 = "select * from [user] where Id=@Id";
+            var queryResult2 = DbHelper.QueryFirst<User>(sql2, new { Id = user2.Id });
+            Assert.Equal("UpdateTest", queryResult2.Description);
+        }
+
+        [Fact]
+        public async void UpdateByCondtionAsyncTest()
+        {
+            var org = new Org()
+            {
+                Name = "UpdateAsyncOrg"
+            };
+
+            org.Id = Convert.ToInt32(DbHelper.Insert<Org>(org));
+            Assert.Equal(1, org.Id);
+
+            var user = new User()
+            {
+                Name = "UpdateAsyncUser",
+                Birthday = new DateTime(1996, 8, 9),
+                Description = "Test",
+                OrgId = org.Id
+            };
+            user.Id = Convert.ToInt32(DbHelper.Insert<User>(user));
+            Assert.Equal(1, user.Id);
+            Assert.Equal(1, user.OrgId);
+
+            var user2 = new User()
+            {
+                Name = "UpdateAsyncUser2",
+                Birthday = new DateTime(1996, 8, 9),
+                Description = "Test2",
+                OrgId = org.Id
+            };
+            user2.Id = Convert.ToInt32(DbHelper.Insert<User>(user2));
+            Assert.Equal(2, user2.Id);
+            Assert.Equal(1, user2.OrgId);
+
+            user2.Description = "UpdateAsyncTest";
+            var r = await DbHelper.UpdateAsync<User>(user2, false, "CAST([Description] AS VARCHAR)=@Description", new { Description = "Test2" });
+            Assert.Equal(1, r);
+
+            var sql = "select * from [user] where Id=@Id";
+            var queryResult = DbHelper.QueryFirst<User>(sql, new { Id = user.Id });
+            Assert.Equal("Test", queryResult.Description);
+
+            var sql2 = "select * from [user] where Id=@Id";
+            var queryResult2 = DbHelper.QueryFirst<User>(sql2, new { Id = user2.Id });
+            Assert.Equal("UpdateAsyncTest", queryResult2.Description);
+        }
+
+        [Fact]
+        public void UpdateAllTest()
+        {
+            var org = new Org()
+            {
+                Name = "UpdateOrg"
+            };
+
+            org.Id = Convert.ToInt32(DbHelper.Insert<Org>(org));
+            Assert.Equal(1, org.Id);
+
+            var user = new User()
+            {
+                Name = "UpdateUser",
+                Birthday = new DateTime(1996, 8, 9),
+                Description = "Test",
+                OrgId = org.Id
+            };
+            user.Id = Convert.ToInt32(DbHelper.Insert<User>(user));
+            Assert.Equal(1, user.Id);
+            Assert.Equal(1, user.OrgId);
+
+            var user2 = new User()
+            {
+                Name = "UpdateUser2",
+                Birthday = new DateTime(1996, 8, 9),
+                Description = "Test",
+                OrgId = org.Id
+            };
+            user2.Id = Convert.ToInt32(DbHelper.Insert<User>(user2));
+            Assert.Equal(2, user2.Id);
+            Assert.Equal(1, user2.OrgId);
+
+            Exception result = null;
+            user.Description = "UpdateTest";
+            try
+            {
+                DbHelper.Update<User>(user, false);
+            }
+            catch (InvalidOperationException ex)
+            {
+                result = ex;
+            }
+            Assert.NotNull(result);
+        }
+
+        [Fact]
+        public async void UpdateAllAsyncTest()
+        {
+            var org = new Org()
+            {
+                Name = "UpdateOrg"
+            };
+
+            org.Id = Convert.ToInt32(DbHelper.Insert<Org>(org));
+            Assert.Equal(1, org.Id);
+
+            var user = new User()
+            {
+                Name = "UpdateUser",
+                Birthday = new DateTime(1996, 8, 9),
+                Description = "Test",
+                OrgId = org.Id
+            };
+            user.Id = Convert.ToInt32(DbHelper.Insert<User>(user));
+            Assert.Equal(1, user.Id);
+            Assert.Equal(1, user.OrgId);
+
+            var user2 = new User()
+            {
+                Name = "UpdateUser2",
+                Birthday = new DateTime(1996, 8, 9),
+                Description = "Test",
+                OrgId = org.Id
+            };
+            user2.Id = Convert.ToInt32(DbHelper.Insert<User>(user2));
+            Assert.Equal(2, user2.Id);
+            Assert.Equal(1, user2.OrgId);
+
+            Exception result = null;
+            user.Description = "UpdateTest";
+            try
+            {
+                await DbHelper.UpdateAsync<User>(user, false);
+            }
+            catch (InvalidOperationException ex)
+            {
+                result = ex;
+            }
+            Assert.NotNull(result);
+        }
+
+        #endregion
+
+        #region Delete
+
+        [Fact]
+        public void DeleteByPrimaryKeyTest()
+        {
+            var org = new Org()
+            {
+                Name = "DeleteOrg"
+            };
+
+            org.Id = Convert.ToInt32(DbHelper.Insert<Org>(org));
+            Assert.Equal(1, org.Id);
+
+            var user = new User()
+            {
+                Name = "DeleteUser",
+                Birthday = new DateTime(1996, 8, 9),
+                Description = "Test",
+                OrgId = org.Id
+            };
+            user.Id = Convert.ToInt32(DbHelper.Insert<User>(user));
+            Assert.Equal(1, user.Id);
+            Assert.Equal(1, user.OrgId);
+
+            var user2 = new User()
+            {
+                Name = "DeleteUser2",
+                Birthday = new DateTime(1996, 8, 9),
+                Description = "Test",
+                OrgId = org.Id
+            };
+            user2.Id = Convert.ToInt32(DbHelper.Insert<User>(user2));
+            Assert.Equal(2, user2.Id);
+            Assert.Equal(1, user2.OrgId);
+
+            var sql1 = "select count(1) from [user]";
+            var result1 = DbHelper.ExecuteScalar<long>(sql1);
+            Assert.Equal(2, result1);
+
+            DbHelper.Delete<User>(new { Id = 1 });
+
+            var sql2 = "select * from [user]";
+            var result2 = DbHelper.QuerySingle<User>(sql2);
+            Assert.Equal(2, result2.Id);
+        }
+
+        [Fact]
+        public async void DeleteByPrimaryKeyAsyncTest()
+        {
+            var org = new Org()
+            {
+                Name = "DeleteOrg"
+            };
+
+            org.Id = Convert.ToInt32(DbHelper.Insert<Org>(org));
+            Assert.Equal(1, org.Id);
+
+            var user = new User()
+            {
+                Name = "DeleteUser",
+                Birthday = new DateTime(1996, 8, 9),
+                Description = "Test",
+                OrgId = org.Id
+            };
+            user.Id = Convert.ToInt32(DbHelper.Insert<User>(user));
+            Assert.Equal(1, user.Id);
+            Assert.Equal(1, user.OrgId);
+
+            var user2 = new User()
+            {
+                Name = "DeleteUser2",
+                Birthday = new DateTime(1996, 8, 9),
+                Description = "Test",
+                OrgId = org.Id
+            };
+            user2.Id = Convert.ToInt32(DbHelper.Insert<User>(user2));
+            Assert.Equal(2, user2.Id);
+            Assert.Equal(1, user2.OrgId);
+
+            var sql1 = "select count(1) from [user]";
+            var result1 = DbHelper.ExecuteScalar<long>(sql1);
+            Assert.Equal(2, result1);
+
+            await DbHelper.DeleteAsync<User>(new { Id = 1 });
+
+            var sql2 = "select * from [user]";
+            var result2 = DbHelper.QuerySingle<User>(sql2);
+            Assert.Equal(2, result2.Id);
+        }
+
+        [Fact]
+        public void DeleteByConditionTest()
+        {
+            var org = new Org()
+            {
+                Name = "DeleteOrg"
+            };
+
+            org.Id = Convert.ToInt32(DbHelper.Insert<Org>(org));
+            Assert.Equal(1, org.Id);
+
+            var user = new User()
+            {
+                Name = "DeleteUser",
+                Birthday = new DateTime(1996, 8, 9),
+                Description = "Test",
+                OrgId = org.Id
+            };
+            user.Id = Convert.ToInt32(DbHelper.Insert<User>(user));
+            Assert.Equal(1, user.Id);
+            Assert.Equal(1, user.OrgId);
+
+            var user2 = new User()
+            {
+                Name = "DeleteUser2",
+                Birthday = new DateTime(1996, 8, 9),
+                Description = "Test",
+                OrgId = org.Id
+            };
+            user2.Id = Convert.ToInt32(DbHelper.Insert<User>(user2));
+            Assert.Equal(2, user2.Id);
+            Assert.Equal(1, user2.OrgId);
+
+            var sql1 = "select count(1) from [user]";
+            var result1 = DbHelper.ExecuteScalar<long>(sql1);
+            Assert.Equal(2, result1);
+
+            DbHelper.Delete<User>(new { Name = "DeleteUser2" }, false, "[Name]=@Name");
+
+            var sql2 = "select * from [user]";
+            var result2 = DbHelper.QuerySingle<User>(sql2);
+            Assert.Equal(1, result2.Id);
+        }
+
+        [Fact]
+        public async void DeleteByConditionAsyncTest()
+        {
+            var org = new Org()
+            {
+                Name = "DeleteOrg"
+            };
+
+            org.Id = Convert.ToInt32(DbHelper.Insert<Org>(org));
+            Assert.Equal(1, org.Id);
+
+            var user = new User()
+            {
+                Name = "DeleteUser",
+                Birthday = new DateTime(1996, 8, 9),
+                Description = "Test",
+                OrgId = org.Id
+            };
+            user.Id = Convert.ToInt32(DbHelper.Insert<User>(user));
+            Assert.Equal(1, user.Id);
+            Assert.Equal(1, user.OrgId);
+
+            var user2 = new User()
+            {
+                Name = "DeleteUser2",
+                Birthday = new DateTime(1996, 8, 9),
+                Description = "Test",
+                OrgId = org.Id
+            };
+            user2.Id = Convert.ToInt32(DbHelper.Insert<User>(user2));
+            Assert.Equal(2, user2.Id);
+            Assert.Equal(1, user2.OrgId);
+
+            var sql1 = "select count(1) from [user]";
+            var result1 = DbHelper.ExecuteScalar<long>(sql1);
+            Assert.Equal(2, result1);
+
+            await DbHelper.DeleteAsync<User>(new { Name = "DeleteUser2" }, false, "[Name]=@Name");
+
+            var sql2 = "select * from [user]";
+            var result2 = DbHelper.QuerySingle<User>(sql2);
+            Assert.Equal(1, result2.Id);
+        }
+
+        [Fact]
+        public void DeleteAllTest()
+        {
+            var org = new Org()
+            {
+                Name = "DeleteOrg"
+            };
+
+            org.Id = Convert.ToInt32(DbHelper.Insert<Org>(org));
+            Assert.Equal(1, org.Id);
+
+            var user = new User()
+            {
+                Name = "DeleteUser",
+                Birthday = new DateTime(1996, 8, 9),
+                Description = "Test",
+                OrgId = org.Id
+            };
+            user.Id = Convert.ToInt32(DbHelper.Insert<User>(user));
+            Assert.Equal(1, user.Id);
+            Assert.Equal(1, user.OrgId);
+
+            var user2 = new User()
+            {
+                Name = "DeleteUser2",
+                Birthday = new DateTime(1996, 8, 9),
+                Description = "Test",
+                OrgId = org.Id
+            };
+            user2.Id = Convert.ToInt32(DbHelper.Insert<User>(user2));
+            Assert.Equal(2, user2.Id);
+            Assert.Equal(1, user2.OrgId);
+
+            Exception result = null;
+            try
+            {
+                DbHelper.Delete<User>(null, false);
+            }
+            catch (InvalidOperationException ex)
+            {
+                result = ex;
+            }
+            Assert.NotNull(result);
+        }
+
+        [Fact]
+        public async void DeleteAllAsyncTest()
+        {
+            var org = new Org()
+            {
+                Name = "DeleteOrg"
+            };
+
+            org.Id = Convert.ToInt32(DbHelper.Insert<Org>(org));
+            Assert.Equal(1, org.Id);
+
+            var user = new User()
+            {
+                Name = "DeleteUser",
+                Birthday = new DateTime(1996, 8, 9),
+                Description = "Test",
+                OrgId = org.Id
+            };
+            user.Id = Convert.ToInt32(DbHelper.Insert<User>(user));
+            Assert.Equal(1, user.Id);
+            Assert.Equal(1, user.OrgId);
+
+            var user2 = new User()
+            {
+                Name = "DeleteUser2",
+                Birthday = new DateTime(1996, 8, 9),
+                Description = "Test",
+                OrgId = org.Id
+            };
+            user2.Id = Convert.ToInt32(DbHelper.Insert<User>(user2));
+            Assert.Equal(2, user2.Id);
+            Assert.Equal(1, user2.OrgId);
+
+            Exception result = null;
+            try
+            {
+                await DbHelper.DeleteAsync<User>(null, false);
+            }
+            catch (InvalidOperationException ex)
+            {
+                result = ex;
+            }
+            Assert.NotNull(result);
         }
 
         #endregion

@@ -2,9 +2,11 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Dapper;
 using XDbAccess.AutoTrans;
@@ -14,6 +16,8 @@ namespace XDbAccess.Dapper
 {
     public abstract class DbHelper<DbContextImpl> : IDbHelper<DbContextImpl> where DbContextImpl : IDbContext
     {
+        private ConcurrentDictionary<Type, PropertyInfo[]> typeProperties = new ConcurrentDictionary<Type, PropertyInfo[]>();
+
         public DbHelper(DbContextImpl dbContext)
         {
             DbContext = dbContext;
@@ -284,25 +288,83 @@ namespace XDbAccess.Dapper
             return this.ExecuteScalar<long>(sql, entity, commandTimeout);
         }
 
-        public virtual async Task<long> InsertAsync<T>(T entity, int? commandTimeout = default(int?))
+        public virtual Task<long> InsertAsync<T>(T entity, int? commandTimeout = default(int?))
         {
             var meta = MapParser.GetMapMetaInfo(typeof(T));
             var sql = SQLBuilder.BuildInsertSql(meta);
-            return await this.ExecuteScalarAsync<long>(sql, entity, commandTimeout);
+            return this.ExecuteScalarAsync<long>(sql, entity, commandTimeout);
         }
 
-        public virtual int Update<T>(T entity, int? commandTimeout = default(int?))
+        public virtual int Update<T>(T entity, bool isUpdateByPrimaryKey = true, string sqlConditionPart = null, object condition = null, int? commandTimeout = default(int?))
         {
+            if (entity == null)
+            {
+                throw new InvalidOperationException("The parameter entity should not null.");
+            }
+
+            if (!isUpdateByPrimaryKey && string.IsNullOrWhiteSpace(sqlConditionPart))
+            {
+                throw new InvalidOperationException("The parameter sqlConditionPart should not null or empty when the parameter isUpdateByPrimaryKey is false.");
+            }
+
             var meta = MapParser.GetMapMetaInfo(typeof(T));
-            var sql = SQLBuilder.BuildUpdateSql(meta);
-            return this.Execute(sql, entity, commandTimeout);
+            var sql = SQLBuilder.BuildUpdateSql(meta, isUpdateByPrimaryKey, sqlConditionPart);
+            if (isUpdateByPrimaryKey)
+            {
+                return this.Execute(sql, entity, commandTimeout);
+            }
+            else
+            {
+                var param = CreateUpdateParameters(entity, condition, true);
+                return this.Execute(sql, param, commandTimeout);
+            }
         }
 
-        public virtual async Task<int> UpdateAsync<T>(T entity, int? commandTimeout = default(int?))
+        public virtual Task<int> UpdateAsync<T>(T entity, bool isUpdateByPrimaryKey = true, string sqlConditionPart = null, object condition = null, int? commandTimeout = default(int?))
         {
+            if (entity == null)
+            {
+                throw new InvalidOperationException("The parameter entity should not null.");
+            }
+
+            if (!isUpdateByPrimaryKey && string.IsNullOrWhiteSpace(sqlConditionPart))
+            {
+                throw new InvalidOperationException("The parameter sqlConditionPart should not null or empty when the parameter isUpdateByPrimaryKey is false.");
+            }
+
             var meta = MapParser.GetMapMetaInfo(typeof(T));
-            var sql = SQLBuilder.BuildUpdateSql(meta);
-            return await this.ExecuteAsync(sql, entity, commandTimeout);
+            var sql = SQLBuilder.BuildUpdateSql(meta, isUpdateByPrimaryKey, sqlConditionPart);
+            if (isUpdateByPrimaryKey)
+            {
+                return this.ExecuteAsync(sql, entity, commandTimeout);
+            }
+            else
+            {
+                var param = CreateUpdateParameters(entity, condition, true);
+                return this.ExecuteAsync(sql, param, commandTimeout);
+            }
+        }
+
+        public virtual int Delete<T>(object condition, bool isDeleteByPrimaryKey = true, string sqlConditionPart = null, int? commandTimeout = default(int?))
+        {
+            if (!isDeleteByPrimaryKey && string.IsNullOrWhiteSpace(sqlConditionPart))
+            {
+                throw new InvalidOperationException("The parameter sqlConditionPart should not null or empty when the parameter isDeleteByPrimaryKey is false.");
+            }
+            var meta = MapParser.GetMapMetaInfo(typeof(T));
+            var sql = SQLBuilder.BuildDeleteSql(meta, isDeleteByPrimaryKey, sqlConditionPart);
+            return this.Execute(sql, condition, commandTimeout);
+        }
+
+        public virtual Task<int> DeleteAsync<T>(object condition, bool isDeleteByPrimaryKey = true, string sqlConditionPart = null, int? commandTimeout = default(int?))
+        {
+            if (!isDeleteByPrimaryKey && string.IsNullOrWhiteSpace(sqlConditionPart))
+            {
+                throw new InvalidOperationException("The parameter sqlConditionPart should not null or empty when the parameter isDeleteByPrimaryKey is false.");
+            }
+            var meta = MapParser.GetMapMetaInfo(typeof(T));
+            var sql = SQLBuilder.BuildDeleteSql(meta, isDeleteByPrimaryKey, sqlConditionPart);
+            return this.ExecuteAsync(sql, condition, commandTimeout);
         }
 
         public virtual PagedQueryResult<T> PagedQuery<T>(PagedQueryOptions options, object param = null, bool buffered = true, int? commandTimeout = default(int?))
@@ -358,6 +420,46 @@ namespace XDbAccess.Dapper
             var sql = SQLBuilder.BuildSelectSql(meta, true, sqlConditionPart, sqlOrderByPart);
 
             return this.QueryAsync<T>(sql, condition, commandTimeout);
+        }
+
+        private DynamicParameters CreateUpdateParameters<T>(T entity, object condition, bool useValuePropertyPrefix)
+        {
+            var parameters = new DynamicParameters();
+
+            if (entity != null)
+            {
+                var entityType = entity.GetType();
+                var entityProperties = GetProperties(entityType);
+                AddToDynamicParameters(parameters, entityProperties, entity, useValuePropertyPrefix ? SQLBuilderConstants.ValuePropertyPrefix : null);
+            }
+
+            if (condition != null)
+            {
+                var conditionType = condition.GetType();
+                var conditionProperties = GetProperties(conditionType);
+                AddToDynamicParameters(parameters, conditionProperties, condition);
+            }
+
+            return parameters;
+        }
+
+        private PropertyInfo[] GetProperties(Type type)
+        {
+            if (typeProperties.TryGetValue(type, out PropertyInfo[] properties))
+            {
+                return properties;
+            }
+            properties = type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty);
+            typeProperties.TryAdd(type, properties);
+            return properties;
+        }
+
+        private void AddToDynamicParameters(DynamicParameters parameters, PropertyInfo[] properties, object obj, string prefix = null)
+        {
+            foreach (var p in properties)
+            {
+                parameters.Add(string.IsNullOrWhiteSpace(prefix) ? p.Name : prefix + p.Name, p.GetValue(obj));
+            }
         }
 
         #endregion

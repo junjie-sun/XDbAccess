@@ -52,9 +52,9 @@ namespace XDbAccess.Dapper
 
         Task<long> InsertAsync<T>(T entity, int? commandTimeout = default(int?));
 
-        int Update<T>(T entity, int? commandTimeout = default(int?));
+        int Update<T>(T entity, bool isUpdateByPrimaryKey = true, string sqlConditionPart = null, object condition = null, int? commandTimeout = default(int?));
 
-        Task<int> UpdateAsync<T>(T entity, int? commandTimeout = default(int?));
+        Task<int> UpdateAsync<T>(T entity, bool isUpdateByPrimaryKey = true, string sqlConditionPart = null, object condition = null, int? commandTimeout = default(int?));
 
         PagedQueryResult<T> PagedQuery<T>(PagedQueryOptions options, object param = null, bool buffered = true, int? commandTimeout = default(int?));
 
@@ -63,6 +63,10 @@ namespace XDbAccess.Dapper
         IEnumerable<T> QuerySingleTable<T>(string sqlConditionPart = null, object condition = null, string sqlOrderByPart = null, bool buffered = true, int? commandTimeout = default(int?));
 
         Task<IEnumerable<T>> QuerySingleTableAsync<T>(string sqlConditionPart = null, object condition = null, string sqlOrderByPart = null, int? commandTimeout = default(int?));
+
+        int Delete<T>(object condition, bool isDeleteByPrimaryKey = true, string sqlConditionPart = null, int? commandTimeout = default(int?));
+
+        Task<int> DeleteAsync<T>(object condition, bool isDeleteByPrimaryKey = true, string sqlConditionPart = null, int? commandTimeout = default(int?));
 
         #endregion
     }

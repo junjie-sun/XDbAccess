@@ -82,7 +82,7 @@ namespace XDbAccess.Common
             return sqlBuilder.ToString();
         }
 
-        public string BuildUpdateSql(MapInfo meta)
+        public string BuildUpdateSql(MapInfo meta, bool isUpdateByPrimaryKey = true, string sqlConditionPart = null, string valuePropertyPrefix = SQLBuilderConstants.ValuePropertyPrefix)
         {
             if (meta == null || meta.Fields.Count == 0)
             {
@@ -118,18 +118,25 @@ namespace XDbAccess.Common
                 sqlBuilder.Append("`");
                 sqlBuilder.Append(field.FieldName);
                 sqlBuilder.Append("`=@");
-                sqlBuilder.Append(field.PropertyName);
+                sqlBuilder.Append(isUpdateByPrimaryKey ? field.PropertyName : valuePropertyPrefix + field.PropertyName);
             }
 
-            sqlBuilder.Append(" WHERE 1=1");
-            IEnumerable<FieldInfo> conditionFields = meta.Fields.Where(field => field.IsPrimaryKey);
-            foreach (var conditionField in conditionFields)
+            if (isUpdateByPrimaryKey)
             {
-                sqlBuilder.Append(" AND ");
-                sqlBuilder.Append("`");
-                sqlBuilder.Append(conditionField.FieldName);
-                sqlBuilder.Append("`=@");
-                sqlBuilder.Append(conditionField.PropertyName);
+                sqlBuilder.Append(" WHERE 1=1");
+                IEnumerable<FieldInfo> conditionFields = meta.Fields.Where(field => field.IsPrimaryKey);
+                foreach (var conditionField in conditionFields)
+                {
+                    sqlBuilder.Append(" AND ");
+                    sqlBuilder.Append("`");
+                    sqlBuilder.Append(conditionField.FieldName);
+                    sqlBuilder.Append("`=@");
+                    sqlBuilder.Append(conditionField.PropertyName);
+                }
+            }
+            else if (!isUpdateByPrimaryKey && !string.IsNullOrWhiteSpace(sqlConditionPart))
+            {
+                sqlBuilder.AppendFormat(" WHERE {0}", sqlConditionPart);
             }
 
             sqlBuilder.Append(";");
@@ -282,6 +289,44 @@ namespace XDbAccess.Common
                     sqlBuilder.AppendFormat(" ORDER BY {0}", sqlOrderByPart);
                 }
             }
+
+            return sqlBuilder.ToString();
+        }
+
+        public string BuildDeleteSql(MapInfo meta, bool isDeleteByPrimaryKey = true, string sqlConditionPart = null)
+        {
+            if (meta == null || meta.Fields.Count == 0)
+            {
+                throw new ArgumentException("Need to specify fields.");
+            }
+
+            if (!meta.HasPrimaryKey)
+            {
+                throw new ArgumentException("Need to specify a primary key.");
+            }
+
+            StringBuilder sqlBuilder = new StringBuilder();
+            sqlBuilder.AppendFormat("DELETE FROM `{0}`", meta.TableName);
+
+            if (isDeleteByPrimaryKey)
+            {
+                sqlBuilder.Append(" WHERE 1=1");
+                IEnumerable<FieldInfo> conditionFields = meta.Fields.Where(field => field.IsPrimaryKey);
+                foreach (var conditionField in conditionFields)
+                {
+                    sqlBuilder.Append(" AND ");
+                    sqlBuilder.Append("`");
+                    sqlBuilder.Append(conditionField.FieldName);
+                    sqlBuilder.Append("`=@");
+                    sqlBuilder.Append(conditionField.PropertyName);
+                }
+            }
+            else if(!isDeleteByPrimaryKey && !string.IsNullOrWhiteSpace(sqlConditionPart))
+            {
+                sqlBuilder.AppendFormat(" WHERE {0}", sqlConditionPart);
+            }
+
+            sqlBuilder.Append(";");
 
             return sqlBuilder.ToString();
         }

@@ -72,23 +72,27 @@ XDbAccess.MySql
 --------------------------------------------------------------------------------
 
 2018-11-28
-XDbAccess Tag：1.2.1
+XDbAccess Tag：1.3.0
 
 XDbAccess.Dapper
-1.2.1
+1.3.0
 IDbHelper.QuerySingleTable<T>方法增加排序部分的参数
+IDbHelper新增Delete<T>方法
+IDbHelper.Update<T>方法调整参数
 
 XDbAccess.Common
-1.2.1
+1.3.0
 ISQLBuilder.BuildSelectSql方法增加排序部分的参数
+ISQLBuilder新增BuildDeleteSql方法
+ISQLBuilder.BuildUpdateSql方法调整参数
 
 XDbAccess.AutoTrans
-1.2.1
+1.3.0
 
 XDbAccess.MSSql
-1.2.1
+1.3.0
 
 XDbAccess.MySql
-1.2.1
+1.3.0
 
 --------------------------------------------------------------------------------
