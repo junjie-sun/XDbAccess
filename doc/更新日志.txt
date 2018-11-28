@@ -70,3 +70,25 @@ XDbAccess.MySql
 1.2.0
 
 --------------------------------------------------------------------------------
+
+2018-11-28
+XDbAccess Tag：1.2.1
+
+XDbAccess.Dapper
+1.2.1
+IDbHelper.QuerySingleTable<T>方法增加排序部分的参数
+
+XDbAccess.Common
+1.2.1
+ISQLBuilder.BuildSelectSql方法增加排序部分的参数
+
+XDbAccess.AutoTrans
+1.2.1
+
+XDbAccess.MSSql
+1.2.1
+
+XDbAccess.MySql
+1.2.1
+
+--------------------------------------------------------------------------------

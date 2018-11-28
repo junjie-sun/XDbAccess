@@ -342,20 +342,20 @@ namespace XDbAccess.Dapper
             return result;
         }
 
-        public virtual IEnumerable<T> QuerySingleTable<T>(string sqlConditionPart = null, object condition = null, bool buffered = true, int? commandTimeout = default(int?))
+        public virtual IEnumerable<T> QuerySingleTable<T>(string sqlConditionPart = null, object condition = null, string sqlOrderByPart = null, bool buffered = true, int? commandTimeout = default(int?))
         {
             var meta = MapParser.GetMapMetaInfo(typeof(T));
 
-            var sql = SQLBuilder.BuildSelectSql(meta, true, sqlConditionPart);
+            var sql = SQLBuilder.BuildSelectSql(meta, true, sqlConditionPart, sqlOrderByPart);
 
             return this.Query<T>(sql, condition, buffered, commandTimeout);
         }
 
-        public virtual Task<IEnumerable<T>> QuerySingleTableAsync<T>(string sqlConditionPart = null, object condition = null, int? commandTimeout = default(int?))
+        public virtual Task<IEnumerable<T>> QuerySingleTableAsync<T>(string sqlConditionPart = null, object condition = null, string sqlOrderByPart = null, int? commandTimeout = default(int?))
         {
             var meta = MapParser.GetMapMetaInfo(typeof(T));
 
-            var sql = SQLBuilder.BuildSelectSql(meta, true, sqlConditionPart);
+            var sql = SQLBuilder.BuildSelectSql(meta, true, sqlConditionPart, sqlOrderByPart);
 
             return this.QueryAsync<T>(sql, condition, commandTimeout);
         }

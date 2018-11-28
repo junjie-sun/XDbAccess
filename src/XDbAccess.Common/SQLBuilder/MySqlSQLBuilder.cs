@@ -238,7 +238,7 @@ namespace XDbAccess.Common
             return sqlBuilder.ToString();
         }
 
-        public string BuildSelectSql(MapInfo meta, bool hasFromPart = false, string sqlConditionPart = null)
+        public string BuildSelectSql(MapInfo meta, bool hasFromPart = false, string sqlConditionPart = null, string sqlOrderByPart = null)
         {
             if (meta == null || meta.Fields.Count == 0)
             {
@@ -272,9 +272,14 @@ namespace XDbAccess.Common
             {
                 sqlBuilder.AppendFormat(" FROM `{0}`", meta.TableName);
 
-                if (!String.IsNullOrWhiteSpace(sqlConditionPart))
+                if (!string.IsNullOrWhiteSpace(sqlConditionPart))
                 {
                     sqlBuilder.AppendFormat(" WHERE {0}", sqlConditionPart);
+                }
+
+                if(!string.IsNullOrWhiteSpace(sqlOrderByPart))
+                {
+                    sqlBuilder.AppendFormat(" ORDER BY {0}", sqlOrderByPart);
                 }
             }
 

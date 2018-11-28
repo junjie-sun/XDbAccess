@@ -2699,6 +2699,17 @@ namespace XDbAccess.Test.UnitTests
             };
             var result3 = DbHelper.QuerySingleTable<User>("OrgId=@OrgId", condition3).Single();
             Assert.Equal(2, result2.Id);
+
+            var result4 = DbHelper.QuerySingleTable<User>(null, null, "[Name] DESC").ToArray();
+            Assert.Equal("QuerySingleTableUser2", result4[0].Name);
+
+            var condition5 = new
+            {
+                Name = "%User%"
+            };
+            var result5 = DbHelper.QuerySingleTable<User>("[Name] like @Name", condition5, "[Name] DESC").ToArray();
+            Assert.Equal(2, result5.Count());
+            Assert.Equal("QuerySingleTableUser2", result5[0].Name);
         }
 
         [Fact]
@@ -2750,6 +2761,17 @@ namespace XDbAccess.Test.UnitTests
             };
             var result3 = DbHelper.QuerySingleTableAsync<User>("OrgId=@OrgId", condition3).Result.Single();
             Assert.Equal(2, result2.Id);
+
+            var result4 = DbHelper.QuerySingleTableAsync<User>(null, null, "[Name] DESC").Result.ToArray();
+            Assert.Equal("QuerySingleTableUser2", result4[0].Name);
+
+            var condition5 = new
+            {
+                Name = "%User%"
+            };
+            var result5 = DbHelper.QuerySingleTableAsync<User>("[Name] like @Name", condition5, "[Name] DESC").Result.ToArray();
+            Assert.Equal(2, result5.Count());
+            Assert.Equal("QuerySingleTableUser2", result5[0].Name);
         }
 
         #endregion QuerySingleTable

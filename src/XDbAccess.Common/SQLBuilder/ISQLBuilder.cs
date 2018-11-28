@@ -15,6 +15,6 @@ namespace XDbAccess.Common
 
         string BuildQueryCountSql(string sqlFromPart, string sqlConditionPart = null);
 
-        string BuildSelectSql(MapInfo meta, bool hasFromPart = false, string sqlConditionPart = null);
+        string BuildSelectSql(MapInfo meta, bool hasFromPart = false, string sqlConditionPart = null, string sqlOrderByPart = null);
     }
 }

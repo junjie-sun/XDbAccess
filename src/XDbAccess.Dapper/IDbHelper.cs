@@ -60,9 +60,9 @@ namespace XDbAccess.Dapper
 
         Task<PagedQueryResult<T>> PagedQueryAsync<T>(PagedQueryOptions options, object param = null, int? commandTimeout = default(int?));
 
-        IEnumerable<T> QuerySingleTable<T>(string sqlConditionPart = null, object condition = null, bool buffered = true, int? commandTimeout = default(int?));
+        IEnumerable<T> QuerySingleTable<T>(string sqlConditionPart = null, object condition = null, string sqlOrderByPart = null, bool buffered = true, int? commandTimeout = default(int?));
 
-        Task<IEnumerable<T>> QuerySingleTableAsync<T>(string sqlConditionPart = null, object condition = null, int? commandTimeout = default(int?));
+        Task<IEnumerable<T>> QuerySingleTableAsync<T>(string sqlConditionPart = null, object condition = null, string sqlOrderByPart = null, int? commandTimeout = default(int?));
 
         #endregion
     }
