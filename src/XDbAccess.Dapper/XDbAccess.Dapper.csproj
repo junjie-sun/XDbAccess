@@ -7,7 +7,7 @@
     <PackageLicenseUrl>https://github.com/junjie-sun/XDbAccess/blob/master/LICENSE.txt</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/junjie-sun/XDbAccess</PackageProjectUrl>
     <PackageTags>xdbaccess,db,dapper</PackageTags>
-    <Version>1.2.0</Version>
+    <Version>1.3.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
