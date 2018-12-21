@@ -96,3 +96,31 @@ XDbAccess.MySql
 1.3.0
 
 --------------------------------------------------------------------------------
+
+2018-12-21
+XDbAccess Tag：1.3.1
+
+XDbAccess.Dapper
+1.3.1
+DbHelper类增加日志相关方法
+将自动生成的SQL记录到日志
+完善注释
+
+XDbAccess.Common
+1.3.1
+完善注释
+
+XDbAccess.AutoTrans
+1.3.1
+IDbContext接口增加LoggerFactory属性
+完善注释
+
+XDbAccess.MSSql
+1.3.1
+完善注释
+
+XDbAccess.MySql
+1.3.1
+完善注释
+
+--------------------------------------------------------------------------------

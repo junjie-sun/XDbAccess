@@ -1,6 +1,7 @@
 ﻿// Copyright (c) junjie sun. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -14,6 +15,8 @@ namespace XDbAccess.AutoTrans
     /// </summary>
     public interface IDbContext
     {
+        ILoggerFactory LoggerFactory { get; }
+
         /// <summary>
         /// 连接字符串
         /// </summary>

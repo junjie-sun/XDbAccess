@@ -16,8 +16,6 @@ namespace XDbAccess.AutoTrans
     {
         private IDbFactory _DbFactory;
 
-        private ILoggerFactory _LoggerFactory;
-
         private ILogger _Logger;
 
         //保存处于事务中的数据库连接对象，该列表支持多线程与异步方法调用
@@ -32,14 +30,16 @@ namespace XDbAccess.AutoTrans
 
             ConnectionString = options.ConnectionString;
             _DbFactory = options.DbFactory;
-            _LoggerFactory = options.LoggerFactory;
-            if (_LoggerFactory != null)
+            LoggerFactory = options.LoggerFactory;
+            if (LoggerFactory != null)
             {
-                _Logger = _LoggerFactory.CreateLogger<DbContext>();
+                _Logger = LoggerFactory.CreateLogger<DbContext>();
             }
         }
 
         #region 接口实现
+
+        public ILoggerFactory LoggerFactory { get; }
 
         public string ConnectionString { get; }
 
@@ -69,7 +69,7 @@ namespace XDbAccess.AutoTrans
         {
             var conn = CreateConnectionWrap(option == TransScopeOption.RequireNew);
             RegistTransScopeConnection(conn);
-            var scope = new TransScope(conn, conn.TransScope, il, option, _LoggerFactory, conn.Guid);
+            var scope = new TransScope(conn, conn.TransScope, il, option, LoggerFactory, conn.Guid);
             conn.TransScope = scope;
             scope.OnDisposed += TransScope_OnDisposed;
             return scope;
@@ -134,7 +134,7 @@ namespace XDbAccess.AutoTrans
             else
             {
                 var conn = _DbFactory.CreateConnection();
-                wrapConn = new DbConnectionWrap(conn, _LoggerFactory);
+                wrapConn = new DbConnectionWrap(conn, LoggerFactory);
                 LogDebug("Create new connection. DbConnectionWrap.Guid={0}", wrapConn.Guid);
             }
 

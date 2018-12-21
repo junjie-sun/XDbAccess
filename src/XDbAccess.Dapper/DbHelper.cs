@@ -9,6 +9,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Dapper;
+using Microsoft.Extensions.Logging;
 using XDbAccess.AutoTrans;
 using XDbAccess.Common;
 
@@ -18,9 +19,15 @@ namespace XDbAccess.Dapper
     {
         private ConcurrentDictionary<Type, PropertyInfo[]> typeProperties = new ConcurrentDictionary<Type, PropertyInfo[]>();
 
+        private ILogger logger;
+
         public DbHelper(DbContextImpl dbContext)
         {
             DbContext = dbContext;
+            if (DbContext.LoggerFactory != null)
+            {
+                logger = DbContext.LoggerFactory.CreateLogger<DbHelper<DbContextImpl>>();
+            }
         }
 
         protected IDbContext DbContext { get; }
@@ -285,6 +292,7 @@ namespace XDbAccess.Dapper
         {
             var meta = MapParser.GetMapMetaInfo(typeof(T));
             var sql = SQLBuilder.BuildInsertSql(meta);
+            LogDebug($"Insert generate SQL: {sql}");
             return this.ExecuteScalar<long>(sql, entity, commandTimeout);
         }
 
@@ -292,6 +300,7 @@ namespace XDbAccess.Dapper
         {
             var meta = MapParser.GetMapMetaInfo(typeof(T));
             var sql = SQLBuilder.BuildInsertSql(meta);
+            LogDebug($"InsertAsync generate SQL: {sql}");
             return this.ExecuteScalarAsync<long>(sql, entity, commandTimeout);
         }
 
@@ -309,6 +318,7 @@ namespace XDbAccess.Dapper
 
             var meta = MapParser.GetMapMetaInfo(typeof(T));
             var sql = SQLBuilder.BuildUpdateSql(meta, isUpdateByPrimaryKey, sqlConditionPart);
+            LogDebug($"Update generate SQL: {sql}");
             if (isUpdateByPrimaryKey)
             {
                 return this.Execute(sql, entity, commandTimeout);
@@ -334,6 +344,7 @@ namespace XDbAccess.Dapper
 
             var meta = MapParser.GetMapMetaInfo(typeof(T));
             var sql = SQLBuilder.BuildUpdateSql(meta, isUpdateByPrimaryKey, sqlConditionPart);
+            LogDebug($"UpdateAsync generate SQL: {sql}");
             if (isUpdateByPrimaryKey)
             {
                 return this.ExecuteAsync(sql, entity, commandTimeout);
@@ -353,6 +364,7 @@ namespace XDbAccess.Dapper
             }
             var meta = MapParser.GetMapMetaInfo(typeof(T));
             var sql = SQLBuilder.BuildDeleteSql(meta, isDeleteByPrimaryKey, sqlConditionPart);
+            LogDebug($"Delete generate SQL: {sql}");
             return this.Execute(sql, condition, commandTimeout);
         }
 
@@ -364,6 +376,7 @@ namespace XDbAccess.Dapper
             }
             var meta = MapParser.GetMapMetaInfo(typeof(T));
             var sql = SQLBuilder.BuildDeleteSql(meta, isDeleteByPrimaryKey, sqlConditionPart);
+            LogDebug($"DeleteAsync generate SQL: {sql}");
             return this.ExecuteAsync(sql, condition, commandTimeout);
         }
 
@@ -380,6 +393,7 @@ namespace XDbAccess.Dapper
             }
 
             var sql = SQLBuilder.BuidlPagedQuerySql(options);
+            LogDebug($"PagedQuery generate SQL: {sql}");
             result.Data = this.Query<T>(sql, param, buffered, commandTimeout).ToList();
 
             return result;
@@ -398,6 +412,7 @@ namespace XDbAccess.Dapper
             }
 
             var sql = SQLBuilder.BuidlPagedQuerySql(options);
+            LogDebug($"PagedQueryAsync generate SQL: {sql}");
             var data = await this.QueryAsync<T>(sql, param, commandTimeout);
             result.Data = data.ToList();
 
@@ -410,6 +425,8 @@ namespace XDbAccess.Dapper
 
             var sql = SQLBuilder.BuildSelectSql(meta, true, sqlConditionPart, sqlOrderByPart);
 
+            LogDebug($"QuerySingleTable generate SQL: {sql}");
+
             return this.Query<T>(sql, condition, buffered, commandTimeout);
         }
 
@@ -418,6 +435,8 @@ namespace XDbAccess.Dapper
             var meta = MapParser.GetMapMetaInfo(typeof(T));
 
             var sql = SQLBuilder.BuildSelectSql(meta, true, sqlConditionPart, sqlOrderByPart);
+
+            LogDebug($"QuerySingleTableAsync generate SQL: {sql}");
 
             return this.QueryAsync<T>(sql, condition, commandTimeout);
         }
@@ -459,6 +478,18 @@ namespace XDbAccess.Dapper
             foreach (var p in properties)
             {
                 parameters.Add(string.IsNullOrWhiteSpace(prefix) ? p.Name : prefix + p.Name, p.GetValue(obj));
+            }
+        }
+
+        #endregion
+
+        #region 私有方法
+
+        private void LogDebug(string message, params object[] args)
+        {
+            if (logger != null)
+            {
+                logger.LogDebug(message, args);
             }
         }
 

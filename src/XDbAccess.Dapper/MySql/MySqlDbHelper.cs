@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using XDbAccess.AutoTrans;
 using Dapper;
 using XDbAccess.Common;
+using Microsoft.Extensions.Logging;
 
 namespace XDbAccess.Dapper
 {
@@ -16,8 +17,14 @@ namespace XDbAccess.Dapper
     {
         private MySqlSQLBuilder _SQLBuilder = new MySqlSQLBuilder();
 
+        private ILogger logger;
+
         public MySqlDbHelper(DbContextImpl dbContext) : base(dbContext)
         {
+            if (DbContext.LoggerFactory != null)
+            {
+                logger = DbContext.LoggerFactory.CreateLogger<MySqlDbHelper<DbContextImpl>>();
+            }
         }
 
         protected override ISQLBuilder SQLBuilder
@@ -43,6 +50,7 @@ namespace XDbAccess.Dapper
         {
             var meta = MapParser.GetMapMetaInfo(typeof(T));
             var sql = _SQLBuilder.BuildReplaceSql(meta);
+            LogDebug($"Replace generate SQL: {sql}");
             return this.Execute(sql, entity, commandTimeout);
         }
 
@@ -50,7 +58,20 @@ namespace XDbAccess.Dapper
         {
             var meta = MapParser.GetMapMetaInfo(typeof(T));
             var sql = _SQLBuilder.BuildReplaceSql(meta);
+            LogDebug($"ReplaceAsync generate SQL: {sql}");
             return this.ExecuteAsync(sql, entity, commandTimeout);
         }
+
+        #region 私有方法
+
+        private void LogDebug(string message, params object[] args)
+        {
+            if (logger != null)
+            {
+                logger.LogDebug(message, args);
+            }
+        }
+
+        #endregion
     }
 }
