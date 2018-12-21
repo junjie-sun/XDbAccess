@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>XDbAccess.MySql</name>
+    </assembly>
+    <members>
+        <member name="T:XDbAccess.MySql.MySqlDbContextOptionsExtensions">
+            <summary>
+            MYSQL扩展类
+            </summary>
+        </member>
+        <member name="M:XDbAccess.MySql.MySqlDbContextOptionsExtensions.UseMySql(XDbAccess.AutoTrans.DbContextOptionsBuilder,System.String)">
+            <summary>
+            为DbContext配置数据库为MYSQL
+            </summary>
+            <param name="optionsBuilder"></param>
+            <param name="connectionString"></param>
+            <returns></returns>
+        </member>
+        <member name="T:XDbAccess.MySql.MySqlDbFactory">
+            <summary>
+            MYSQL工厂
+            </summary>
+        </member>
+        <member name="M:XDbAccess.MySql.MySqlDbFactory.#ctor(System.String)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="connectionString"></param>
+        </member>
+        <member name="M:XDbAccess.MySql.MySqlDbFactory.CreateConnection">
+            <summary>
+            创建连接对象
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

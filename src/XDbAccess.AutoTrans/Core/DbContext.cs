@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 
 namespace XDbAccess.AutoTrans
 {
+    /// <summary>
+    /// 数据库上下文对象，用于管理数据库连接与事务
+    /// </summary>
     public class DbContext : IDbContext
     {
         private IDbFactory _DbFactory;
@@ -21,6 +24,10 @@ namespace XDbAccess.AutoTrans
         //保存处于事务中的数据库连接对象，该列表支持多线程与异步方法调用
         private AsyncLocal<Stack<DbConnectionWrap>> _TransScopeConnections = new AsyncLocal<Stack<DbConnectionWrap>>();
 
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="options"></param>
         public DbContext(DbContextOptions options)
         {
             if(options.DbFactory == null)
@@ -39,10 +46,20 @@ namespace XDbAccess.AutoTrans
 
         #region 接口实现
 
+        /// <summary>
+        /// 日志工厂
+        /// </summary>
         public ILoggerFactory LoggerFactory { get; }
 
+        /// <summary>
+        /// 连接字符串
+        /// </summary>
         public string ConnectionString { get; }
 
+        /// <summary>
+        /// 获取已打开的数据库连接对象
+        /// </summary>
+        /// <returns></returns>
         public DbConnectionWrap GetOpenedConnection()
         {
             var wrapConn = CreateConnectionWrap(false);
@@ -54,6 +71,10 @@ namespace XDbAccess.AutoTrans
             return wrapConn;
         }
 
+        /// <summary>
+        /// 获取已打开的数据库连接对象(异步版本)
+        /// </summary>
+        /// <returns></returns>
         public async Task<DbConnectionWrap> GetOpenedConnectionAsync()
         {
             var wrapConn = CreateConnectionWrap(false);
@@ -65,6 +86,12 @@ namespace XDbAccess.AutoTrans
             return wrapConn;
         }
 
+        /// <summary>
+        /// 开启事务
+        /// </summary>
+        /// <param name="option"></param>
+        /// <param name="il"></param>
+        /// <returns></returns>
         public TransScope TransScope(TransScopeOption option = TransScopeOption.Required, IsolationLevel il = IsolationLevel.ReadCommitted)
         {
             var conn = CreateConnectionWrap(option == TransScopeOption.RequireNew);

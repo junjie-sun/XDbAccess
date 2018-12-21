@@ -13,12 +13,20 @@ using Microsoft.Extensions.Logging;
 
 namespace XDbAccess.Dapper
 {
+    /// <summary>
+    /// MySqlDbHelper
+    /// </summary>
+    /// <typeparam name="DbContextImpl"></typeparam>
     public class MySqlDbHelper<DbContextImpl> : DbHelper<DbContextImpl> where DbContextImpl : IDbContext
     {
         private MySqlSQLBuilder _SQLBuilder = new MySqlSQLBuilder();
 
         private ILogger logger;
 
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="dbContext"></param>
         public MySqlDbHelper(DbContextImpl dbContext) : base(dbContext)
         {
             if (DbContext.LoggerFactory != null)
@@ -27,6 +35,9 @@ namespace XDbAccess.Dapper
             }
         }
 
+        /// <summary>
+        /// SQLBuilder
+        /// </summary>
         protected override ISQLBuilder SQLBuilder
         {
             get
@@ -35,6 +46,14 @@ namespace XDbAccess.Dapper
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="commandType"></param>
+        /// <returns></returns>
         public override async Task<IDataReader> ExecuteReaderAsync(string sql, object param = null, int? commandTimeout = default(int?), CommandType? commandType = default(CommandType?))
         {
             var conn = await DbContext.GetOpenedConnectionAsync();
@@ -46,6 +65,13 @@ namespace XDbAccess.Dapper
             return new DataReaderWrap(reader, conn);
         }
 
+        /// <summary>
+        /// 执行REPLACE操作
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="entity"></param>
+        /// <param name="commandTimeout"></param>
+        /// <returns></returns>
         public int Replace<T>(T entity, int? commandTimeout = default(int?))
         {
             var meta = MapParser.GetMapMetaInfo(typeof(T));
@@ -54,6 +80,13 @@ namespace XDbAccess.Dapper
             return this.Execute(sql, entity, commandTimeout);
         }
 
+        /// <summary>
+        /// 执行REPLACE操作
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="entity"></param>
+        /// <param name="commandTimeout"></param>
+        /// <returns></returns>
         public Task<int> ReplaceAsync<T>(T entity, int? commandTimeout = default(int?))
         {
             var meta = MapParser.GetMapMetaInfo(typeof(T));

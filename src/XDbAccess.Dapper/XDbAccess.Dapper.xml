@@ -1,0 +1,1185 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>XDbAccess.Dapper</name>
+    </assembly>
+    <members>
+        <member name="T:XDbAccess.Dapper.DataReaderWrap">
+            <summary>
+            DataReader对象封装
+            </summary>
+        </member>
+        <member name="M:XDbAccess.Dapper.DataReaderWrap.#ctor(System.Data.IDataReader,System.Data.IDbConnection)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="reader"></param>
+            <param name="conn"></param>
+        </member>
+        <member name="P:XDbAccess.Dapper.DataReaderWrap.Item(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="P:XDbAccess.Dapper.DataReaderWrap.Item(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="P:XDbAccess.Dapper.DataReaderWrap.Depth">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XDbAccess.Dapper.DataReaderWrap.FieldCount">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XDbAccess.Dapper.DataReaderWrap.IsClosed">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XDbAccess.Dapper.DataReaderWrap.RecordsAffected">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:XDbAccess.Dapper.DataReaderWrap.Close">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:XDbAccess.Dapper.DataReaderWrap.Dispose">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:XDbAccess.Dapper.DataReaderWrap.GetBoolean(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DataReaderWrap.GetByte(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DataReaderWrap.GetBytes(System.Int32,System.Int64,System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <param name="fieldOffset"></param>
+            <param name="buffer"></param>
+            <param name="bufferoffset"></param>
+            <param name="length"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DataReaderWrap.GetChar(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DataReaderWrap.GetChars(System.Int32,System.Int64,System.Char[],System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <param name="fieldoffset"></param>
+            <param name="buffer"></param>
+            <param name="bufferoffset"></param>
+            <param name="length"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DataReaderWrap.GetData(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DataReaderWrap.GetDataTypeName(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DataReaderWrap.GetDateTime(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DataReaderWrap.GetDecimal(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DataReaderWrap.GetDouble(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DataReaderWrap.GetFieldType(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DataReaderWrap.GetFloat(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DataReaderWrap.GetGuid(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DataReaderWrap.GetInt16(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DataReaderWrap.GetInt32(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DataReaderWrap.GetInt64(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DataReaderWrap.GetName(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DataReaderWrap.GetOrdinal(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DataReaderWrap.GetSchemaTable">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DataReaderWrap.GetString(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DataReaderWrap.GetValue(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DataReaderWrap.GetValues(System.Object[])">
+            <summary>
+            
+            </summary>
+            <param name="values"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DataReaderWrap.IsDBNull(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DataReaderWrap.NextResult">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DataReaderWrap.Read">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:XDbAccess.Dapper.GridReaderWrap">
+            <summary>
+            GridReader对象封装
+            </summary>
+        </member>
+        <member name="M:XDbAccess.Dapper.GridReaderWrap.#ctor(Dapper.SqlMapper.GridReader,System.Data.IDbConnection)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="reader"></param>
+            <param name="conn"></param>
+        </member>
+        <member name="P:XDbAccess.Dapper.GridReaderWrap.GridReader">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:XDbAccess.Dapper.GridReaderWrap.Dispose">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:XDbAccess.Dapper.DbHelper`1">
+            <summary>
+            DbHelper
+            </summary>
+            <typeparam name="DbContextImpl"></typeparam>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.#ctor(`0)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="dbContext"></param>
+        </member>
+        <member name="P:XDbAccess.Dapper.DbHelper`1.DbContext">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XDbAccess.Dapper.DbHelper`1.SQLBuilder">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.Execute(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.ExecuteAsync(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.ExecuteReader(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.ExecuteReaderAsync(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.ExecuteScalar(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.ExecuteScalar``1(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.ExecuteScalarAsync(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.ExecuteScalarAsync``1(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.Query(System.String,System.Object,System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="buffered"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.Query``1(System.String,System.Object,System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="buffered"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.QueryAsync(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.QueryAsync``1(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.QueryFirst(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.QueryFirst``1(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.QueryFirstAsync(System.Type,System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <param name="type"></param>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.QueryFirstAsync``1(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.QueryFirstOrDefault(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.QueryFirstOrDefault``1(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.QueryFirstOrDefaultAsync``1(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.QueryMultiple(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.QueryMultipleAsync(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.QuerySingle(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.QuerySingle``1(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.QuerySingleAsync``1(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.QuerySingleOrDefault(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.QuerySingleOrDefault``1(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.QuerySingleOrDefaultAsync(System.Type,System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <param name="type"></param>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.QuerySingleOrDefaultAsync``1(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.Insert``1(``0,System.Nullable{System.Int32})">
+            <summary>
+            执行INSERT操作
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="entity">实体对象</param>
+            <param name="commandTimeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.InsertAsync``1(``0,System.Nullable{System.Int32})">
+            <summary>
+            执行INSERT操作
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="entity">实体对象</param>
+            <param name="commandTimeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.Update``1(``0,System.Boolean,System.String,System.Object,System.Nullable{System.Int32})">
+            <summary>
+            执行UPDATE操作
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="entity">实体对象</param>
+            <param name="isUpdateByPrimaryKey">是否以主键作为条件进行更新</param>
+            <param name="sqlConditionPart">WHERE部分的SQL，当isUpdateByPrimaryKey=false时有效</param>
+            <param name="condition">条件对象</param>
+            <param name="commandTimeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.UpdateAsync``1(``0,System.Boolean,System.String,System.Object,System.Nullable{System.Int32})">
+            <summary>
+            执行UPDATE操作
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="entity">实体对象</param>
+            <param name="isUpdateByPrimaryKey">是否以主键作为条件进行更新</param>
+            <param name="sqlConditionPart">WHERE部分的SQL，当isUpdateByPrimaryKey=false时有效</param>
+            <param name="condition">条件对象</param>
+            <param name="commandTimeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.Delete``1(System.Object,System.Boolean,System.String,System.Nullable{System.Int32})">
+            <summary>
+            执行DELETE操作
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="condition">条件对象</param>
+            <param name="isDeleteByPrimaryKey">是否以主键作为条件进行删除</param>
+            <param name="sqlConditionPart">WHERE部分的SQL，当isDeleteByPrimaryKey=false时有效</param>
+            <param name="commandTimeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.DeleteAsync``1(System.Object,System.Boolean,System.String,System.Nullable{System.Int32})">
+            <summary>
+            执行DELETE操作
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="condition">条件对象</param>
+            <param name="isDeleteByPrimaryKey">是否以主键作为条件进行删除</param>
+            <param name="sqlConditionPart">WHERE部分的SQL，当isDeleteByPrimaryKey=false时有效</param>
+            <param name="commandTimeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.PagedQuery``1(XDbAccess.Common.PagedQueryOptions,System.Object,System.Boolean,System.Nullable{System.Int32})">
+            <summary>
+            分页查询
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="options">分页查询参数</param>
+            <param name="param">条件对象</param>
+            <param name="buffered"></param>
+            <param name="commandTimeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.PagedQueryAsync``1(XDbAccess.Common.PagedQueryOptions,System.Object,System.Nullable{System.Int32})">
+            <summary>
+            分页查询
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="options">分页查询参数</param>
+            <param name="param">条件对象</param>
+            <param name="commandTimeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.QuerySingleTable``1(System.String,System.Object,System.String,System.Boolean,System.Nullable{System.Int32})">
+            <summary>
+            单表查询
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sqlConditionPart">WHERE部分的SQL</param>
+            <param name="condition">条件对象</param>
+            <param name="sqlOrderByPart">ORDER部分的SQL</param>
+            <param name="buffered"></param>
+            <param name="commandTimeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.QuerySingleTableAsync``1(System.String,System.Object,System.String,System.Nullable{System.Int32})">
+            <summary>
+            单表查询
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sqlConditionPart">WHERE部分的SQL</param>
+            <param name="condition">条件对象</param>
+            <param name="sqlOrderByPart">ORDER部分的SQL</param>
+            <param name="commandTimeout"></param>
+            <returns></returns>
+        </member>
+        <member name="T:XDbAccess.Dapper.DbHelperServiceCollectionExtensions">
+            <summary>
+            DbHelper扩展类
+            </summary>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelperServiceCollectionExtensions.AddMSSqlDbHepler``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            添加MSSqlHepler
+            </summary>
+            <typeparam name="DbContextImpl"></typeparam>
+            <param name="serviceCollection"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelperServiceCollectionExtensions.AddMySqlDbHepler``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            添加MySqlHepler
+            </summary>
+            <typeparam name="DbContextImpl"></typeparam>
+            <param name="serviceCollection"></param>
+            <returns></returns>
+        </member>
+        <member name="T:XDbAccess.Dapper.IDbHelper`1">
+            <summary>
+            DbHelper接口
+            </summary>
+            <typeparam name="DbContextImpl"></typeparam>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.Execute(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.ExecuteAsync(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.ExecuteReader(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.ExecuteReaderAsync(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.ExecuteScalar(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.ExecuteScalar``1(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.ExecuteScalarAsync(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.ExecuteScalarAsync``1(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.Query(System.String,System.Object,System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="buffered"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.Query``1(System.String,System.Object,System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="buffered"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.QueryAsync(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.QueryAsync``1(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.QueryFirst(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.QueryFirst``1(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.QueryFirstAsync(System.Type,System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <param name="type"></param>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.QueryFirstAsync``1(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.QueryFirstOrDefault(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.QueryFirstOrDefault``1(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.QueryFirstOrDefaultAsync``1(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.QueryMultiple(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.QueryMultipleAsync(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.QuerySingle(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.QuerySingle``1(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.QuerySingleAsync``1(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.QuerySingleOrDefault(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.QuerySingleOrDefault``1(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.QuerySingleOrDefaultAsync(System.Type,System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <param name="type"></param>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.QuerySingleOrDefaultAsync``1(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.Insert``1(``0,System.Nullable{System.Int32})">
+            <summary>
+            执行INSERT操作
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="entity">实体对象</param>
+            <param name="commandTimeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.InsertAsync``1(``0,System.Nullable{System.Int32})">
+            <summary>
+            执行INSERT操作
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="entity">实体对象</param>
+            <param name="commandTimeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.Update``1(``0,System.Boolean,System.String,System.Object,System.Nullable{System.Int32})">
+            <summary>
+            执行UPDATE操作
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="entity">实体对象</param>
+            <param name="isUpdateByPrimaryKey">是否以主键作为条件进行更新</param>
+            <param name="sqlConditionPart">WHERE部分的SQL，当isUpdateByPrimaryKey=false时有效</param>
+            <param name="condition">条件对象</param>
+            <param name="commandTimeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.UpdateAsync``1(``0,System.Boolean,System.String,System.Object,System.Nullable{System.Int32})">
+            <summary>
+            执行UPDATE操作
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="entity">实体对象</param>
+            <param name="isUpdateByPrimaryKey">是否以主键作为条件进行更新</param>
+            <param name="sqlConditionPart">WHERE部分的SQL，当isUpdateByPrimaryKey=false时有效</param>
+            <param name="condition">条件对象</param>
+            <param name="commandTimeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.PagedQuery``1(XDbAccess.Common.PagedQueryOptions,System.Object,System.Boolean,System.Nullable{System.Int32})">
+            <summary>
+            分页查询
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="options">分页查询参数</param>
+            <param name="param">条件对象</param>
+            <param name="buffered"></param>
+            <param name="commandTimeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.PagedQueryAsync``1(XDbAccess.Common.PagedQueryOptions,System.Object,System.Nullable{System.Int32})">
+            <summary>
+            分页查询
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="options">分页查询参数</param>
+            <param name="param">条件对象</param>
+            <param name="commandTimeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.QuerySingleTable``1(System.String,System.Object,System.String,System.Boolean,System.Nullable{System.Int32})">
+            <summary>
+            单表查询
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sqlConditionPart">WHERE部分的SQL</param>
+            <param name="condition">条件对象</param>
+            <param name="sqlOrderByPart">ORDER部分的SQL</param>
+            <param name="buffered"></param>
+            <param name="commandTimeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.QuerySingleTableAsync``1(System.String,System.Object,System.String,System.Nullable{System.Int32})">
+            <summary>
+            单表查询
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sqlConditionPart">WHERE部分的SQL</param>
+            <param name="condition">条件对象</param>
+            <param name="sqlOrderByPart">ORDER部分的SQL</param>
+            <param name="commandTimeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.Delete``1(System.Object,System.Boolean,System.String,System.Nullable{System.Int32})">
+            <summary>
+            执行DELETE操作
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="condition">条件对象</param>
+            <param name="isDeleteByPrimaryKey">是否以主键作为条件进行删除</param>
+            <param name="sqlConditionPart">WHERE部分的SQL，当isDeleteByPrimaryKey=false时有效</param>
+            <param name="commandTimeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.DeleteAsync``1(System.Object,System.Boolean,System.String,System.Nullable{System.Int32})">
+            <summary>
+            执行DELETE操作
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="condition">条件对象</param>
+            <param name="isDeleteByPrimaryKey">是否以主键作为条件进行删除</param>
+            <param name="sqlConditionPart">WHERE部分的SQL，当isDeleteByPrimaryKey=false时有效</param>
+            <param name="commandTimeout"></param>
+            <returns></returns>
+        </member>
+        <member name="T:XDbAccess.Dapper.MSSqlDbHelper`1">
+            <summary>
+            MSSqlDbHelper
+            </summary>
+            <typeparam name="DbContextImpl"></typeparam>
+        </member>
+        <member name="M:XDbAccess.Dapper.MSSqlDbHelper`1.#ctor(`0)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="dbContext"></param>
+        </member>
+        <member name="P:XDbAccess.Dapper.MSSqlDbHelper`1.SQLBuilder">
+            <summary>
+            SQLBuilder
+            </summary>
+        </member>
+        <member name="T:XDbAccess.Dapper.MySqlDbHelper`1">
+            <summary>
+            MySqlDbHelper
+            </summary>
+            <typeparam name="DbContextImpl"></typeparam>
+        </member>
+        <member name="M:XDbAccess.Dapper.MySqlDbHelper`1.#ctor(`0)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="dbContext"></param>
+        </member>
+        <member name="P:XDbAccess.Dapper.MySqlDbHelper`1.SQLBuilder">
+            <summary>
+            SQLBuilder
+            </summary>
+        </member>
+        <member name="M:XDbAccess.Dapper.MySqlDbHelper`1.ExecuteReaderAsync(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+            <summary>
+            
+            </summary>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <param name="commandTimeout"></param>
+            <param name="commandType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.MySqlDbHelper`1.Replace``1(``0,System.Nullable{System.Int32})">
+            <summary>
+            执行REPLACE操作
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="entity"></param>
+            <param name="commandTimeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.MySqlDbHelper`1.ReplaceAsync``1(``0,System.Nullable{System.Int32})">
+            <summary>
+            执行REPLACE操作
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="entity"></param>
+            <param name="commandTimeout"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

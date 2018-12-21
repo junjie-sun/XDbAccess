@@ -23,12 +23,12 @@ namespace XDbAccess.Common
         public int PageIndex { get; set; }
 
         /// <summary>
-        /// 总记录数
+        /// 总记录数，只有当PageIndex=0时才返回
         /// </summary>
         public long Total { get; set; }
 
         /// <summary>
-        /// 数据列表
+        /// 数据结果集
         /// </summary>
         public List<T> Data { get; set; }
     }

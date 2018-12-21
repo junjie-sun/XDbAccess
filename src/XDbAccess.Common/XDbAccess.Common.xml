@@ -1,0 +1,372 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>XDbAccess.Common</name>
+    </assembly>
+    <members>
+        <member name="T:XDbAccess.Common.FieldAttribute">
+            <summary>
+            映射数据库字段
+            </summary>
+        </member>
+        <member name="M:XDbAccess.Common.FieldAttribute.#ctor(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="fieldName">数据库字段名</param>
+            <param name="isPrimaryKey">是否为主键字段</param>
+            <param name="isIdentity">是否为自增长字段</param>
+        </member>
+        <member name="P:XDbAccess.Common.FieldAttribute.FieldName">
+            <summary>
+            数据库字段名
+            </summary>
+        </member>
+        <member name="P:XDbAccess.Common.FieldAttribute.IsPrimaryKey">
+            <summary>
+            是否为主键字段
+            </summary>
+        </member>
+        <member name="P:XDbAccess.Common.FieldAttribute.IsIdentity">
+            <summary>
+            是否为自增长字段
+            </summary>
+        </member>
+        <member name="T:XDbAccess.Common.IgnoreAttribute">
+            <summary>
+            当前字段不作映射处理
+            </summary>
+        </member>
+        <member name="T:XDbAccess.Common.MapInfo">
+            <summary>
+            数据库表映射信息
+            </summary>
+        </member>
+        <member name="P:XDbAccess.Common.MapInfo.TableName">
+            <summary>
+            数据库表名
+            </summary>
+        </member>
+        <member name="P:XDbAccess.Common.MapInfo.HasIdentity">
+            <summary>
+            是否有自增长字段
+            </summary>
+        </member>
+        <member name="P:XDbAccess.Common.MapInfo.HasPrimaryKey">
+            <summary>
+            是否有主键字段
+            </summary>
+        </member>
+        <member name="P:XDbAccess.Common.MapInfo.Fields">
+            <summary>
+            映射的字段集合
+            </summary>
+        </member>
+        <member name="T:XDbAccess.Common.FieldInfo">
+            <summary>
+            数据库字段映射信息
+            </summary>
+        </member>
+        <member name="P:XDbAccess.Common.FieldInfo.FieldName">
+            <summary>
+            字段名
+            </summary>
+        </member>
+        <member name="P:XDbAccess.Common.FieldInfo.PropertyName">
+            <summary>
+            属性名
+            </summary>
+        </member>
+        <member name="P:XDbAccess.Common.FieldInfo.IsPrimaryKey">
+            <summary>
+            是否为主键字段
+            </summary>
+        </member>
+        <member name="P:XDbAccess.Common.FieldInfo.IsIdentity">
+            <summary>
+            是否为自增长字段
+            </summary>
+        </member>
+        <member name="T:XDbAccess.Common.MapParser">
+            <summary>
+            数据库映射解析器
+            </summary>
+        </member>
+        <member name="M:XDbAccess.Common.MapParser.GetMapMetaInfo(System.Type)">
+            <summary>
+            获取映射信息
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="T:XDbAccess.Common.TableAttribute">
+            <summary>
+            映射数据库表
+            </summary>
+        </member>
+        <member name="M:XDbAccess.Common.TableAttribute.#ctor(System.String)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="tableName">数据库表名</param>
+        </member>
+        <member name="P:XDbAccess.Common.TableAttribute.TableName">
+            <summary>
+            数据库表名
+            </summary>
+        </member>
+        <member name="T:XDbAccess.Common.PagedQueryOptions">
+            <summary>
+            分页查询参数
+            </summary>
+        </member>
+        <member name="P:XDbAccess.Common.PagedQueryOptions.PageIndex">
+            <summary>
+            当前页号，从0开始
+            </summary>
+        </member>
+        <member name="P:XDbAccess.Common.PagedQueryOptions.PageSize">
+            <summary>
+            每页记录数
+            </summary>
+        </member>
+        <member name="P:XDbAccess.Common.PagedQueryOptions.SqlFieldsPart">
+            <summary>
+            SELECT部分的SQL
+            示例：[Field1],[Field2],[Field3]
+            </summary>
+        </member>
+        <member name="P:XDbAccess.Common.PagedQueryOptions.SqlFromPart">
+            <summary>
+            FROM部分的SQL
+            示例1：[Table]
+            示例2：[Table1] a,[Table2] b
+            示例3：[Table1] a JOIN [Table2] b ON a.Field=b.Field
+            </summary>
+        </member>
+        <member name="P:XDbAccess.Common.PagedQueryOptions.SqlConditionPart">
+            <summary>
+            WHERE部分的SQL
+            示例1：[Field1]=@Param1 AND [Field2]=@Param2
+            示例2：a.[Field1]=@Param1 AND b.[Field2]=@Param2
+            </summary>
+        </member>
+        <member name="P:XDbAccess.Common.PagedQueryOptions.SqlOrderPart">
+            <summary>
+            ORDER部分的SQL
+            示例：[Field1],[Field2] desc
+            </summary>
+        </member>
+        <member name="T:XDbAccess.Common.PagedQueryResult`1">
+            <summary>
+            分页查询结果
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:XDbAccess.Common.PagedQueryResult`1.PageSize">
+            <summary>
+            每页记录数
+            </summary>
+        </member>
+        <member name="P:XDbAccess.Common.PagedQueryResult`1.PageIndex">
+            <summary>
+            当前页码，从0开始计算
+            </summary>
+        </member>
+        <member name="P:XDbAccess.Common.PagedQueryResult`1.Total">
+            <summary>
+            总记录数，只有当PageIndex=0时才返回
+            </summary>
+        </member>
+        <member name="P:XDbAccess.Common.PagedQueryResult`1.Data">
+            <summary>
+            数据结果集
+            </summary>
+        </member>
+        <member name="T:XDbAccess.Common.ISQLBuilder">
+            <summary>
+            SQL构造器接口
+            </summary>
+        </member>
+        <member name="M:XDbAccess.Common.ISQLBuilder.BuildInsertSql(XDbAccess.Common.MapInfo)">
+            <summary>
+            构造INSERT语句
+            </summary>
+            <param name="meta">映射信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Common.ISQLBuilder.BuildUpdateSql(XDbAccess.Common.MapInfo,System.Boolean,System.String,System.String)">
+            <summary>
+            构造UPDATE语句
+            </summary>
+            <param name="meta">映射信息</param>
+            <param name="isUpdateByPrimaryKey">是否以主键作为条件进行更新</param>
+            <param name="sqlConditionPart">WHERE部分的SQL，当isUpdateByPrimaryKey=false时有效</param>
+            <param name="valuePropertyPrefix">为了避免与WHERE部分的参数有相同名称冲突，在SET部分的参数所添加的前缀，当isUpdateByPrimaryKey=false时有效</param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Common.ISQLBuilder.BuidlPagedQuerySql(XDbAccess.Common.PagedQueryOptions)">
+            <summary>
+            构造分页查询语句
+            </summary>
+            <param name="options">分页查询参数</param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Common.ISQLBuilder.BuildQueryCountSql(System.String,System.String)">
+            <summary>
+            构造SELECT COUNT语句
+            </summary>
+            <param name="sqlFromPart">FROM部分的SQL</param>
+            <param name="sqlConditionPart">WHERE部分的SQL</param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Common.ISQLBuilder.BuildSelectSql(XDbAccess.Common.MapInfo,System.Boolean,System.String,System.String)">
+            <summary>
+            构造SELECT语句
+            </summary>
+            <param name="meta">映射信息</param>
+            <param name="isBuildFullSql">是否构造完整的SQL，如果为false则只构造SELECT部分的语句</param>
+            <param name="sqlConditionPart">WHERE部分的SQL</param>
+            <param name="sqlOrderByPart">ORDER部分的SQL</param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Common.ISQLBuilder.BuildDeleteSql(XDbAccess.Common.MapInfo,System.Boolean,System.String)">
+            <summary>
+            构造DELETE语句
+            </summary>
+            <param name="meta">映射信息</param>
+            <param name="isDeleteByPrimaryKey">是否以主键作为条件进行删除</param>
+            <param name="sqlConditionPart">WHERE部分的SQL，当isDeleteByPrimaryKey=false时有效</param>
+            <returns></returns>
+        </member>
+        <member name="T:XDbAccess.Common.SQLBuilderConstants">
+            <summary>
+            SQLBuilder常量
+            </summary>
+        </member>
+        <member name="F:XDbAccess.Common.SQLBuilderConstants.ValuePropertyPrefix">
+            <summary>
+            值属性前缀
+            </summary>
+        </member>
+        <member name="T:XDbAccess.Common.MSSqlSQLBuilder">
+            <summary>
+            MSSQL语句构造器
+            </summary>
+        </member>
+        <member name="M:XDbAccess.Common.MSSqlSQLBuilder.BuildInsertSql(XDbAccess.Common.MapInfo)">
+            <summary>
+            构造INSERT语句
+            </summary>
+            <param name="meta">映射信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Common.MSSqlSQLBuilder.BuildUpdateSql(XDbAccess.Common.MapInfo,System.Boolean,System.String,System.String)">
+            <summary>
+            构造UPDATE语句
+            </summary>
+            <param name="meta">映射信息</param>
+            <param name="isUpdateByPrimaryKey">是否以主键作为条件进行更新</param>
+            <param name="sqlConditionPart">WHERE部分的SQL，当isUpdateByPrimaryKey=false时有效</param>
+            <param name="valuePropertyPrefix">为了避免与WHERE部分的参数有相同名称冲突，在SET部分的参数所添加的前缀，当isUpdateByPrimaryKey=false时有效</param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Common.MSSqlSQLBuilder.BuidlPagedQuerySql(XDbAccess.Common.PagedQueryOptions)">
+            <summary>
+            构造分页查询语句
+            </summary>
+            <param name="options">分页查询参数</param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Common.MSSqlSQLBuilder.BuildQueryCountSql(System.String,System.String)">
+            <summary>
+            构造SELECT COUNT语句
+            </summary>
+            <param name="sqlFromPart">FROM部分的SQL</param>
+            <param name="sqlConditionPart">>WHERE部分的SQL</param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Common.MSSqlSQLBuilder.BuildSelectSql(XDbAccess.Common.MapInfo,System.Boolean,System.String,System.String)">
+            <summary>
+            构造SELECT语句
+            </summary>
+            <param name="meta">映射信息</param>
+            <param name="isBuildFullSql">是否构造完整的SQL，如果为false则只构造SELECT部分的语句</param>
+            <param name="sqlConditionPart">WHERE部分的SQL</param>
+            <param name="sqlOrderByPart">ORDER部分的SQL</param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Common.MSSqlSQLBuilder.BuildDeleteSql(XDbAccess.Common.MapInfo,System.Boolean,System.String)">
+            <summary>
+            构造DELETE语句
+            </summary>
+            <param name="meta">映射信息</param>
+            <param name="isDeleteByPrimaryKey">是否以主键作为条件进行删除</param>
+            <param name="sqlConditionPart">WHERE部分的SQL，当isDeleteByPrimaryKey=false时有效</param>
+            <returns></returns>
+        </member>
+        <member name="T:XDbAccess.Common.MySqlSQLBuilder">
+            <summary>
+            MYSQL语句构造器接口
+            </summary>
+        </member>
+        <member name="M:XDbAccess.Common.MySqlSQLBuilder.BuildInsertSql(XDbAccess.Common.MapInfo)">
+            <summary>
+            构造INSERT语句
+            </summary>
+            <param name="meta">映射信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Common.MySqlSQLBuilder.BuildUpdateSql(XDbAccess.Common.MapInfo,System.Boolean,System.String,System.String)">
+            <summary>
+            构造UPDATE语句
+            </summary>
+            <param name="meta">映射信息</param>
+            <param name="isUpdateByPrimaryKey">是否以主键作为条件进行更新</param>
+            <param name="sqlConditionPart">WHERE部分的SQL，当isUpdateByPrimaryKey=false时有效</param>
+            <param name="valuePropertyPrefix">为了避免与WHERE部分的参数有相同名称冲突，在SET部分的参数所添加的前缀，当isUpdateByPrimaryKey=false时有效</param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Common.MySqlSQLBuilder.BuidlPagedQuerySql(XDbAccess.Common.PagedQueryOptions)">
+            <summary>
+            构造分页查询语句
+            </summary>
+            <param name="options">分页查询参数</param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Common.MySqlSQLBuilder.BuildQueryCountSql(System.String,System.String)">
+            <summary>
+            构造SELECT COUNT语句
+            </summary>
+            <param name="sqlFromPart">FROM部分的SQL</param>
+            <param name="sqlConditionPart">WHERE部分的SQL</param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Common.MySqlSQLBuilder.BuildReplaceSql(XDbAccess.Common.MapInfo)">
+            <summary>
+            构造REPLACE语句
+            </summary>
+            <param name="meta">映射信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Common.MySqlSQLBuilder.BuildSelectSql(XDbAccess.Common.MapInfo,System.Boolean,System.String,System.String)">
+            <summary>
+            构造SELECT语句
+            </summary>
+            <param name="meta">映射信息</param>
+            <param name="isBuildFullSql">是否构造完整的SQL，如果为false则只构造SELECT部分的语句</param>
+            <param name="sqlConditionPart">WHERE部分的SQL</param>
+            <param name="sqlOrderByPart">ORDER部分的SQL</param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Common.MySqlSQLBuilder.BuildDeleteSql(XDbAccess.Common.MapInfo,System.Boolean,System.String)">
+            <summary>
+            构造DELETE语句
+            </summary>
+            <param name="meta">映射信息</param>
+            <param name="isDeleteByPrimaryKey">是否以主键作为条件进行删除</param>
+            <param name="sqlConditionPart">WHERE部分的SQL，当isDeleteByPrimaryKey=false时有效</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

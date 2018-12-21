@@ -11,15 +11,26 @@ using XDbAccess.AutoTrans;
 
 namespace XDbAccess.MSSql
 {
+    /// <summary>
+    /// MSSQL工厂
+    /// </summary>
     public class MSSqlDbFactory : IDbFactory
     {
         private string _ConnectionString;
 
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="connectionString"></param>
         public MSSqlDbFactory(string connectionString)
         {
             _ConnectionString = connectionString;
         }
 
+        /// <summary>
+        /// 创建连接对象
+        /// </summary>
+        /// <returns></returns>
         public IDbConnection CreateConnection()
         {
             return new SqlConnection(_ConnectionString);

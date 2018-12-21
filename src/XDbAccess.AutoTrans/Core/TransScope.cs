@@ -33,8 +33,20 @@ namespace XDbAccess.AutoTrans
 
         private string _ConnectionId;
 
+        /// <summary>
+        /// Disposed事件
+        /// </summary>
         public event EventHandler OnDisposed;
 
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="conn"></param>
+        /// <param name="parent"></param>
+        /// <param name="il"></param>
+        /// <param name="option"></param>
+        /// <param name="loggerFactory"></param>
+        /// <param name="connectionId"></param>
         public TransScope(IDbConnection conn, TransScope parent, IsolationLevel il = IsolationLevel.ReadCommitted, TransScopeOption option = TransScopeOption.Required, ILoggerFactory loggerFactory = null, string connectionId = null)
         {
             if (loggerFactory != null)
@@ -62,18 +74,30 @@ namespace XDbAccess.AutoTrans
             _IsolationLevel = il;
         }
 
+        /// <summary>
+        /// 唯一标识
+        /// </summary>
         public string Guid { get; }
 
+        /// <summary>
+        /// 父级TransScope对象
+        /// </summary>
         public TransScope Parent
         {
             get;
         }
 
+        /// <summary>
+        /// TransScope参数
+        /// </summary>
         public TransScopeOption Option
         {
             get;
         }
 
+        /// <summary>
+        /// TransScope状态
+        /// </summary>
         public TransScopeState State
         {
             get
@@ -82,6 +106,9 @@ namespace XDbAccess.AutoTrans
             }
         }
 
+        /// <summary>
+        /// 数据库事务对象
+        /// </summary>
         public IDbTransaction Trans
         {
             get
@@ -90,6 +117,9 @@ namespace XDbAccess.AutoTrans
             }
         }
 
+        /// <summary>
+        /// 开启事务
+        /// </summary>
         public void Begin()
         {
             if (_State == TransScopeState.Init)
@@ -104,6 +134,9 @@ namespace XDbAccess.AutoTrans
             }
         }
 
+        /// <summary>
+        /// 提交事务
+        /// </summary>
         public void Commit()
         {
             if ((Option == TransScopeOption.RequireNew || Parent == null) && State == TransScopeState.Begin)
@@ -114,6 +147,9 @@ namespace XDbAccess.AutoTrans
             }
         }
 
+        /// <summary>
+        /// 回滚事务
+        /// </summary>
         public void Rollback()
         {
             if ((Option == TransScopeOption.RequireNew || Parent == null) && State == TransScopeState.Begin)
@@ -129,6 +165,9 @@ namespace XDbAccess.AutoTrans
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void Dispose()
         {
             if (Option == TransScopeOption.RequireNew || Parent == null)

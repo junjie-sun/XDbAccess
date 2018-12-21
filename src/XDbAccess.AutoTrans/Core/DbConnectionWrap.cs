@@ -20,6 +20,11 @@ namespace XDbAccess.AutoTrans
 
         private ILogger _Logger;
 
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="realConnection"></param>
+        /// <param name="loggerFactory"></param>
         public DbConnectionWrap(IDbConnection realConnection, ILoggerFactory loggerFactory)
         {
             _Conn = realConnection;
@@ -30,8 +35,14 @@ namespace XDbAccess.AutoTrans
             }
         }
 
+        /// <summary>
+        /// 连接唯一Id
+        /// </summary>
         public string Guid { get; }
 
+        /// <summary>
+        /// 实际数据库连接对象
+        /// </summary>
         public IDbConnection RealConnection
         {
             get
@@ -40,8 +51,14 @@ namespace XDbAccess.AutoTrans
             }
         }
 
+        /// <summary>
+        /// 事务对象
+        /// </summary>
         public TransScope TransScope { get; set; }
 
+        /// <summary>
+        /// 连接字符串
+        /// </summary>
         public string ConnectionString
         {
             get
@@ -55,6 +72,9 @@ namespace XDbAccess.AutoTrans
             }
         }
 
+        /// <summary>
+        /// 连接超时
+        /// </summary>
         public int ConnectionTimeout
         {
             get
@@ -63,6 +83,9 @@ namespace XDbAccess.AutoTrans
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string Database
         {
             get
@@ -71,6 +94,9 @@ namespace XDbAccess.AutoTrans
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public ConnectionState State
         {
             get
@@ -79,21 +105,37 @@ namespace XDbAccess.AutoTrans
             }
         }
 
+        /// <summary>
+        /// 开启事务
+        /// </summary>
+        /// <returns></returns>
         public IDbTransaction BeginTransaction()
         {
             return _Conn.BeginTransaction();
         }
 
+        /// <summary>
+        /// 开启事务
+        /// </summary>
+        /// <param name="il"></param>
+        /// <returns></returns>
         public IDbTransaction BeginTransaction(IsolationLevel il)
         {
             return _Conn.BeginTransaction(il);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="databaseName"></param>
         public void ChangeDatabase(string databaseName)
         {
             _Conn.ChangeDatabase(databaseName);
         }
 
+        /// <summary>
+        /// 关闭连接 
+        /// </summary>
         public void Close()
         {
             if (TransScope == null)
@@ -103,11 +145,18 @@ namespace XDbAccess.AutoTrans
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public IDbCommand CreateCommand()
         {
             return _Conn.CreateCommand();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void Dispose()
         {
             if (TransScope == null)
@@ -117,6 +166,9 @@ namespace XDbAccess.AutoTrans
             }
         }
 
+        /// <summary>
+        /// 打开连接
+        /// </summary>
         public void Open()
         {
             if (State == ConnectionState.Closed)
@@ -126,6 +178,10 @@ namespace XDbAccess.AutoTrans
             }
         }
 
+        /// <summary>
+        /// 打开连接
+        /// </summary>
+        /// <returns></returns>
         public async Task OpenAsync()
         {
             if (State == ConnectionState.Closed)

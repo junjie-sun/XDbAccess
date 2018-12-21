@@ -8,12 +8,34 @@ using System.Threading.Tasks;
 
 namespace XDbAccess.AutoTrans
 {
+    /// <summary>
+    /// TransScope状态
+    /// </summary>
     public enum TransScopeState
     {
+        /// <summary>
+        /// 初始
+        /// </summary>
         Init,
+
+        /// <summary>
+        /// 事务开启
+        /// </summary>
         Begin,
+
+        /// <summary>
+        /// 事务提交
+        /// </summary>
         Commit,
+
+        /// <summary>
+        /// 事务回滚
+        /// </summary>
         Rollback,
+
+        /// <summary>
+        /// 已释放
+        /// </summary>
         Dispose
     }
 }

@@ -7,10 +7,18 @@ using System.Reflection;
 
 namespace XDbAccess.Common
 {
+    /// <summary>
+    /// 数据库映射解析器
+    /// </summary>
     public static class MapParser
     {
         private static IDictionary<Type, MapInfo> _MetaInfoContainer = new Dictionary<Type, MapInfo>();
 
+        /// <summary>
+        /// 获取映射信息
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public static MapInfo GetMapMetaInfo(Type type)
         {
             if (!_MetaInfoContainer.ContainsKey(type))

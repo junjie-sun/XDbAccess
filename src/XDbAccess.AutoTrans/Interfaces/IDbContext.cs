@@ -15,6 +15,9 @@ namespace XDbAccess.AutoTrans
     /// </summary>
     public interface IDbContext
     {
+        /// <summary>
+        /// 日志工厂
+        /// </summary>
         ILoggerFactory LoggerFactory { get; }
 
         /// <summary>
@@ -35,7 +38,7 @@ namespace XDbAccess.AutoTrans
         Task<DbConnectionWrap> GetOpenedConnectionAsync();
 
         /// <summary>
-        /// 开启事务范围
+        /// 开启事务
         /// </summary>
         /// <param name="option"></param>
         /// <param name="il"></param>

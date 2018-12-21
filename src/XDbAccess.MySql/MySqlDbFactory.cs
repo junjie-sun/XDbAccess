@@ -11,15 +11,26 @@ using XDbAccess.AutoTrans;
 
 namespace XDbAccess.MySql
 {
+    /// <summary>
+    /// MYSQL工厂
+    /// </summary>
     public class MySqlDbFactory : IDbFactory
     {
         private string _ConnectionString;
 
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="connectionString"></param>
         public MySqlDbFactory(string connectionString)
         {
             _ConnectionString = connectionString;
         }
 
+        /// <summary>
+        /// 创建连接对象
+        /// </summary>
+        /// <returns></returns>
         public IDbConnection CreateConnection()
         {
             return new MySqlConnection(_ConnectionString);

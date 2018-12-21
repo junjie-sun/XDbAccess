@@ -10,14 +10,29 @@ using XDbAccess.AutoTrans;
 
 namespace XDbAccess.Dapper
 {
+    /// <summary>
+    /// DbHelper扩展类
+    /// </summary>
     public static class DbHelperServiceCollectionExtensions
     {
+        /// <summary>
+        /// 添加MSSqlHepler
+        /// </summary>
+        /// <typeparam name="DbContextImpl"></typeparam>
+        /// <param name="serviceCollection"></param>
+        /// <returns></returns>
         public static IServiceCollection AddMSSqlDbHepler<DbContextImpl>(this IServiceCollection serviceCollection) where DbContextImpl : IDbContext
         {
             serviceCollection.AddSingleton<IDbHelper<DbContextImpl>, MSSqlDbHelper<DbContextImpl>>();
             return serviceCollection;
         }
 
+        /// <summary>
+        /// 添加MySqlHepler
+        /// </summary>
+        /// <typeparam name="DbContextImpl"></typeparam>
+        /// <param name="serviceCollection"></param>
+        /// <returns></returns>
         public static IServiceCollection AddMySqlDbHepler<DbContextImpl>(this IServiceCollection serviceCollection) where DbContextImpl : IDbContext
         {
             serviceCollection.AddSingleton<IDbHelper<DbContextImpl>, MySqlDbHelper<DbContextImpl>>();

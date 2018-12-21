@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>XDbAccess.MSSql</name>
+    </assembly>
+    <members>
+        <member name="T:XDbAccess.MSSql.MSSqlDbFactory">
+            <summary>
+            MSSQL工厂
+            </summary>
+        </member>
+        <member name="M:XDbAccess.MSSql.MSSqlDbFactory.#ctor(System.String)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="connectionString"></param>
+        </member>
+        <member name="M:XDbAccess.MSSql.MSSqlDbFactory.CreateConnection">
+            <summary>
+            创建连接对象
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:XDbAccess.MSSql.SqlServerDbContextOptionsExtensions">
+            <summary>
+            MSSQL扩展类
+            </summary>
+        </member>
+        <member name="M:XDbAccess.MSSql.SqlServerDbContextOptionsExtensions.UseSqlServer(XDbAccess.AutoTrans.DbContextOptionsBuilder,System.String)">
+            <summary>
+            为DbContext配置数据库为MSSQL
+            </summary>
+            <param name="optionsBuilder"></param>
+            <param name="connectionString"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

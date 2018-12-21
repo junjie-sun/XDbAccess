@@ -15,12 +15,20 @@ using XDbAccess.Common;
 
 namespace XDbAccess.Dapper
 {
+    /// <summary>
+    /// DbHelper
+    /// </summary>
+    /// <typeparam name="DbContextImpl"></typeparam>
     public abstract class DbHelper<DbContextImpl> : IDbHelper<DbContextImpl> where DbContextImpl : IDbContext
     {
         private ConcurrentDictionary<Type, PropertyInfo[]> typeProperties = new ConcurrentDictionary<Type, PropertyInfo[]>();
 
         private ILogger logger;
 
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="dbContext"></param>
         public DbHelper(DbContextImpl dbContext)
         {
             DbContext = dbContext;
@@ -30,12 +38,26 @@ namespace XDbAccess.Dapper
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected IDbContext DbContext { get; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected abstract ISQLBuilder SQLBuilder { get; }
 
         #region Dapper接口封装
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="commandType"></param>
+        /// <returns></returns>
         public virtual int Execute(string sql, object param = null, int? commandTimeout = default(int?), CommandType? commandType = default(CommandType?))
         {
             using (var conn = DbContext.GetOpenedConnection())
@@ -45,6 +67,14 @@ namespace XDbAccess.Dapper
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="commandType"></param>
+        /// <returns></returns>
         public virtual async Task<int> ExecuteAsync(string sql, object param = null, int? commandTimeout = default(int?), CommandType? commandType = default(CommandType?))
         {
             using (var conn = await DbContext.GetOpenedConnectionAsync())
@@ -54,6 +84,14 @@ namespace XDbAccess.Dapper
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="commandType"></param>
+        /// <returns></returns>
         public virtual IDataReader ExecuteReader(string sql, object param = null, int? commandTimeout = default(int?), CommandType? commandType = default(CommandType?))
         {
             var conn = DbContext.GetOpenedConnection();
@@ -62,6 +100,14 @@ namespace XDbAccess.Dapper
             return new DataReaderWrap(reader, conn);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="commandType"></param>
+        /// <returns></returns>
         public virtual async Task<IDataReader> ExecuteReaderAsync(string sql, object param = null, int? commandTimeout = default(int?), CommandType? commandType = default(CommandType?))
         {
             var conn = await DbContext.GetOpenedConnectionAsync();
@@ -70,6 +116,14 @@ namespace XDbAccess.Dapper
             return new DataReaderWrap(reader, conn);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="commandType"></param>
+        /// <returns></returns>
         public virtual object ExecuteScalar(string sql, object param = null, int? commandTimeout = default(int?), CommandType? commandType = default(CommandType?))
         {
             using (var conn = DbContext.GetOpenedConnection())
@@ -79,6 +133,15 @@ namespace XDbAccess.Dapper
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="commandType"></param>
+        /// <returns></returns>
         public virtual T ExecuteScalar<T>(string sql, object param = null, int? commandTimeout = default(int?), CommandType? commandType = default(CommandType?))
         {
             using (var conn = DbContext.GetOpenedConnection())
@@ -88,6 +151,14 @@ namespace XDbAccess.Dapper
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="commandType"></param>
+        /// <returns></returns>
         public virtual async Task<object> ExecuteScalarAsync(string sql, object param = null, int? commandTimeout = default(int?), CommandType? commandType = default(CommandType?))
         {
             using (var conn = await DbContext.GetOpenedConnectionAsync())
@@ -97,6 +168,15 @@ namespace XDbAccess.Dapper
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="commandType"></param>
+        /// <returns></returns>
         public virtual async Task<T> ExecuteScalarAsync<T>(string sql, object param = null, int? commandTimeout = default(int?), CommandType? commandType = default(CommandType?))
         {
             using (var conn = await DbContext.GetOpenedConnectionAsync())
@@ -106,6 +186,15 @@ namespace XDbAccess.Dapper
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <param name="buffered"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="commandType"></param>
+        /// <returns></returns>
         public virtual IEnumerable<dynamic> Query(string sql, object param = null, bool buffered = true, int? commandTimeout = default(int?), CommandType? commandType = default(CommandType?))
         {
             using (var conn = DbContext.GetOpenedConnection())
@@ -115,6 +204,16 @@ namespace XDbAccess.Dapper
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <param name="buffered"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="commandType"></param>
+        /// <returns></returns>
         public virtual IEnumerable<T> Query<T>(string sql, object param = null, bool buffered = true, int? commandTimeout = default(int?), CommandType? commandType = default(CommandType?))
         {
             using (var conn = DbContext.GetOpenedConnection())
@@ -124,6 +223,14 @@ namespace XDbAccess.Dapper
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="commandType"></param>
+        /// <returns></returns>
         public virtual async Task<IEnumerable<dynamic>> QueryAsync(string sql, object param = null, int? commandTimeout = default(int?), CommandType? commandType = default(CommandType?))
         {
             using (var conn = await DbContext.GetOpenedConnectionAsync())
@@ -133,6 +240,15 @@ namespace XDbAccess.Dapper
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="commandType"></param>
+        /// <returns></returns>
         public virtual async Task<IEnumerable<T>> QueryAsync<T>(string sql, object param = null, int? commandTimeout = default(int?), CommandType? commandType = default(CommandType?))
         {
             using (var conn = await DbContext.GetOpenedConnectionAsync())
@@ -142,6 +258,14 @@ namespace XDbAccess.Dapper
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="commandType"></param>
+        /// <returns></returns>
         public virtual dynamic QueryFirst(string sql, object param = null, int? commandTimeout = default(int?), CommandType? commandType = default(CommandType?))
         {
             using (var conn = DbContext.GetOpenedConnection())
@@ -151,6 +275,15 @@ namespace XDbAccess.Dapper
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="commandType"></param>
+        /// <returns></returns>
         public virtual T QueryFirst<T>(string sql, object param = null, int? commandTimeout = default(int?), CommandType? commandType = default(CommandType?))
         {
             using (var conn = DbContext.GetOpenedConnection())
@@ -160,6 +293,15 @@ namespace XDbAccess.Dapper
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="commandType"></param>
+        /// <returns></returns>
         public virtual async Task<object> QueryFirstAsync(Type type, string sql, object param = null, int? commandTimeout = default(int?), CommandType? commandType = default(CommandType?))
         {
             using (var conn = await DbContext.GetOpenedConnectionAsync())
@@ -169,6 +311,15 @@ namespace XDbAccess.Dapper
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="commandType"></param>
+        /// <returns></returns>
         public virtual async Task<T> QueryFirstAsync<T>(string sql, object param = null, int? commandTimeout = default(int?), CommandType? commandType = default(CommandType?))
         {
             using (var conn = await DbContext.GetOpenedConnectionAsync())
@@ -178,6 +329,14 @@ namespace XDbAccess.Dapper
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="commandType"></param>
+        /// <returns></returns>
         public virtual dynamic QueryFirstOrDefault(string sql, object param = null, int? commandTimeout = default(int?), CommandType? commandType = default(CommandType?))
         {
             using (var conn = DbContext.GetOpenedConnection())
@@ -187,6 +346,15 @@ namespace XDbAccess.Dapper
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="commandType"></param>
+        /// <returns></returns>
         public virtual T QueryFirstOrDefault<T>(string sql, object param = null, int? commandTimeout = default(int?), CommandType? commandType = default(CommandType?))
         {
             using (var conn = DbContext.GetOpenedConnection())
@@ -196,6 +364,15 @@ namespace XDbAccess.Dapper
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="commandType"></param>
+        /// <returns></returns>
         public virtual async Task<T> QueryFirstOrDefaultAsync<T>(string sql, object param = null, int? commandTimeout = default(int?), CommandType? commandType = default(CommandType?))
         {
             using (var conn = await DbContext.GetOpenedConnectionAsync())
@@ -205,6 +382,14 @@ namespace XDbAccess.Dapper
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="commandType"></param>
+        /// <returns></returns>
         public virtual GridReaderWrap QueryMultiple(string sql, object param = null, int? commandTimeout = default(int?), CommandType? commandType = default(CommandType?))
         {
             var conn = DbContext.GetOpenedConnection();
@@ -213,6 +398,14 @@ namespace XDbAccess.Dapper
             return new GridReaderWrap(reader, conn);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="commandType"></param>
+        /// <returns></returns>
         public virtual async Task<GridReaderWrap> QueryMultipleAsync(string sql, object param = null, int? commandTimeout = default(int?), CommandType? commandType = default(CommandType?))
         {
             var conn = await DbContext.GetOpenedConnectionAsync();
@@ -221,6 +414,14 @@ namespace XDbAccess.Dapper
             return new GridReaderWrap(reader, conn);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="commandType"></param>
+        /// <returns></returns>
         public virtual dynamic QuerySingle(string sql, object param = null, int? commandTimeout = default(int?), CommandType? commandType = default(CommandType?))
         {
             using (var conn = DbContext.GetOpenedConnection())
@@ -230,6 +431,15 @@ namespace XDbAccess.Dapper
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="commandType"></param>
+        /// <returns></returns>
         public virtual T QuerySingle<T>(string sql, object param = null, int? commandTimeout = default(int?), CommandType? commandType = default(CommandType?))
         {
             using (var conn = DbContext.GetOpenedConnection())
@@ -239,6 +449,15 @@ namespace XDbAccess.Dapper
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="commandType"></param>
+        /// <returns></returns>
         public virtual async Task<T> QuerySingleAsync<T>(string sql, object param = null, int? commandTimeout = default(int?), CommandType? commandType = default(CommandType?))
         {
             using (var conn = await DbContext.GetOpenedConnectionAsync())
@@ -248,6 +467,14 @@ namespace XDbAccess.Dapper
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="commandType"></param>
+        /// <returns></returns>
         public virtual dynamic QuerySingleOrDefault(string sql, object param = null, int? commandTimeout = default(int?), CommandType? commandType = default(CommandType?))
         {
             using (var conn = DbContext.GetOpenedConnection())
@@ -257,6 +484,15 @@ namespace XDbAccess.Dapper
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="commandType"></param>
+        /// <returns></returns>
         public virtual T QuerySingleOrDefault<T>(string sql, object param = null, int? commandTimeout = default(int?), CommandType? commandType = default(CommandType?))
         {
             using (var conn = DbContext.GetOpenedConnection())
@@ -266,6 +502,15 @@ namespace XDbAccess.Dapper
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="commandType"></param>
+        /// <returns></returns>
         public virtual async Task<object> QuerySingleOrDefaultAsync(Type type, string sql, object param = null, int? commandTimeout = default(int?), CommandType? commandType = default(CommandType?))
         {
             using (var conn = await DbContext.GetOpenedConnectionAsync())
@@ -275,6 +520,15 @@ namespace XDbAccess.Dapper
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="commandType"></param>
+        /// <returns></returns>
         public virtual async Task<T> QuerySingleOrDefaultAsync<T>(string sql, object param = null, int? commandTimeout = default(int?), CommandType? commandType = default(CommandType?))
         {
             using (var conn = await DbContext.GetOpenedConnectionAsync())
@@ -288,6 +542,13 @@ namespace XDbAccess.Dapper
 
         #region 扩展接口
 
+        /// <summary>
+        /// 执行INSERT操作
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="entity">实体对象</param>
+        /// <param name="commandTimeout"></param>
+        /// <returns></returns>
         public virtual long Insert<T>(T entity, int? commandTimeout = default(int?))
         {
             var meta = MapParser.GetMapMetaInfo(typeof(T));
@@ -296,6 +557,13 @@ namespace XDbAccess.Dapper
             return this.ExecuteScalar<long>(sql, entity, commandTimeout);
         }
 
+        /// <summary>
+        /// 执行INSERT操作
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="entity">实体对象</param>
+        /// <param name="commandTimeout"></param>
+        /// <returns></returns>
         public virtual Task<long> InsertAsync<T>(T entity, int? commandTimeout = default(int?))
         {
             var meta = MapParser.GetMapMetaInfo(typeof(T));
@@ -304,6 +572,16 @@ namespace XDbAccess.Dapper
             return this.ExecuteScalarAsync<long>(sql, entity, commandTimeout);
         }
 
+        /// <summary>
+        /// 执行UPDATE操作
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="entity">实体对象</param>
+        /// <param name="isUpdateByPrimaryKey">是否以主键作为条件进行更新</param>
+        /// <param name="sqlConditionPart">WHERE部分的SQL，当isUpdateByPrimaryKey=false时有效</param>
+        /// <param name="condition">条件对象</param>
+        /// <param name="commandTimeout"></param>
+        /// <returns></returns>
         public virtual int Update<T>(T entity, bool isUpdateByPrimaryKey = true, string sqlConditionPart = null, object condition = null, int? commandTimeout = default(int?))
         {
             if (entity == null)
@@ -330,6 +608,16 @@ namespace XDbAccess.Dapper
             }
         }
 
+        /// <summary>
+        /// 执行UPDATE操作
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="entity">实体对象</param>
+        /// <param name="isUpdateByPrimaryKey">是否以主键作为条件进行更新</param>
+        /// <param name="sqlConditionPart">WHERE部分的SQL，当isUpdateByPrimaryKey=false时有效</param>
+        /// <param name="condition">条件对象</param>
+        /// <param name="commandTimeout"></param>
+        /// <returns></returns>
         public virtual Task<int> UpdateAsync<T>(T entity, bool isUpdateByPrimaryKey = true, string sqlConditionPart = null, object condition = null, int? commandTimeout = default(int?))
         {
             if (entity == null)
@@ -356,6 +644,15 @@ namespace XDbAccess.Dapper
             }
         }
 
+        /// <summary>
+        /// 执行DELETE操作
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="condition">条件对象</param>
+        /// <param name="isDeleteByPrimaryKey">是否以主键作为条件进行删除</param>
+        /// <param name="sqlConditionPart">WHERE部分的SQL，当isDeleteByPrimaryKey=false时有效</param>
+        /// <param name="commandTimeout"></param>
+        /// <returns></returns>
         public virtual int Delete<T>(object condition, bool isDeleteByPrimaryKey = true, string sqlConditionPart = null, int? commandTimeout = default(int?))
         {
             if (!isDeleteByPrimaryKey && string.IsNullOrWhiteSpace(sqlConditionPart))
@@ -368,6 +665,15 @@ namespace XDbAccess.Dapper
             return this.Execute(sql, condition, commandTimeout);
         }
 
+        /// <summary>
+        /// 执行DELETE操作
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="condition">条件对象</param>
+        /// <param name="isDeleteByPrimaryKey">是否以主键作为条件进行删除</param>
+        /// <param name="sqlConditionPart">WHERE部分的SQL，当isDeleteByPrimaryKey=false时有效</param>
+        /// <param name="commandTimeout"></param>
+        /// <returns></returns>
         public virtual Task<int> DeleteAsync<T>(object condition, bool isDeleteByPrimaryKey = true, string sqlConditionPart = null, int? commandTimeout = default(int?))
         {
             if (!isDeleteByPrimaryKey && string.IsNullOrWhiteSpace(sqlConditionPart))
@@ -380,6 +686,15 @@ namespace XDbAccess.Dapper
             return this.ExecuteAsync(sql, condition, commandTimeout);
         }
 
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="options">分页查询参数</param>
+        /// <param name="param">条件对象</param>
+        /// <param name="buffered"></param>
+        /// <param name="commandTimeout"></param>
+        /// <returns></returns>
         public virtual PagedQueryResult<T> PagedQuery<T>(PagedQueryOptions options, object param = null, bool buffered = true, int? commandTimeout = default(int?))
         {
             PagedQueryResult<T> result = new PagedQueryResult<T>();
@@ -399,6 +714,14 @@ namespace XDbAccess.Dapper
             return result;
         }
 
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="options">分页查询参数</param>
+        /// <param name="param">条件对象</param>
+        /// <param name="commandTimeout"></param>
+        /// <returns></returns>
         public virtual async Task<PagedQueryResult<T>> PagedQueryAsync<T>(PagedQueryOptions options, object param = null, int? commandTimeout = default(int?))
         {
             PagedQueryResult<T> result = new PagedQueryResult<T>();
@@ -419,6 +742,16 @@ namespace XDbAccess.Dapper
             return result;
         }
 
+        /// <summary>
+        /// 单表查询
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sqlConditionPart">WHERE部分的SQL</param>
+        /// <param name="condition">条件对象</param>
+        /// <param name="sqlOrderByPart">ORDER部分的SQL</param>
+        /// <param name="buffered"></param>
+        /// <param name="commandTimeout"></param>
+        /// <returns></returns>
         public virtual IEnumerable<T> QuerySingleTable<T>(string sqlConditionPart = null, object condition = null, string sqlOrderByPart = null, bool buffered = true, int? commandTimeout = default(int?))
         {
             var meta = MapParser.GetMapMetaInfo(typeof(T));
@@ -430,6 +763,15 @@ namespace XDbAccess.Dapper
             return this.Query<T>(sql, condition, buffered, commandTimeout);
         }
 
+        /// <summary>
+        /// 单表查询
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sqlConditionPart">WHERE部分的SQL</param>
+        /// <param name="condition">条件对象</param>
+        /// <param name="sqlOrderByPart">ORDER部分的SQL</param>
+        /// <param name="commandTimeout"></param>
+        /// <returns></returns>
         public virtual Task<IEnumerable<T>> QuerySingleTableAsync<T>(string sqlConditionPart = null, object condition = null, string sqlOrderByPart = null, int? commandTimeout = default(int?))
         {
             var meta = MapParser.GetMapMetaInfo(typeof(T));

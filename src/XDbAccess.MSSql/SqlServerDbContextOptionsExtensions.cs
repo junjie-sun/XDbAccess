@@ -9,8 +9,17 @@ using XDbAccess.AutoTrans;
 
 namespace XDbAccess.MSSql
 {
+    /// <summary>
+    /// MSSQL扩展类
+    /// </summary>
     public static class SqlServerDbContextOptionsExtensions
     {
+        /// <summary>
+        /// 为DbContext配置数据库为MSSQL
+        /// </summary>
+        /// <param name="optionsBuilder"></param>
+        /// <param name="connectionString"></param>
+        /// <returns></returns>
         public static DbContextOptionsBuilder UseSqlServer(this DbContextOptionsBuilder optionsBuilder, string connectionString)
         {
             optionsBuilder.Options.ConnectionString = connectionString;

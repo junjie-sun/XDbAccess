@@ -9,8 +9,17 @@ using XDbAccess.AutoTrans;
 
 namespace XDbAccess.MySql
 {
+    /// <summary>
+    /// MYSQL扩展类
+    /// </summary>
     public static class MySqlDbContextOptionsExtensions
     {
+        /// <summary>
+        /// 为DbContext配置数据库为MYSQL
+        /// </summary>
+        /// <param name="optionsBuilder"></param>
+        /// <param name="connectionString"></param>
+        /// <returns></returns>
         public static DbContextOptionsBuilder UseMySql(this DbContextOptionsBuilder optionsBuilder, string connectionString)
         {
             optionsBuilder.Options.ConnectionString = connectionString;
