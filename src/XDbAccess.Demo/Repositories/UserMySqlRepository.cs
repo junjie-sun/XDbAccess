@@ -24,13 +24,16 @@ namespace XDbAccess.Demo.Repositories
 
         public async Task<List<User>> AllUsersAsync(string name)
         {
-            IEnumerable<User> data;
-            string sql = "select * from `user` where 1=1";
-            if (!string.IsNullOrWhiteSpace(name))
-            {
-                sql += " and Name like @Name";
-            }
-            data = await DbHelper.QueryAsync<User>(sql, new { Name = "%" + name + "%" });
+            //IEnumerable<User> data;
+            //string sql = "select * from `user` where 1=1";
+            //if (!string.IsNullOrWhiteSpace(name))
+            //{
+            //    sql += " and Name like @Name";
+            //}
+            //data = await DbHelper.QueryAsync<User>(sql, new { Name = "%" + name + "%" });
+            //return data.ToList();
+
+            var data = await DbHelper.QuerySingleTableAsync<User>("name like @Name", new { Name = "%" + name + "%" });
             return data.ToList();
         }
 
@@ -55,10 +58,11 @@ namespace XDbAccess.Demo.Repositories
             });
         }
 
-        public async Task<int> DeleteUserAsync(int id)
+        public Task<int> DeleteUserAsync(int id)
         {
-            string sql = "delete from `user` where Id=@Id";
-            return await DbHelper.ExecuteAsync(sql, new { Id = id });
+            //string sql = "delete from `user` where Id=@Id";
+            //return await DbHelper.ExecuteAsync(sql, new { Id = id });
+            return DbHelper.DeleteAsync<User>(new { Id = id });
         }
 
         public async Task InsertUserEntityAsync(User user)
