@@ -187,10 +187,10 @@ namespace XDbAccess.Common
 
             var sql = string.Format(@"SELECT * FROM (
                     SELECT {0},ROW_NUMBER() OVER(ORDER BY {1}) AS RowNumber FROM {2}
-                    WHERE 1=1 {3}
+                    WHERE {3}
                 ) as pageTable where RowNumber>={4} and RowNumber<={5};",
                 options.SqlFieldsPart, options.SqlOrderPart, options.SqlFromPart,
-                string.IsNullOrEmpty(options.SqlConditionPart) ? string.Empty : "AND " + options.SqlConditionPart, pageStartIndex, pageEndIndex);
+                options.SqlConditionPart, pageStartIndex, pageEndIndex);
 
             return sql;
         }
@@ -208,8 +208,8 @@ namespace XDbAccess.Common
                 throw new ArgumentNullException("Need to specify sqlFromPart");
             }
 
-            var sql = string.Format(" SELECT COUNT(1) FROM {0} where 1=1 {1}  ;"
-                , sqlFromPart, string.IsNullOrEmpty(sqlConditionPart) ? string.Empty : "AND " + sqlConditionPart);
+            var sql = string.Format(" SELECT COUNT(1) FROM {0} where {1};"
+                , sqlFromPart, sqlConditionPart);
 
             return sql;
         }

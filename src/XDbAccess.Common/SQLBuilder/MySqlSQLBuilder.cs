@@ -185,8 +185,8 @@ namespace XDbAccess.Common
             int pageStartIndex = options.PageSize * options.PageIndex;
             int currentPageCount = options.PageSize;
 
-            var sql = string.Format(@"SELECT {0} FROM {1} WHERE 1=1 {2} {3} LIMIT {4},{5};",
-                options.SqlFieldsPart, options.SqlFromPart, string.IsNullOrEmpty(options.SqlConditionPart) ? string.Empty : "AND " + options.SqlConditionPart,
+            var sql = string.Format(@"SELECT {0} FROM {1} WHERE {2} {3} LIMIT {4},{5};",
+                options.SqlFieldsPart, options.SqlFromPart, options.SqlConditionPart,
                 string.IsNullOrEmpty(options.SqlOrderPart) ? string.Empty : "ORDER BY " + options.SqlOrderPart, pageStartIndex, currentPageCount);
 
             return sql;
@@ -205,8 +205,8 @@ namespace XDbAccess.Common
                 throw new ArgumentNullException("Need to specify sqlFromPart");
             }
 
-            var sql = string.Format(" SELECT COUNT(1) FROM {0} where 1=1 {1}  ;"
-                , sqlFromPart, string.IsNullOrEmpty(sqlConditionPart) ? string.Empty : "AND " + sqlConditionPart);
+            var sql = string.Format(" SELECT COUNT(1) FROM {0} where {1};"
+                , sqlFromPart, sqlConditionPart);
 
             return sql;
         }

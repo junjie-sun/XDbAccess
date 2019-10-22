@@ -124,3 +124,9 @@ XDbAccess.MySql
 完善注释
 
 --------------------------------------------------------------------------------
+
+2019-10-23
+XDbAccess Tag：1.3.2
+
+XDbAccess.Common
+MSSqlSQLBuilder和MySqlSQLBuilder类的BuidlPagedQuerySql与BuildQueryCountSql方法优化Where子句的生成逻辑
