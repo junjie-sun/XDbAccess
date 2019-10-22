@@ -157,6 +157,11 @@
             示例：[Field1],[Field2] desc
             </summary>
         </member>
+        <member name="P:XDbAccess.Common.PagedQueryOptions.AlwayQueryCount">
+            <summary>
+            是否每次都查询记录总数
+            </summary>
+        </member>
         <member name="T:XDbAccess.Common.PagedQueryResult`1">
             <summary>
             分页查询结果

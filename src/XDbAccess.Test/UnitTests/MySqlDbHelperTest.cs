@@ -1219,6 +1219,37 @@ namespace XDbAccess.Test.UnitTests
             var user = result.Data[1];
             Assert.Equal("PagedQueryUser5", user.Name);
             Assert.Equal("PagedQueryOrg", user.OrgName);
+
+            //测试第2页
+            result = DbHelper.PagedQuery<OrgUser>(new PagedQueryOptions()
+            {
+                PageIndex = 1,
+                PageSize = 3,
+                SqlFromPart = "`org` o join `user` u on o.Id=u.OrgId",
+                SqlFieldsPart = "u.*,o.Name OrgName",
+                SqlConditionPart = "u.Id > @UserId",
+                SqlOrderPart = "u.Id"
+            }, new { UserId = 3 });
+            Assert.Equal(0, result.Total);
+            user = result.Data[1];
+            Assert.Equal("PagedQueryUser8", user.Name);
+            Assert.Equal("PagedQueryOrg", user.OrgName);
+
+            //测试第2页及AlwayQueryCount
+            result = DbHelper.PagedQuery<OrgUser>(new PagedQueryOptions()
+            {
+                PageIndex = 1,
+                PageSize = 3,
+                SqlFromPart = "`org` o join `user` u on o.Id=u.OrgId",
+                SqlFieldsPart = "u.*,o.Name OrgName",
+                SqlConditionPart = "u.Id > @UserId",
+                SqlOrderPart = "u.Id",
+                AlwayQueryCount = true
+            }, new { UserId = 3 });
+            Assert.Equal(17, result.Total);
+            user = result.Data[1];
+            Assert.Equal("PagedQueryUser8", user.Name);
+            Assert.Equal("PagedQueryOrg", user.OrgName);
         }
 
         [Fact]
@@ -1258,6 +1289,37 @@ namespace XDbAccess.Test.UnitTests
             Assert.Equal(17, result.Total);
             var user = result.Data[1];
             Assert.Equal("PagedQueryAsyncUser5", user.Name);
+            Assert.Equal("PagedQueryAsyncOrg", user.OrgName);
+
+            //测试第2页
+            result = await DbHelper.PagedQueryAsync<OrgUser>(new PagedQueryOptions()
+            {
+                PageIndex = 1,
+                PageSize = 3,
+                SqlFromPart = "`org` o join `user` u on o.Id=u.OrgId",
+                SqlFieldsPart = "u.*,o.Name OrgName",
+                SqlConditionPart = "u.Id > @UserId",
+                SqlOrderPart = "u.Id"
+            }, new { UserId = 3 });
+            Assert.Equal(0, result.Total);
+            user = result.Data[1];
+            Assert.Equal("PagedQueryAsyncUser8", user.Name);
+            Assert.Equal("PagedQueryAsyncOrg", user.OrgName);
+
+            //测试第2页及AlwayQueryCount
+            result = await DbHelper.PagedQueryAsync<OrgUser>(new PagedQueryOptions()
+            {
+                PageIndex = 1,
+                PageSize = 3,
+                SqlFromPart = "`org` o join `user` u on o.Id=u.OrgId",
+                SqlFieldsPart = "u.*,o.Name OrgName",
+                SqlConditionPart = "u.Id > @UserId",
+                SqlOrderPart = "u.Id",
+                AlwayQueryCount = true
+            }, new { UserId = 3 });
+            Assert.Equal(17, result.Total);
+            user = result.Data[1];
+            Assert.Equal("PagedQueryAsyncUser8", user.Name);
             Assert.Equal("PagedQueryAsyncOrg", user.OrgName);
         }
 

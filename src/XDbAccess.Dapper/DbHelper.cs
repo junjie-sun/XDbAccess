@@ -701,7 +701,7 @@ namespace XDbAccess.Dapper
             result.PageIndex = options.PageIndex;
             result.PageSize = options.PageSize;
 
-            if (options.PageIndex == 0)
+            if (options.PageIndex == 0 || options.AlwayQueryCount)
             {
                 var countSql = SQLBuilder.BuildQueryCountSql(options.SqlFromPart, options.SqlConditionPart);
                 result.Total = this.ExecuteScalar<long>(countSql, param, commandTimeout);
@@ -728,7 +728,7 @@ namespace XDbAccess.Dapper
             result.PageIndex = options.PageIndex;
             result.PageSize = options.PageSize;
 
-            if (options.PageIndex == 0)
+            if (options.PageIndex == 0 || options.AlwayQueryCount)
             {
                 var countSql = SQLBuilder.BuildQueryCountSql(options.SqlFromPart, options.SqlConditionPart);
                 result.Total = await this.ExecuteScalarAsync<long>(countSql, param, commandTimeout);

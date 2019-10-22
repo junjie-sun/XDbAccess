@@ -46,5 +46,10 @@ namespace XDbAccess.Common
         /// 示例：[Field1],[Field2] desc
         /// </summary>
         public string SqlOrderPart { get; set; }
+
+        /// <summary>
+        /// 是否每次都查询记录总数
+        /// </summary>
+        public bool AlwayQueryCount { get; set; } = false;
     }
 }
