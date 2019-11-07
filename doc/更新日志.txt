@@ -134,3 +134,14 @@ PagedQueryOptions类增加AlwayQueryCount属性
 
 XDbAccess.Dapper
 DbHelper类的PagedQuery方法根据新增的AlwayQueryCount属性进行相应修改
+
+--------------------------------------------------------------------------------
+
+2019-11-7
+XDbAccess Tag：1.5.0
+
+XDbAccess.Common
+MSSqlSQLBuilder和MySqlSQLBuilder类的BuildInsertSql方法增加是否生成返回Identity的参数
+
+XDbAccess.Dapper
+DbHelper类增加BatchInsert、BatchUpdate、BatchDelete方法

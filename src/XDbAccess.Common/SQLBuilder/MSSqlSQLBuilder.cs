@@ -17,8 +17,9 @@ namespace XDbAccess.Common
         /// 构造INSERT语句
         /// </summary>
         /// <param name="meta">映射信息</param>
+        /// <param name="isBuildIdentitySql">是否生成查询自动生成ID的SQL</param>
         /// <returns></returns>
-        public string BuildInsertSql(MapInfo meta)
+        public string BuildInsertSql(MapInfo meta, bool isBuildIdentitySql = true)
         {
             if (meta == null || meta.Fields.Count == 0)
             {
@@ -76,15 +77,18 @@ namespace XDbAccess.Common
 
             sqlBuilder.Append(");");
 
-            if (meta.HasIdentity)
+            if (isBuildIdentitySql)
             {
-                sqlBuilder.Append(" SELECT CAST(SCOPE_IDENTITY() AS bigint) as Id;");
+                if (meta.HasIdentity)
+                {
+                    sqlBuilder.Append(" SELECT CAST(SCOPE_IDENTITY() AS bigint) as Id;");
 
-            }
-            else
-            {
-                sqlBuilder.Append(" SELECT  CAST(0 AS bigint) as Id;");
+                }
+                else
+                {
+                    sqlBuilder.Append(" SELECT  CAST(0 AS bigint) as Id;");
 
+                }
             }
 
             return sqlBuilder.ToString();

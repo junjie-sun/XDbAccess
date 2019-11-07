@@ -14,8 +14,9 @@ namespace XDbAccess.Common
         /// 构造INSERT语句
         /// </summary>
         /// <param name="meta">映射信息</param>
+        /// <param name="isBuildIdentitySql">是否生成查询自动生成ID的SQL</param>
         /// <returns></returns>
-        string BuildInsertSql(MapInfo meta);
+        string BuildInsertSql(MapInfo meta, bool isBuildIdentitySql = true);
 
         /// <summary>
         /// 构造UPDATE语句

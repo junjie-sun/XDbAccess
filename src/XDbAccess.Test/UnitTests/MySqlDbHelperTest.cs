@@ -15,6 +15,7 @@ namespace XDbAccess.Test.UnitTests
         public MySqlDbHelperTest()
         {
             var connectionString = "server=localhost;database=dappertemp;uid=dapperadmin;pwd=123456;SslMode=none";
+            //var connectionString = "server=localhost;database=dappertemp;uid=root;pwd=123456;SslMode=none";
             DbContext = new DbContext(new DbContextOptions()
             {
                 ConnectionString = connectionString,
@@ -532,6 +533,74 @@ namespace XDbAccess.Test.UnitTests
         }
 
         [Fact]
+        public void BatchInsertTest()
+        {
+            var org = new Org()
+            {
+                Name = "InsertOrg"
+            };
+
+            org.Id = Convert.ToInt32(DbHelper.Insert<Org>(org));
+            Assert.Equal(1, org.Id);
+
+            var list = new List<User>();
+            list.Add(new User()
+            {
+                Name = "InsertUser1",
+                Birthday = new DateTime(1996, 8, 9),
+                Description = "Test1",
+                OrgId = org.Id
+            });
+            list.Add(new User()
+            {
+                Name = "InsertUser2",
+                Birthday = new DateTime(1996, 8, 9),
+                Description = "Test2",
+                OrgId = org.Id
+            });
+            var count = DbHelper.BatchInsert<User>(list);
+            Assert.Equal(2, count);
+
+            var sql = "select * from `user`";
+            var queryResult = DbHelper.Query<User>(sql);
+            Assert.Equal(2, queryResult.Count());
+        }
+
+        [Fact]
+        public async Task BatchInsertAsyncTest()
+        {
+            var org = new Org()
+            {
+                Name = "InsertAsyncOrg"
+            };
+
+            org.Id = Convert.ToInt32(await DbHelper.InsertAsync<Org>(org));
+            Assert.Equal(1, org.Id);
+
+            var list = new List<User>();
+            list.Add(new User()
+            {
+                Name = "InsertAsyncUser1",
+                Birthday = new DateTime(1996, 8, 9),
+                Description = "Test1",
+                OrgId = org.Id
+            });
+            list.Add(new User()
+            {
+                Name = "InsertAsyncUser2",
+                Birthday = new DateTime(1996, 8, 9),
+                Description = "Test2",
+                OrgId = org.Id
+            });
+            var count = await DbHelper.BatchInsertAsync<User>(list);
+            Assert.Equal(2, count);
+
+            var sql = "select * from `user`";
+            var queryResult = await DbHelper.QueryAsync<User>(sql);
+            Assert.Equal(2, queryResult.Count());
+        }
+
+        [Fact]
         public void ReplaceTest()
         {
             var org = new Org()
@@ -907,6 +976,100 @@ namespace XDbAccess.Test.UnitTests
             Assert.NotNull(result);
         }
 
+        [Fact]
+        public void BatchUpdateByPrimaryKeyTest()
+        {
+            var org = new Org()
+            {
+                Name = "UpdateOrg"
+            };
+
+            org.Id = Convert.ToInt32(DbHelper.Insert<Org>(org));
+            Assert.Equal(1, org.Id);
+
+            var user = new User()
+            {
+                Name = "UpdateUser",
+                Birthday = new DateTime(1996, 8, 9),
+                Description = "Test",
+                OrgId = org.Id
+            };
+            user.Id = Convert.ToInt32(DbHelper.Insert<User>(user));
+            Assert.Equal(1, user.Id);
+            Assert.Equal(1, user.OrgId);
+
+            var user2 = new User()
+            {
+                Name = "UpdateUser2",
+                Birthday = new DateTime(1996, 8, 9),
+                Description = "Test",
+                OrgId = org.Id
+            };
+            user2.Id = Convert.ToInt32(DbHelper.Insert<User>(user2));
+            Assert.Equal(2, user2.Id);
+            Assert.Equal(1, user2.OrgId);
+
+            user.Description = "UpdateTest";
+            user2.Description = "UpdateTest2";
+            var r = DbHelper.BatchUpdate<User>(new List<User>() { user, user2 });
+            Assert.Equal(2, r);
+
+            var sql = "select * from `user` where Id=@Id";
+            var queryResult = DbHelper.QueryFirst<User>(sql, new { Id = user.Id });
+            Assert.Equal("UpdateTest", queryResult.Description);
+
+            var sql2 = "select * from `user` where Id=@Id";
+            var queryResult2 = DbHelper.QueryFirst<User>(sql2, new { Id = user2.Id });
+            Assert.Equal("UpdateTest2", queryResult2.Description);
+        }
+
+        [Fact]
+        public async Task BatchUpdateByPrimaryKeyAsyncTest()
+        {
+            var org = new Org()
+            {
+                Name = "UpdateOrg"
+            };
+
+            org.Id = Convert.ToInt32(await DbHelper.InsertAsync<Org>(org));
+            Assert.Equal(1, org.Id);
+
+            var user = new User()
+            {
+                Name = "UpdateUser",
+                Birthday = new DateTime(1996, 8, 9),
+                Description = "Test",
+                OrgId = org.Id
+            };
+            user.Id = Convert.ToInt32(await DbHelper.InsertAsync<User>(user));
+            Assert.Equal(1, user.Id);
+            Assert.Equal(1, user.OrgId);
+
+            var user2 = new User()
+            {
+                Name = "UpdateUser2",
+                Birthday = new DateTime(1996, 8, 9),
+                Description = "Test",
+                OrgId = org.Id
+            };
+            user2.Id = Convert.ToInt32(await DbHelper.InsertAsync<User>(user2));
+            Assert.Equal(2, user2.Id);
+            Assert.Equal(1, user2.OrgId);
+
+            user.Description = "UpdateTest";
+            user2.Description = "UpdateTest2";
+            var r = await DbHelper.BatchUpdateAsync<User>(new List<User>() { user, user2 });
+            Assert.Equal(2, r);
+
+            var sql = "select * from `user` where Id=@Id";
+            var queryResult = await DbHelper.QueryFirstAsync<User>(sql, new { Id = user.Id });
+            Assert.Equal("UpdateTest", queryResult.Description);
+
+            var sql2 = "select * from `user` where Id=@Id";
+            var queryResult2 = await DbHelper.QueryFirstAsync<User>(sql2, new { Id = user2.Id });
+            Assert.Equal("UpdateTest2", queryResult2.Description);
+        }
+
         #endregion
 
         #region Delete
@@ -1175,6 +1338,94 @@ namespace XDbAccess.Test.UnitTests
                 result = ex;
             }
             Assert.NotNull(result);
+        }
+
+        [Fact]
+        public void BatchDeleteByPrimaryKeyTest()
+        {
+            var org = new Org()
+            {
+                Name = "DeleteOrg"
+            };
+
+            org.Id = Convert.ToInt32(DbHelper.Insert<Org>(org));
+            Assert.Equal(1, org.Id);
+
+            var user = new User()
+            {
+                Name = "DeleteUser",
+                Birthday = new DateTime(1996, 8, 9),
+                Description = "Test",
+                OrgId = org.Id
+            };
+            user.Id = Convert.ToInt32(DbHelper.Insert<User>(user));
+            Assert.Equal(1, user.Id);
+            Assert.Equal(1, user.OrgId);
+
+            var user2 = new User()
+            {
+                Name = "DeleteUser2",
+                Birthday = new DateTime(1996, 8, 9),
+                Description = "Test",
+                OrgId = org.Id
+            };
+            user2.Id = Convert.ToInt32(DbHelper.Insert<User>(user2));
+            Assert.Equal(2, user2.Id);
+            Assert.Equal(1, user2.OrgId);
+
+            var sql1 = "select count(1) from `user`";
+            var result1 = DbHelper.ExecuteScalar<long>(sql1);
+            Assert.Equal(2, result1);
+
+            DbHelper.BatchDelete<User>(new List<object>() { new { Id = 1 }, new { Id = 2 } });
+
+            var sql2 = "select count(1) from `user`";
+            var result2 = DbHelper.ExecuteScalar<long>(sql2);
+            Assert.Equal(0, result2);
+        }
+
+        [Fact]
+        public async Task BatchDeleteByPrimaryKeyAsyncTest()
+        {
+            var org = new Org()
+            {
+                Name = "DeleteOrg"
+            };
+
+            org.Id = Convert.ToInt32(await DbHelper.InsertAsync<Org>(org));
+            Assert.Equal(1, org.Id);
+
+            var user = new User()
+            {
+                Name = "DeleteUser",
+                Birthday = new DateTime(1996, 8, 9),
+                Description = "Test",
+                OrgId = org.Id
+            };
+            user.Id = Convert.ToInt32(await DbHelper.InsertAsync<User>(user));
+            Assert.Equal(1, user.Id);
+            Assert.Equal(1, user.OrgId);
+
+            var user2 = new User()
+            {
+                Name = "DeleteUser2",
+                Birthday = new DateTime(1996, 8, 9),
+                Description = "Test",
+                OrgId = org.Id
+            };
+            user2.Id = Convert.ToInt32(await DbHelper.InsertAsync<User>(user2));
+            Assert.Equal(2, user2.Id);
+            Assert.Equal(1, user2.OrgId);
+
+            var sql1 = "select count(1) from `user`";
+            var result1 = await DbHelper.ExecuteScalarAsync<long>(sql1);
+            Assert.Equal(2, result1);
+
+            await DbHelper.BatchDeleteAsync<User>(new List<object>() { new { Id = 1 }, new { Id = 2 } });
+
+            var sql2 = "select count(1) from `user`";
+            var result2 = await DbHelper.ExecuteScalarAsync<long>(sql2);
+            Assert.Equal(0, result2);
         }
 
         #endregion

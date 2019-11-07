@@ -598,6 +598,24 @@
             <param name="commandTimeout"></param>
             <returns></returns>
         </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.BatchInsert``1(System.Collections.Generic.IEnumerable{``0},System.Nullable{System.Int32})">
+            <summary>
+            执行批量INSERT操作
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="list">实体对象集合</param>
+            <param name="commandTimeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.BatchInsertAsync``1(System.Collections.Generic.IEnumerable{``0},System.Nullable{System.Int32})">
+            <summary>
+            执行批量INSERT操作
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="list">实体对象集合</param>
+            <param name="commandTimeout"></param>
+            <returns></returns>
+        </member>
         <member name="M:XDbAccess.Dapper.DbHelper`1.Update``1(``0,System.Boolean,System.String,System.Object,System.Nullable{System.Int32})">
             <summary>
             执行UPDATE操作
@@ -622,6 +640,24 @@
             <param name="commandTimeout"></param>
             <returns></returns>
         </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.BatchUpdate``1(System.Collections.Generic.IEnumerable{``0},System.Nullable{System.Int32})">
+            <summary>
+            执行批量UPDATE操作，只支持根据主键更新
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="list">实体对象集合</param>
+            <param name="commandTimeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.BatchUpdateAsync``1(System.Collections.Generic.IEnumerable{``0},System.Nullable{System.Int32})">
+            <summary>
+            执行批量UPDATE操作，只支持根据主键更新
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="list">实体对象集合</param>
+            <param name="commandTimeout"></param>
+            <returns></returns>
+        </member>
         <member name="M:XDbAccess.Dapper.DbHelper`1.Delete``1(System.Object,System.Boolean,System.String,System.Nullable{System.Int32})">
             <summary>
             执行DELETE操作
@@ -641,6 +677,24 @@
             <param name="condition">条件对象</param>
             <param name="isDeleteByPrimaryKey">是否以主键作为条件进行删除</param>
             <param name="sqlConditionPart">WHERE部分的SQL，当isDeleteByPrimaryKey=false时有效</param>
+            <param name="commandTimeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.BatchDelete``1(System.Collections.Generic.IEnumerable{System.Object},System.Nullable{System.Int32})">
+            <summary>
+            执行批量DELETE操作，只支持根据主键删除
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="conditions">条件对象集合</param>
+            <param name="commandTimeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.DbHelper`1.BatchDeleteAsync``1(System.Collections.Generic.IEnumerable{System.Object},System.Nullable{System.Int32})">
+            <summary>
+            执行批量DELETE操作，只支持根据主键删除
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="conditions">条件对象集合</param>
             <param name="commandTimeout"></param>
             <returns></returns>
         </member>
@@ -1029,6 +1083,24 @@
             <param name="commandTimeout"></param>
             <returns></returns>
         </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.BatchInsert``1(System.Collections.Generic.IEnumerable{``0},System.Nullable{System.Int32})">
+            <summary>
+            执行批量INSERT操作
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="list">实体对象集合</param>
+            <param name="commandTimeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.BatchInsertAsync``1(System.Collections.Generic.IEnumerable{``0},System.Nullable{System.Int32})">
+            <summary>
+            执行批量INSERT操作
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="list">实体对象集合</param>
+            <param name="commandTimeout"></param>
+            <returns></returns>
+        </member>
         <member name="M:XDbAccess.Dapper.IDbHelper`1.Update``1(``0,System.Boolean,System.String,System.Object,System.Nullable{System.Int32})">
             <summary>
             执行UPDATE操作
@@ -1050,6 +1122,24 @@
             <param name="isUpdateByPrimaryKey">是否以主键作为条件进行更新</param>
             <param name="sqlConditionPart">WHERE部分的SQL，当isUpdateByPrimaryKey=false时有效</param>
             <param name="condition">条件对象</param>
+            <param name="commandTimeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.BatchUpdate``1(System.Collections.Generic.IEnumerable{``0},System.Nullable{System.Int32})">
+            <summary>
+            执行批量UPDATE操作，只支持根据主键更新
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="list">实体对象集合</param>
+            <param name="commandTimeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.BatchUpdateAsync``1(System.Collections.Generic.IEnumerable{``0},System.Nullable{System.Int32})">
+            <summary>
+            执行批量UPDATE操作，只支持根据主键更新
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="list">实体对象集合</param>
             <param name="commandTimeout"></param>
             <returns></returns>
         </member>
@@ -1116,6 +1206,24 @@
             <param name="condition">条件对象</param>
             <param name="isDeleteByPrimaryKey">是否以主键作为条件进行删除</param>
             <param name="sqlConditionPart">WHERE部分的SQL，当isDeleteByPrimaryKey=false时有效</param>
+            <param name="commandTimeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.BatchDelete``1(System.Collections.Generic.IEnumerable{System.Object},System.Nullable{System.Int32})">
+            <summary>
+            执行批量DELETE操作，只支持根据主键删除
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="conditions">条件对象集合</param>
+            <param name="commandTimeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Dapper.IDbHelper`1.BatchDeleteAsync``1(System.Collections.Generic.IEnumerable{System.Object},System.Nullable{System.Int32})">
+            <summary>
+            执行批量DELETE操作，只支持根据主键删除
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="conditions">条件对象集合</param>
             <param name="commandTimeout"></param>
             <returns></returns>
         </member>

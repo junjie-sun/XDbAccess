@@ -573,6 +573,36 @@ namespace XDbAccess.Dapper
         }
 
         /// <summary>
+        /// 执行批量INSERT操作
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list">实体对象集合</param>
+        /// <param name="commandTimeout"></param>
+        /// <returns></returns>
+        public virtual int BatchInsert<T>(IEnumerable<T> list, int? commandTimeout = default(int?))
+        {
+            var meta = MapParser.GetMapMetaInfo(typeof(T));
+            var sql = SQLBuilder.BuildInsertSql(meta, false);
+            LogDebug($"BatchInsert generate SQL: {sql}");
+            return this.Execute(sql, list, commandTimeout);
+        }
+
+        /// <summary>
+        /// 执行批量INSERT操作
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list">实体对象集合</param>
+        /// <param name="commandTimeout"></param>
+        /// <returns></returns>
+        public virtual Task<int> BatchInsertAsync<T>(IEnumerable<T> list, int? commandTimeout = default(int?))
+        {
+            var meta = MapParser.GetMapMetaInfo(typeof(T));
+            var sql = SQLBuilder.BuildInsertSql(meta, false);
+            LogDebug($"BatchInsert generate SQL: {sql}");
+            return this.ExecuteAsync(sql, list, commandTimeout);
+        }
+
+        /// <summary>
         /// 执行UPDATE操作
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -645,6 +675,36 @@ namespace XDbAccess.Dapper
         }
 
         /// <summary>
+        /// 执行批量UPDATE操作，只支持根据主键更新
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list">实体对象集合</param>
+        /// <param name="commandTimeout"></param>
+        /// <returns></returns>
+        public virtual int BatchUpdate<T>(IEnumerable<T> list, int? commandTimeout = default(int?))
+        {
+            var meta = MapParser.GetMapMetaInfo(typeof(T));
+            var sql = SQLBuilder.BuildUpdateSql(meta);
+            LogDebug($"Update generate SQL: {sql}");
+            return this.Execute(sql, list, commandTimeout);
+        }
+
+        /// <summary>
+        /// 执行批量UPDATE操作，只支持根据主键更新
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list">实体对象集合</param>
+        /// <param name="commandTimeout"></param>
+        /// <returns></returns>
+        public virtual Task<int> BatchUpdateAsync<T>(IEnumerable<T> list, int? commandTimeout = default(int?))
+        {
+            var meta = MapParser.GetMapMetaInfo(typeof(T));
+            var sql = SQLBuilder.BuildUpdateSql(meta);
+            LogDebug($"Update generate SQL: {sql}");
+            return this.ExecuteAsync(sql, list, commandTimeout);
+        }
+
+        /// <summary>
         /// 执行DELETE操作
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -684,6 +744,36 @@ namespace XDbAccess.Dapper
             var sql = SQLBuilder.BuildDeleteSql(meta, isDeleteByPrimaryKey, sqlConditionPart);
             LogDebug($"DeleteAsync generate SQL: {sql}");
             return this.ExecuteAsync(sql, condition, commandTimeout);
+        }
+
+        /// <summary>
+        /// 执行批量DELETE操作，只支持根据主键删除
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="conditions">条件对象集合</param>
+        /// <param name="commandTimeout"></param>
+        /// <returns></returns>
+        public virtual int BatchDelete<T>(IEnumerable<object> conditions, int? commandTimeout = default(int?))
+        {
+            var meta = MapParser.GetMapMetaInfo(typeof(T));
+            var sql = SQLBuilder.BuildDeleteSql(meta);
+            LogDebug($"Delete generate SQL: {sql}");
+            return this.Execute(sql, conditions, commandTimeout);
+        }
+
+        /// <summary>
+        /// 执行批量DELETE操作，只支持根据主键删除
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="conditions">条件对象集合</param>
+        /// <param name="commandTimeout"></param>
+        /// <returns></returns>
+        public virtual Task<int> BatchDeleteAsync<T>(IEnumerable<object> conditions, int? commandTimeout = default(int?))
+        {
+            var meta = MapParser.GetMapMetaInfo(typeof(T));
+            var sql = SQLBuilder.BuildDeleteSql(meta);
+            LogDebug($"Delete generate SQL: {sql}");
+            return this.ExecuteAsync(sql, conditions, commandTimeout);
         }
 
         /// <summary>

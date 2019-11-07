@@ -338,6 +338,24 @@ namespace XDbAccess.Dapper
         Task<long> InsertAsync<T>(T entity, int? commandTimeout = default(int?));
 
         /// <summary>
+        /// 执行批量INSERT操作
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list">实体对象集合</param>
+        /// <param name="commandTimeout"></param>
+        /// <returns></returns>
+        int BatchInsert<T>(IEnumerable<T> list, int? commandTimeout = default(int?));
+
+        /// <summary>
+        /// 执行批量INSERT操作
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list">实体对象集合</param>
+        /// <param name="commandTimeout"></param>
+        /// <returns></returns>
+        Task<int> BatchInsertAsync<T>(IEnumerable<T> list, int? commandTimeout = default(int?));
+
+        /// <summary>
         /// 执行UPDATE操作
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -361,6 +379,24 @@ namespace XDbAccess.Dapper
         /// <param name="commandTimeout"></param>
         /// <returns></returns>
         Task<int> UpdateAsync<T>(T entity, bool isUpdateByPrimaryKey = true, string sqlConditionPart = null, object condition = null, int? commandTimeout = default(int?));
+
+        /// <summary>
+        /// 执行批量UPDATE操作，只支持根据主键更新
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list">实体对象集合</param>
+        /// <param name="commandTimeout"></param>
+        /// <returns></returns>
+        int BatchUpdate<T>(IEnumerable<T> list, int? commandTimeout = default(int?));
+
+        /// <summary>
+        /// 执行批量UPDATE操作，只支持根据主键更新
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list">实体对象集合</param>
+        /// <param name="commandTimeout"></param>
+        /// <returns></returns>
+        Task<int> BatchUpdateAsync<T>(IEnumerable<T> list, int? commandTimeout = default(int?));
 
         /// <summary>
         /// 分页查询
@@ -427,6 +463,24 @@ namespace XDbAccess.Dapper
         /// <param name="commandTimeout"></param>
         /// <returns></returns>
         Task<int> DeleteAsync<T>(object condition, bool isDeleteByPrimaryKey = true, string sqlConditionPart = null, int? commandTimeout = default(int?));
+
+        /// <summary>
+        /// 执行批量DELETE操作，只支持根据主键删除
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="conditions">条件对象集合</param>
+        /// <param name="commandTimeout"></param>
+        /// <returns></returns>
+        int BatchDelete<T>(IEnumerable<object> conditions, int? commandTimeout = default(int?));
+
+        /// <summary>
+        /// 执行批量DELETE操作，只支持根据主键删除
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="conditions">条件对象集合</param>
+        /// <param name="commandTimeout"></param>
+        /// <returns></returns>
+        Task<int> BatchDeleteAsync<T>(IEnumerable<object> conditions, int? commandTimeout = default(int?));
 
         #endregion
     }
