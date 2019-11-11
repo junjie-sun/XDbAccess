@@ -145,3 +145,11 @@ MSSqlSQLBuilder和MySqlSQLBuilder类的BuildInsertSql方法增加是否生成返回Identity的
 
 XDbAccess.Dapper
 DbHelper类增加BatchInsert、BatchUpdate、BatchDelete方法
+
+--------------------------------------------------------------------------------
+
+2019-11-11
+XDbAccess Tag：1.5.1
+
+XDbAccess.Common
+TableAttribute、FieldAttribute、IgnoreAttribute改为支持继承链

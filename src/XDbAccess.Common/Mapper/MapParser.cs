@@ -40,19 +40,19 @@ namespace XDbAccess.Common
         {
             var metaInfo = new MapInfo();
 
-            var tableNameAttribute = type.GetTypeInfo().GetCustomAttribute<TableAttribute>();
+            var tableNameAttribute = type.GetTypeInfo().GetCustomAttribute<TableAttribute>(true);
             metaInfo.TableName = tableNameAttribute != null ? tableNameAttribute.TableName : type.Name;
 
             var properties = type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty);
             foreach (var prop in properties)
             {
-                var ignoreAttribute = prop.GetCustomAttribute<IgnoreAttribute>();
+                var ignoreAttribute = prop.GetCustomAttribute<IgnoreAttribute>(true);
                 if (ignoreAttribute != null)
                 {
                     continue;
                 }
 
-                var fieldAttribute = prop.GetCustomAttribute<FieldAttribute>();
+                var fieldAttribute = prop.GetCustomAttribute<FieldAttribute>(true);
                 var fieldName = fieldAttribute != null ? fieldAttribute.FieldName : prop.Name;
 
                 var fieldInfo = new FieldInfo();
