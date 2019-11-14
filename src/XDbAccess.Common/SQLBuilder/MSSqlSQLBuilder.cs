@@ -192,7 +192,7 @@ namespace XDbAccess.Common
             var sql = string.Format(@"SELECT * FROM (
                     SELECT {0},ROW_NUMBER() OVER(ORDER BY {1}) AS RowNumber FROM {2}
                     {3} {4}
-                ) as pageTable where RowNumber>={5} and RowNumber<={6};",
+                ) as PageTable where RowNumber>={5} and RowNumber<={6};",
                 options.SqlFieldsPart, options.SqlOrderPart, options.SqlFromPart,
                 string.IsNullOrEmpty(options.SqlConditionPart) ? string.Empty : "WHERE " + options.SqlConditionPart,
                 string.IsNullOrEmpty(options.SqlGroupPart) ? string.Empty : "GROUP BY " + options.SqlGroupPart,
@@ -206,16 +206,24 @@ namespace XDbAccess.Common
         /// </summary>
         /// <param name="sqlFromPart">FROM部分的SQL</param>
         /// <param name="sqlConditionPart">>WHERE部分的SQL</param>
+        /// <param name="sqlGroupPart">GROUP部分的SQL</param>
         /// <returns></returns>
-        public string BuildQueryCountSql(string sqlFromPart, string sqlConditionPart = null)
+        public string BuildQueryCountSql(string sqlFromPart, string sqlConditionPart = null, string sqlGroupPart = null)
         {
             if (string.IsNullOrEmpty(sqlFromPart))
             {
                 throw new ArgumentNullException("Need to specify sqlFromPart");
             }
 
-            var sql = string.Format(" SELECT COUNT(1) FROM {0} where {1};"
-                , sqlFromPart, sqlConditionPart);
+            var sql = string.Format(@"
+                SELECT COUNT(1) FROM
+                (
+                    SELECT 1 as CountField
+                    FROM {0} {1} {2}
+                ) as CountTable;
+            ", sqlFromPart,
+            string.IsNullOrEmpty(sqlConditionPart) ? string.Empty : "WHERE " + sqlConditionPart,
+            string.IsNullOrEmpty(sqlGroupPart) ? string.Empty : "GROUP BY " + sqlGroupPart);
 
             return sql;
         }

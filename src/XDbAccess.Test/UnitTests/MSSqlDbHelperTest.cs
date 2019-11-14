@@ -1367,7 +1367,6 @@ namespace XDbAccess.Test.UnitTests
                 SqlFromPart = "[org] o join [user] u on o.Id=u.OrgId",
                 SqlFieldsPart = "u.Id,u.Name,u.Birthday,u.OrgId,o.Name OrgName",
                 SqlConditionPart = "u.Id > @UserId",
-                SqlGroupPart = "u.Id,u.Name,u.Birthday,u.OrgId,o.Name",
                 SqlOrderPart = "u.Id"
             }, new { UserId = 3 });
             Assert.Equal(17, result.Total);
@@ -1383,7 +1382,6 @@ namespace XDbAccess.Test.UnitTests
                 SqlFromPart = "[org] o join [user] u on o.Id=u.OrgId",
                 SqlFieldsPart = "u.Id,u.Name,u.Birthday,u.OrgId,o.Name OrgName",
                 SqlConditionPart = "u.Id > @UserId",
-                SqlGroupPart = "u.Id,u.Name,u.Birthday,u.OrgId,o.Name",
                 SqlOrderPart = "u.Id"
             }, new { UserId = 3 });
             Assert.Equal(0, result.Total);
@@ -1399,7 +1397,6 @@ namespace XDbAccess.Test.UnitTests
                 SqlFromPart = "[org] o join [user] u on o.Id=u.OrgId",
                 SqlFieldsPart = "u.Id,u.Name,u.Birthday,u.OrgId,o.Name OrgName",
                 SqlConditionPart = "u.Id > @UserId",
-                SqlGroupPart = "u.Id,u.Name,u.Birthday,u.OrgId,o.Name",
                 SqlOrderPart = "u.Id",
                 AlwayQueryCount = true
             }, new { UserId = 3 });
@@ -1407,6 +1404,19 @@ namespace XDbAccess.Test.UnitTests
             user = result.Data[1];
             Assert.Equal("PagedQueryUser8", user.Name);
             Assert.Equal("PagedQueryOrg", user.OrgName);
+
+            //测试Group及ConditionPart=null
+            result = DbHelper.PagedQuery<OrgUser>(new PagedQueryOptions()
+            {
+                PageIndex = 0,
+                PageSize = 3,
+                SqlFromPart = "[org] o join [user] u on o.Id=u.OrgId",
+                SqlFieldsPart = "u.OrgId",
+                SqlGroupPart = "u.OrgId",
+                SqlOrderPart = "u.OrgId"
+            }, new { UserId = 3 });
+            Assert.Equal(1, result.Total);
+            Assert.Single(result.Data);
         }
 
         [Fact]
@@ -1441,7 +1451,6 @@ namespace XDbAccess.Test.UnitTests
                 SqlFromPart = "[org] o join [user] u on o.Id=u.OrgId",
                 SqlFieldsPart = "u.Id,u.Name,u.Birthday,u.OrgId,o.Name OrgName",
                 SqlConditionPart = "u.Id > @UserId",
-                SqlGroupPart = "u.Id,u.Name,u.Birthday,u.OrgId,o.Name",
                 SqlOrderPart = "u.Id"
             }, new { UserId = 3 });
             Assert.Equal(17, result.Total);
@@ -1457,7 +1466,6 @@ namespace XDbAccess.Test.UnitTests
                 SqlFromPart = "[org] o join [user] u on o.Id=u.OrgId",
                 SqlFieldsPart = "u.Id,u.Name,u.Birthday,u.OrgId,o.Name OrgName",
                 SqlConditionPart = "u.Id > @UserId",
-                SqlGroupPart = "u.Id,u.Name,u.Birthday,u.OrgId,o.Name",
                 SqlOrderPart = "u.Id"
             }, new { UserId = 3 });
             Assert.Equal(0, result.Total);
@@ -1473,7 +1481,6 @@ namespace XDbAccess.Test.UnitTests
                 SqlFromPart = "[org] o join [user] u on o.Id=u.OrgId",
                 SqlFieldsPart = "u.Id,u.Name,u.Birthday,u.OrgId,o.Name OrgName",
                 SqlConditionPart = "u.Id > @UserId",
-                SqlGroupPart = "u.Id,u.Name,u.Birthday,u.OrgId,o.Name",
                 SqlOrderPart = "u.Id",
                 AlwayQueryCount = true
             }, new { UserId = 3 });
@@ -1481,6 +1488,19 @@ namespace XDbAccess.Test.UnitTests
             user = result.Data[1];
             Assert.Equal("PagedQueryAsyncUser8", user.Name);
             Assert.Equal("PagedQueryAsyncOrg", user.OrgName);
+
+            //测试Group及ConditionPart=null
+            result = await DbHelper.PagedQueryAsync<OrgUser>(new PagedQueryOptions()
+            {
+                PageIndex = 0,
+                PageSize = 3,
+                SqlFromPart = "[org] o join [user] u on o.Id=u.OrgId",
+                SqlFieldsPart = "u.OrgId",
+                SqlGroupPart = "u.OrgId",
+                SqlOrderPart = "u.OrgId"
+            }, new { UserId = 3 });
+            Assert.Equal(1, result.Total);
+            Assert.Single(result.Data);
         }
 
         #endregion

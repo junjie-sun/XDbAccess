@@ -224,12 +224,13 @@
             <param name="options">分页查询参数</param>
             <returns></returns>
         </member>
-        <member name="M:XDbAccess.Common.ISQLBuilder.BuildQueryCountSql(System.String,System.String)">
+        <member name="M:XDbAccess.Common.ISQLBuilder.BuildQueryCountSql(System.String,System.String,System.String)">
             <summary>
             构造SELECT COUNT语句
             </summary>
             <param name="sqlFromPart">FROM部分的SQL</param>
             <param name="sqlConditionPart">WHERE部分的SQL</param>
+            <param name="sqlGroupPart">GROUP部分的SQL</param>
             <returns></returns>
         </member>
         <member name="M:XDbAccess.Common.ISQLBuilder.BuildSelectSql(XDbAccess.Common.MapInfo,System.Boolean,System.String,System.String)">
@@ -291,12 +292,13 @@
             <param name="options">分页查询参数</param>
             <returns></returns>
         </member>
-        <member name="M:XDbAccess.Common.MSSqlSQLBuilder.BuildQueryCountSql(System.String,System.String)">
+        <member name="M:XDbAccess.Common.MSSqlSQLBuilder.BuildQueryCountSql(System.String,System.String,System.String)">
             <summary>
             构造SELECT COUNT语句
             </summary>
             <param name="sqlFromPart">FROM部分的SQL</param>
             <param name="sqlConditionPart">>WHERE部分的SQL</param>
+            <param name="sqlGroupPart">GROUP部分的SQL</param>
             <returns></returns>
         </member>
         <member name="M:XDbAccess.Common.MSSqlSQLBuilder.BuildSelectSql(XDbAccess.Common.MapInfo,System.Boolean,System.String,System.String)">
@@ -348,12 +350,13 @@
             <param name="options">分页查询参数</param>
             <returns></returns>
         </member>
-        <member name="M:XDbAccess.Common.MySqlSQLBuilder.BuildQueryCountSql(System.String,System.String)">
+        <member name="M:XDbAccess.Common.MySqlSQLBuilder.BuildQueryCountSql(System.String,System.String,System.String)">
             <summary>
             构造SELECT COUNT语句
             </summary>
             <param name="sqlFromPart">FROM部分的SQL</param>
             <param name="sqlConditionPart">WHERE部分的SQL</param>
+            <param name="sqlGroupPart">GROUP部分的SQL</param>
             <returns></returns>
         </member>
         <member name="M:XDbAccess.Common.MySqlSQLBuilder.BuildReplaceSql(XDbAccess.Common.MapInfo)">

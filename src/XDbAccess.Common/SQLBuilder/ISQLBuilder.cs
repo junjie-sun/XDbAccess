@@ -40,8 +40,9 @@ namespace XDbAccess.Common
         /// </summary>
         /// <param name="sqlFromPart">FROM部分的SQL</param>
         /// <param name="sqlConditionPart">WHERE部分的SQL</param>
+        /// <param name="sqlGroupPart">GROUP部分的SQL</param>
         /// <returns></returns>
-        string BuildQueryCountSql(string sqlFromPart, string sqlConditionPart = null);
+        string BuildQueryCountSql(string sqlFromPart, string sqlConditionPart = null, string sqlGroupPart = null);
 
         /// <summary>
         /// 构造SELECT语句

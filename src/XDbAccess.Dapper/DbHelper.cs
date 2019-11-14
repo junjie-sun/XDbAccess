@@ -793,7 +793,7 @@ namespace XDbAccess.Dapper
 
             if (options.PageIndex == 0 || options.AlwayQueryCount)
             {
-                var countSql = SQLBuilder.BuildQueryCountSql(options.SqlFromPart, options.SqlConditionPart);
+                var countSql = SQLBuilder.BuildQueryCountSql(options.SqlFromPart, options.SqlConditionPart, options.SqlGroupPart);
                 result.Total = this.ExecuteScalar<long>(countSql, param, commandTimeout);
             }
 
@@ -820,7 +820,7 @@ namespace XDbAccess.Dapper
 
             if (options.PageIndex == 0 || options.AlwayQueryCount)
             {
-                var countSql = SQLBuilder.BuildQueryCountSql(options.SqlFromPart, options.SqlConditionPart);
+                var countSql = SQLBuilder.BuildQueryCountSql(options.SqlFromPart, options.SqlConditionPart, options.SqlGroupPart);
                 result.Total = await this.ExecuteScalarAsync<long>(countSql, param, commandTimeout);
             }
 
