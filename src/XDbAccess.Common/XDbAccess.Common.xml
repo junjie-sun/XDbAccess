@@ -151,6 +151,12 @@
             示例2：a.[Field1]=@Param1 AND b.[Field2]=@Param2
             </summary>
         </member>
+        <member name="P:XDbAccess.Common.PagedQueryOptions.SqlGroupPart">
+            <summary>
+            GROUP部分的SQL
+            示例：[Field1],[Field2]
+            </summary>
+        </member>
         <member name="P:XDbAccess.Common.PagedQueryOptions.SqlOrderPart">
             <summary>
             ORDER部分的SQL

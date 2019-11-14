@@ -189,9 +189,12 @@ namespace XDbAccess.Common
             int pageStartIndex = options.PageSize * options.PageIndex;
             int currentPageCount = options.PageSize;
 
-            var sql = string.Format(@"SELECT {0} FROM {1} WHERE {2} {3} LIMIT {4},{5};",
-                options.SqlFieldsPart, options.SqlFromPart, options.SqlConditionPart,
-                string.IsNullOrEmpty(options.SqlOrderPart) ? string.Empty : "ORDER BY " + options.SqlOrderPart, pageStartIndex, currentPageCount);
+            var sql = string.Format(@"SELECT {0} FROM {1} {2} {3} {4} LIMIT {5},{6};",
+                options.SqlFieldsPart, options.SqlFromPart,
+                string.IsNullOrEmpty(options.SqlConditionPart) ? string.Empty : "WHERE " + options.SqlConditionPart,
+                string.IsNullOrEmpty(options.SqlGroupPart) ? string.Empty : "GROUP BY " + options.SqlGroupPart,
+                string.IsNullOrEmpty(options.SqlOrderPart) ? string.Empty : "ORDER BY " + options.SqlOrderPart,
+                pageStartIndex, currentPageCount);
 
             return sql;
         }

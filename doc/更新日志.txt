@@ -153,3 +153,13 @@ XDbAccess Tag：1.5.1
 
 XDbAccess.Common
 TableAttribute、FieldAttribute、IgnoreAttribute改为支持继承链
+
+
+--------------------------------------------------------------------------------
+
+2019-11-14
+XDbAccess Tag：1.5.2
+
+XDbAccess.Common
+分页PagedQueryOptions增加GroupPart
+bug修复

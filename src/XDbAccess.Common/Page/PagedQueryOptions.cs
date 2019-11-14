@@ -42,6 +42,12 @@ namespace XDbAccess.Common
         public string SqlConditionPart { get; set; }
 
         /// <summary>
+        /// GROUP部分的SQL
+        /// 示例：[Field1],[Field2]
+        /// </summary>
+        public string SqlGroupPart { get; set; }
+
+        /// <summary>
         /// ORDER部分的SQL
         /// 示例：[Field1],[Field2] desc
         /// </summary>

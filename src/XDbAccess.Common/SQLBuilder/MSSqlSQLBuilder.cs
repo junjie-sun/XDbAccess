@@ -191,10 +191,12 @@ namespace XDbAccess.Common
 
             var sql = string.Format(@"SELECT * FROM (
                     SELECT {0},ROW_NUMBER() OVER(ORDER BY {1}) AS RowNumber FROM {2}
-                    WHERE {3}
-                ) as pageTable where RowNumber>={4} and RowNumber<={5};",
+                    {3} {4}
+                ) as pageTable where RowNumber>={5} and RowNumber<={6};",
                 options.SqlFieldsPart, options.SqlOrderPart, options.SqlFromPart,
-                options.SqlConditionPart, pageStartIndex, pageEndIndex);
+                string.IsNullOrEmpty(options.SqlConditionPart) ? string.Empty : "WHERE " + options.SqlConditionPart,
+                string.IsNullOrEmpty(options.SqlGroupPart) ? string.Empty : "GROUP BY " + options.SqlGroupPart,
+                pageStartIndex, pageEndIndex);
 
             return sql;
         }

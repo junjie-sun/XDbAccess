@@ -1365,8 +1365,9 @@ namespace XDbAccess.Test.UnitTests
                 PageIndex = 0,
                 PageSize = 3,
                 SqlFromPart = "[org] o join [user] u on o.Id=u.OrgId",
-                SqlFieldsPart = "u.*,o.Name OrgName",
+                SqlFieldsPart = "u.Id,u.Name,u.Birthday,u.OrgId,o.Name OrgName",
                 SqlConditionPart = "u.Id > @UserId",
+                SqlGroupPart = "u.Id,u.Name,u.Birthday,u.OrgId,o.Name",
                 SqlOrderPart = "u.Id"
             }, new { UserId = 3 });
             Assert.Equal(17, result.Total);
@@ -1380,8 +1381,9 @@ namespace XDbAccess.Test.UnitTests
                 PageIndex = 1,
                 PageSize = 3,
                 SqlFromPart = "[org] o join [user] u on o.Id=u.OrgId",
-                SqlFieldsPart = "u.*,o.Name OrgName",
+                SqlFieldsPart = "u.Id,u.Name,u.Birthday,u.OrgId,o.Name OrgName",
                 SqlConditionPart = "u.Id > @UserId",
+                SqlGroupPart = "u.Id,u.Name,u.Birthday,u.OrgId,o.Name",
                 SqlOrderPart = "u.Id"
             }, new { UserId = 3 });
             Assert.Equal(0, result.Total);
@@ -1395,8 +1397,9 @@ namespace XDbAccess.Test.UnitTests
                 PageIndex = 1,
                 PageSize = 3,
                 SqlFromPart = "[org] o join [user] u on o.Id=u.OrgId",
-                SqlFieldsPart = "u.*,o.Name OrgName",
+                SqlFieldsPart = "u.Id,u.Name,u.Birthday,u.OrgId,o.Name OrgName",
                 SqlConditionPart = "u.Id > @UserId",
+                SqlGroupPart = "u.Id,u.Name,u.Birthday,u.OrgId,o.Name",
                 SqlOrderPart = "u.Id",
                 AlwayQueryCount = true
             }, new { UserId = 3 });
@@ -1436,8 +1439,9 @@ namespace XDbAccess.Test.UnitTests
                 PageIndex = 0,
                 PageSize = 3,
                 SqlFromPart = "[org] o join [user] u on o.Id=u.OrgId",
-                SqlFieldsPart = "u.*,o.Name OrgName",
+                SqlFieldsPart = "u.Id,u.Name,u.Birthday,u.OrgId,o.Name OrgName",
                 SqlConditionPart = "u.Id > @UserId",
+                SqlGroupPart = "u.Id,u.Name,u.Birthday,u.OrgId,o.Name",
                 SqlOrderPart = "u.Id"
             }, new { UserId = 3 });
             Assert.Equal(17, result.Total);
@@ -1451,8 +1455,9 @@ namespace XDbAccess.Test.UnitTests
                 PageIndex = 1,
                 PageSize = 3,
                 SqlFromPart = "[org] o join [user] u on o.Id=u.OrgId",
-                SqlFieldsPart = "u.*,o.Name OrgName",
+                SqlFieldsPart = "u.Id,u.Name,u.Birthday,u.OrgId,o.Name OrgName",
                 SqlConditionPart = "u.Id > @UserId",
+                SqlGroupPart = "u.Id,u.Name,u.Birthday,u.OrgId,o.Name",
                 SqlOrderPart = "u.Id"
             }, new { UserId = 3 });
             Assert.Equal(0, result.Total);
@@ -1466,8 +1471,9 @@ namespace XDbAccess.Test.UnitTests
                 PageIndex = 1,
                 PageSize = 3,
                 SqlFromPart = "[org] o join [user] u on o.Id=u.OrgId",
-                SqlFieldsPart = "u.*,o.Name OrgName",
+                SqlFieldsPart = "u.Id,u.Name,u.Birthday,u.OrgId,o.Name OrgName",
                 SqlConditionPart = "u.Id > @UserId",
+                SqlGroupPart = "u.Id,u.Name,u.Birthday,u.OrgId,o.Name",
                 SqlOrderPart = "u.Id",
                 AlwayQueryCount = true
             }, new { UserId = 3 });
