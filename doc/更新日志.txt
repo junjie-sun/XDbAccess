@@ -157,7 +157,7 @@ TableAttribute、FieldAttribute、IgnoreAttribute改为支持继承链
 
 --------------------------------------------------------------------------------
 
-2019-11-14
+2019-11-15
 XDbAccess Tag：1.5.2
 
 XDbAccess.Common

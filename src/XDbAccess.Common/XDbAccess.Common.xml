@@ -240,7 +240,7 @@
             <param name="meta">映射信息</param>
             <param name="isBuildFullSql">是否构造完整的SQL，如果为false则只构造SELECT部分的语句</param>
             <param name="sqlConditionPart">WHERE部分的SQL</param>
-            <param name="sqlOrderByPart">ORDER部分的SQL</param>
+            <param name="sqlOrderPart">ORDER部分的SQL</param>
             <returns></returns>
         </member>
         <member name="M:XDbAccess.Common.ISQLBuilder.BuildDeleteSql(XDbAccess.Common.MapInfo,System.Boolean,System.String)">
@@ -308,7 +308,7 @@
             <param name="meta">映射信息</param>
             <param name="isBuildFullSql">是否构造完整的SQL，如果为false则只构造SELECT部分的语句</param>
             <param name="sqlConditionPart">WHERE部分的SQL</param>
-            <param name="sqlOrderByPart">ORDER部分的SQL</param>
+            <param name="sqlOrderPart">ORDER部分的SQL</param>
             <returns></returns>
         </member>
         <member name="M:XDbAccess.Common.MSSqlSQLBuilder.BuildDeleteSql(XDbAccess.Common.MapInfo,System.Boolean,System.String)">
@@ -373,7 +373,7 @@
             <param name="meta">映射信息</param>
             <param name="isBuildFullSql">是否构造完整的SQL，如果为false则只构造SELECT部分的语句</param>
             <param name="sqlConditionPart">WHERE部分的SQL</param>
-            <param name="sqlOrderByPart">ORDER部分的SQL</param>
+            <param name="sqlOrderPart">ORDER部分的SQL</param>
             <returns></returns>
         </member>
         <member name="M:XDbAccess.Common.MySqlSQLBuilder.BuildDeleteSql(XDbAccess.Common.MapInfo,System.Boolean,System.String)">

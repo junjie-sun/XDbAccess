@@ -838,15 +838,15 @@ namespace XDbAccess.Dapper
         /// <typeparam name="T"></typeparam>
         /// <param name="sqlConditionPart">WHERE部分的SQL</param>
         /// <param name="condition">条件对象</param>
-        /// <param name="sqlOrderByPart">ORDER部分的SQL</param>
+        /// <param name="sqlOrderPart">ORDER部分的SQL</param>
         /// <param name="buffered"></param>
         /// <param name="commandTimeout"></param>
         /// <returns></returns>
-        public virtual IEnumerable<T> QuerySingleTable<T>(string sqlConditionPart = null, object condition = null, string sqlOrderByPart = null, bool buffered = true, int? commandTimeout = default(int?))
+        public virtual IEnumerable<T> QuerySingleTable<T>(string sqlConditionPart = null, object condition = null, string sqlOrderPart = null, bool buffered = true, int? commandTimeout = default(int?))
         {
             var meta = MapParser.GetMapMetaInfo(typeof(T));
 
-            var sql = SQLBuilder.BuildSelectSql(meta, true, sqlConditionPart, sqlOrderByPart);
+            var sql = SQLBuilder.BuildSelectSql(meta, true, sqlConditionPart, sqlOrderPart);
 
             LogDebug($"QuerySingleTable generate SQL: {sql}");
 
@@ -859,14 +859,14 @@ namespace XDbAccess.Dapper
         /// <typeparam name="T"></typeparam>
         /// <param name="sqlConditionPart">WHERE部分的SQL</param>
         /// <param name="condition">条件对象</param>
-        /// <param name="sqlOrderByPart">ORDER部分的SQL</param>
+        /// <param name="sqlOrderPart">ORDER部分的SQL</param>
         /// <param name="commandTimeout"></param>
         /// <returns></returns>
-        public virtual Task<IEnumerable<T>> QuerySingleTableAsync<T>(string sqlConditionPart = null, object condition = null, string sqlOrderByPart = null, int? commandTimeout = default(int?))
+        public virtual Task<IEnumerable<T>> QuerySingleTableAsync<T>(string sqlConditionPart = null, object condition = null, string sqlOrderPart = null, int? commandTimeout = default(int?))
         {
             var meta = MapParser.GetMapMetaInfo(typeof(T));
 
-            var sql = SQLBuilder.BuildSelectSql(meta, true, sqlConditionPart, sqlOrderByPart);
+            var sql = SQLBuilder.BuildSelectSql(meta, true, sqlConditionPart, sqlOrderPart);
 
             LogDebug($"QuerySingleTableAsync generate SQL: {sql}");
 

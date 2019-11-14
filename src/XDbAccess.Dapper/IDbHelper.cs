@@ -425,11 +425,11 @@ namespace XDbAccess.Dapper
         /// <typeparam name="T"></typeparam>
         /// <param name="sqlConditionPart">WHERE部分的SQL</param>
         /// <param name="condition">条件对象</param>
-        /// <param name="sqlOrderByPart">ORDER部分的SQL</param>
+        /// <param name="sqlOrderPart">ORDER部分的SQL</param>
         /// <param name="buffered"></param>
         /// <param name="commandTimeout"></param>
         /// <returns></returns>
-        IEnumerable<T> QuerySingleTable<T>(string sqlConditionPart = null, object condition = null, string sqlOrderByPart = null, bool buffered = true, int? commandTimeout = default(int?));
+        IEnumerable<T> QuerySingleTable<T>(string sqlConditionPart = null, object condition = null, string sqlOrderPart = null, bool buffered = true, int? commandTimeout = default(int?));
 
         /// <summary>
         /// 单表查询
@@ -437,10 +437,10 @@ namespace XDbAccess.Dapper
         /// <typeparam name="T"></typeparam>
         /// <param name="sqlConditionPart">WHERE部分的SQL</param>
         /// <param name="condition">条件对象</param>
-        /// <param name="sqlOrderByPart">ORDER部分的SQL</param>
+        /// <param name="sqlOrderPart">ORDER部分的SQL</param>
         /// <param name="commandTimeout"></param>
         /// <returns></returns>
-        Task<IEnumerable<T>> QuerySingleTableAsync<T>(string sqlConditionPart = null, object condition = null, string sqlOrderByPart = null, int? commandTimeout = default(int?));
+        Task<IEnumerable<T>> QuerySingleTableAsync<T>(string sqlConditionPart = null, object condition = null, string sqlOrderPart = null, int? commandTimeout = default(int?));
 
         /// <summary>
         /// 执行DELETE操作

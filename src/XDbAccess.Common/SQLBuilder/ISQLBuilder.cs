@@ -50,9 +50,9 @@ namespace XDbAccess.Common
         /// <param name="meta">映射信息</param>
         /// <param name="isBuildFullSql">是否构造完整的SQL，如果为false则只构造SELECT部分的语句</param>
         /// <param name="sqlConditionPart">WHERE部分的SQL</param>
-        /// <param name="sqlOrderByPart">ORDER部分的SQL</param>
+        /// <param name="sqlOrderPart">ORDER部分的SQL</param>
         /// <returns></returns>
-        string BuildSelectSql(MapInfo meta, bool isBuildFullSql = false, string sqlConditionPart = null, string sqlOrderByPart = null);
+        string BuildSelectSql(MapInfo meta, bool isBuildFullSql = false, string sqlConditionPart = null, string sqlOrderPart = null);
 
         /// <summary>
         /// 构造DELETE语句

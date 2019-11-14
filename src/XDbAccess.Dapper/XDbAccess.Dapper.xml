@@ -726,7 +726,7 @@
             <typeparam name="T"></typeparam>
             <param name="sqlConditionPart">WHERE部分的SQL</param>
             <param name="condition">条件对象</param>
-            <param name="sqlOrderByPart">ORDER部分的SQL</param>
+            <param name="sqlOrderPart">ORDER部分的SQL</param>
             <param name="buffered"></param>
             <param name="commandTimeout"></param>
             <returns></returns>
@@ -738,7 +738,7 @@
             <typeparam name="T"></typeparam>
             <param name="sqlConditionPart">WHERE部分的SQL</param>
             <param name="condition">条件对象</param>
-            <param name="sqlOrderByPart">ORDER部分的SQL</param>
+            <param name="sqlOrderPart">ORDER部分的SQL</param>
             <param name="commandTimeout"></param>
             <returns></returns>
         </member>
@@ -1171,7 +1171,7 @@
             <typeparam name="T"></typeparam>
             <param name="sqlConditionPart">WHERE部分的SQL</param>
             <param name="condition">条件对象</param>
-            <param name="sqlOrderByPart">ORDER部分的SQL</param>
+            <param name="sqlOrderPart">ORDER部分的SQL</param>
             <param name="buffered"></param>
             <param name="commandTimeout"></param>
             <returns></returns>
@@ -1183,7 +1183,7 @@
             <typeparam name="T"></typeparam>
             <param name="sqlConditionPart">WHERE部分的SQL</param>
             <param name="condition">条件对象</param>
-            <param name="sqlOrderByPart">ORDER部分的SQL</param>
+            <param name="sqlOrderPart">ORDER部分的SQL</param>
             <param name="commandTimeout"></param>
             <returns></returns>
         </member>

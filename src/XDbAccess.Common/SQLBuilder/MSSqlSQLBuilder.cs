@@ -234,9 +234,9 @@ namespace XDbAccess.Common
         /// <param name="meta">映射信息</param>
         /// <param name="isBuildFullSql">是否构造完整的SQL，如果为false则只构造SELECT部分的语句</param>
         /// <param name="sqlConditionPart">WHERE部分的SQL</param>
-        /// <param name="sqlOrderByPart">ORDER部分的SQL</param>
+        /// <param name="sqlOrderPart">ORDER部分的SQL</param>
         /// <returns></returns>
-        public string BuildSelectSql(MapInfo meta, bool isBuildFullSql = false, string sqlConditionPart = null, string sqlOrderByPart = null)
+        public string BuildSelectSql(MapInfo meta, bool isBuildFullSql = false, string sqlConditionPart = null, string sqlOrderPart = null)
         {
             if (meta == null || meta.Fields.Count == 0)
             {
@@ -275,9 +275,9 @@ namespace XDbAccess.Common
                     sqlBuilder.AppendFormat(" WHERE {0}", sqlConditionPart);
                 }
 
-                if (!string.IsNullOrWhiteSpace(sqlOrderByPart))
+                if (!string.IsNullOrWhiteSpace(sqlOrderPart))
                 {
-                    sqlBuilder.AppendFormat(" ORDER BY {0}", sqlOrderByPart);
+                    sqlBuilder.AppendFormat(" ORDER BY {0}", sqlOrderPart);
                 }
             }
 
