@@ -33,7 +33,7 @@ namespace XDbAccess.Common
         /// </summary>
         /// <param name="options">分页查询参数</param>
         /// <returns></returns>
-        string BuidlPagedQuerySql(PagedQueryOptions options);
+        string BuildPagedQuerySql(PagedQueryOptions options);
 
         /// <summary>
         /// 构造SELECT COUNT语句

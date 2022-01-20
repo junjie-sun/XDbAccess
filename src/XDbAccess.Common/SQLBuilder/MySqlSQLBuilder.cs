@@ -169,7 +169,7 @@ namespace XDbAccess.Common
         /// </summary>
         /// <param name="options">分页查询参数</param>
         /// <returns></returns>
-        public string BuidlPagedQuerySql(PagedQueryOptions options)
+        public string BuildPagedQuerySql(PagedQueryOptions options)
         {
             if (string.IsNullOrEmpty(options.SqlFieldsPart))
             {

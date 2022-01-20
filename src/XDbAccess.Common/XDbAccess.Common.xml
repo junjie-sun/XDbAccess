@@ -217,7 +217,7 @@
             <param name="valuePropertyPrefix">为了避免与WHERE部分的参数有相同名称冲突，在SET部分的参数所添加的前缀，当isUpdateByPrimaryKey=false时有效</param>
             <returns></returns>
         </member>
-        <member name="M:XDbAccess.Common.ISQLBuilder.BuidlPagedQuerySql(XDbAccess.Common.PagedQueryOptions)">
+        <member name="M:XDbAccess.Common.ISQLBuilder.BuildPagedQuerySql(XDbAccess.Common.PagedQueryOptions)">
             <summary>
             构造分页查询语句
             </summary>
@@ -285,7 +285,7 @@
             <param name="valuePropertyPrefix">为了避免与WHERE部分的参数有相同名称冲突，在SET部分的参数所添加的前缀，当isUpdateByPrimaryKey=false时有效</param>
             <returns></returns>
         </member>
-        <member name="M:XDbAccess.Common.MSSqlSQLBuilder.BuidlPagedQuerySql(XDbAccess.Common.PagedQueryOptions)">
+        <member name="M:XDbAccess.Common.MSSqlSQLBuilder.BuildPagedQuerySql(XDbAccess.Common.PagedQueryOptions)">
             <summary>
             构造分页查询语句
             </summary>
@@ -343,7 +343,7 @@
             <param name="valuePropertyPrefix">为了避免与WHERE部分的参数有相同名称冲突，在SET部分的参数所添加的前缀，当isUpdateByPrimaryKey=false时有效</param>
             <returns></returns>
         </member>
-        <member name="M:XDbAccess.Common.MySqlSQLBuilder.BuidlPagedQuerySql(XDbAccess.Common.PagedQueryOptions)">
+        <member name="M:XDbAccess.Common.MySqlSQLBuilder.BuildPagedQuerySql(XDbAccess.Common.PagedQueryOptions)">
             <summary>
             构造分页查询语句
             </summary>

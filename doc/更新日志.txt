@@ -163,3 +163,12 @@ XDbAccess Tag：1.5.2
 XDbAccess.Common
 分页PagedQueryOptions增加GroupPart
 bug修复
+
+
+--------------------------------------------------------------------------------
+
+2022-01-20
+XDbAccess Tag：1.5.3
+
+XDbAccess.Common
+ISQLBuilder接口BuidlPagedQuerySql方法改名为BuildPagedQuerySql

@@ -797,7 +797,7 @@ namespace XDbAccess.Dapper
                 result.Total = this.ExecuteScalar<long>(countSql, param, commandTimeout);
             }
 
-            var sql = SQLBuilder.BuidlPagedQuerySql(options);
+            var sql = SQLBuilder.BuildPagedQuerySql(options);
             LogDebug($"PagedQuery generate SQL: {sql}");
             result.Data = this.Query<T>(sql, param, buffered, commandTimeout).ToList();
 
@@ -824,7 +824,7 @@ namespace XDbAccess.Dapper
                 result.Total = await this.ExecuteScalarAsync<long>(countSql, param, commandTimeout);
             }
 
-            var sql = SQLBuilder.BuidlPagedQuerySql(options);
+            var sql = SQLBuilder.BuildPagedQuerySql(options);
             LogDebug($"PagedQueryAsync generate SQL: {sql}");
             var data = await this.QueryAsync<T>(sql, param, commandTimeout);
             result.Data = data.ToList();
