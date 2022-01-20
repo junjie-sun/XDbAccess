@@ -3565,6 +3565,15 @@ namespace XDbAccess.Test.UnitTests
             });
         }
 
+        [Fact]
+        public void TransNullTest()
+        {
+            using (var scope = DbContext.TransScope())
+            {
+                scope.Commit();
+            }
+        }
+
         #endregion
 
         #region QuerySingleTable

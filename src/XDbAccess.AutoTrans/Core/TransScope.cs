@@ -172,8 +172,11 @@ namespace XDbAccess.AutoTrans
         {
             if (Option == TransScopeOption.RequireNew || Parent == null)
             {
-                Trans.Dispose();
-                LogDebug("Dispose Transaction. DbConnectionWrap.Guid={0}, TransScope.Guid={1}", _ConnectionId, Guid);
+                if (Trans != null)
+                {
+                    Trans.Dispose();
+                    LogDebug("Dispose Transaction. DbConnectionWrap.Guid={0}, TransScope.Guid={1}", _ConnectionId, Guid);
+                }
                 _State = TransScopeState.Dispose;
                 LogDebug("Set TransScopeState to Dispose. DbConnectionWrap.Guid={0}, TransScope.Guid={1}", _ConnectionId, Guid);
             }
