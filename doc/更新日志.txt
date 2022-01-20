@@ -172,4 +172,6 @@ XDbAccess Tag：1.5.3
 
 XDbAccess.Common
 ISQLBuilder接口BuidlPagedQuerySql方法改名为BuildPagedQuerySql
+
+XDbAccess.AutoTrans
 修复在事务中无SQL执行时抛出异常的问题
