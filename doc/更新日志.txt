@@ -175,3 +175,18 @@ ISQLBuilder接口BuidlPagedQuerySql方法改名为BuildPagedQuerySql
 
 XDbAccess.AutoTrans
 修复在事务中无SQL执行时抛出异常的问题
+
+
+--------------------------------------------------------------------------------
+
+2022-11-12
+XDbAccess Tag：1.6.0
+
+XDbAccess.Dapper
+更新Dapper版本至2.0.123
+
+XDbAccess.MSSql
+更新System.Data.SqlClient版本至4.8.5
+
+XDbAccess.MSSql
+更新MySql.Data版本至8.0.31

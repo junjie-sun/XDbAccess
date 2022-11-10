@@ -14,7 +14,7 @@ namespace XDbAccess.Test.UnitTests
     {
         public MSSqlDbHelperTest()
         {
-            var connectionString = "Server=(localdb)\\MSSQLLocalDB;Database=DapperTemp;Trusted_Connection=True;MultipleActiveResultSets=true";
+            var connectionString = "Server=.;Database=DapperTemp;Trusted_Connection=True;MultipleActiveResultSets=true";
             DbContext = new DbContext(new DbContextOptions()
             {
                 ConnectionString = connectionString,

@@ -5,6 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using NLog.Web;
 
 namespace XDbAccess.Demo
@@ -13,34 +16,32 @@ namespace XDbAccess.Demo
     {
         public static void Main(string[] args)
         {
-            var builder = new WebHostBuilder();
-            var envName = builder.GetSetting("environment");
-            var nlogFileName = string.IsNullOrEmpty(envName) || envName.ToLower() == "production" ? "nlog.config" : $"nlog.{envName}.config";
-
-            // NLog: setup the logger first to catch all errors
-            var logger = NLogBuilder.ConfigureNLog($"{Directory.GetCurrentDirectory()}/{nlogFileName}").GetCurrentClassLogger();
-            try
-            {
-                logger.Debug("init main");
-                BuildWebHost(args).Run();
-            }
-            catch (Exception ex)
-            {
-                //NLog: catch setup errors
-                logger.Error(ex, "Stopped program because of exception");
-                throw;
-            }
-            finally
-            {
-                // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
-                NLog.LogManager.Shutdown();
-            }
+            CreateHostBuilder(args).Build().Run();
         }
 
-        public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-                .UseNLog()
-                .Build();
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+
+                    var otherConfig = new ConfigurationBuilder()
+                        .SetBasePath(Directory.GetCurrentDirectory())
+                        .Build();
+
+                    webBuilder.UseConfiguration(otherConfig);
+
+                    var envName = webBuilder.GetSetting("environment");
+
+                    var nlogFileName = string.IsNullOrEmpty(envName) || envName.ToLower() == "production" ? "nlog.config" : $"nlog.{envName}.config";
+                    var logger = NLogBuilder.ConfigureNLog($"{Directory.GetCurrentDirectory()}/{nlogFileName}").GetCurrentClassLogger();
+
+                    logger.Debug($"Init finished. Environment={envName}");
+                })
+                .ConfigureLogging(logging =>
+                {
+                    logging.ClearProviders();
+                })
+                .UseNLog();
     }
 }

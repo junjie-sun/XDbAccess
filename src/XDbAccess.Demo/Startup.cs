@@ -14,46 +14,44 @@ using XDbAccess.MSSql;
 using XDbAccess.MySql;
 using XDbAccess.Dapper;
 using XDbAccess.Demo.Repositories;
+using Microsoft.Extensions.Hosting;
 
 namespace XDbAccess.Demo
 {
     public class Startup
     {
-        public Startup(IHostingEnvironment env, IConfiguration configuration, ILoggerFactory loggerFactory)
+        public Startup(IWebHostEnvironment env, IConfiguration configuration)
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
             Env = env;
 
             Configuration = configuration;
-
-            LoggerFactory = loggerFactory;
         }
 
-        public IHostingEnvironment Env { get; }
+        public IWebHostEnvironment Env { get; }
 
         public IConfiguration Configuration { get; }
-
-        public ILoggerFactory LoggerFactory { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc(options=>
+            {
+                options.EnableEndpointRouting = false;
+            });
 
             if (Env.EnvironmentName == "MySQL")
             {
                 services.AddDbContext<DapperTestDbContext>((options) =>
                 {
-                    options.UseMySql(Configuration.GetConnectionString("DefaultConnection"))
-                        .UseLoggerFactory(LoggerFactory);
+                    options.UseMySql(Configuration.GetConnectionString("DefaultConnection"));
                 })
                 .AddMySqlDbHepler<DapperTestDbContext>()
                 .AddDbContext<DapperTest2DbContext>((options) =>
                 {
-                    options.UseMySql(Configuration.GetConnectionString("Connection2"))
-                        .UseLoggerFactory(LoggerFactory);
+                    options.UseMySql(Configuration.GetConnectionString("Connection2"));
                 })
                 .AddMySqlDbHepler<DapperTest2DbContext>()
                 .AddMySqlRepositories();
@@ -62,14 +60,12 @@ namespace XDbAccess.Demo
             {
                 services.AddDbContext<DapperTestDbContext>((options) =>
                 {
-                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
-                        .UseLoggerFactory(LoggerFactory);
+                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
                 })
                 .AddMSSqlDbHepler<DapperTestDbContext>()
                 .AddDbContext<DapperTest2DbContext>((options) =>
                 {
-                    options.UseSqlServer(Configuration.GetConnectionString("Connection2"))
-                        .UseLoggerFactory(LoggerFactory);
+                    options.UseSqlServer(Configuration.GetConnectionString("Connection2"));
                 })
                 .AddMSSqlDbHepler<DapperTest2DbContext>()
                 .AddRepositories();
@@ -79,7 +75,7 @@ namespace XDbAccess.Demo
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
