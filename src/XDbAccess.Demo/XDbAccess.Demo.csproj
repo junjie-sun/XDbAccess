@@ -14,6 +14,7 @@
     <ProjectReference Include="..\XDbAccess.Dapper\XDbAccess.Dapper.csproj" />
     <ProjectReference Include="..\XDbAccess.MSSql\XDbAccess.MSSql.csproj" />
     <ProjectReference Include="..\XDbAccess.MySql\XDbAccess.MySql.csproj" />
+    <ProjectReference Include="..\XDbAccess.PostgreSQL\XDbAccess.PostgreSQL.csproj" />
   </ItemGroup>
 
   <ItemGroup>

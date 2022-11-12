@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using XDbAccess.AutoTrans;
 using XDbAccess.MSSql;
 using XDbAccess.MySql;
+using XDbAccess.PostgreSQL;
 using XDbAccess.Dapper;
 using XDbAccess.Demo.Repositories;
 using Microsoft.Extensions.Hosting;
@@ -55,6 +56,20 @@ namespace XDbAccess.Demo
                 })
                 .AddMySqlDbHepler<DapperTest2DbContext>()
                 .AddMySqlRepositories();
+            }
+            else if(Env.EnvironmentName == "PostgreSQL")
+            {
+                services.AddDbContext<DapperTestDbContext>((options) =>
+                {
+                    options.UsePostgreSQL(Configuration.GetConnectionString("DefaultConnection"));
+                })
+                .AddPostgreSQLDbHepler<DapperTestDbContext>()
+                .AddDbContext<DapperTest2DbContext>((options) =>
+                {
+                    options.UsePostgreSQL(Configuration.GetConnectionString("Connection2"));
+                })
+                .AddPostgreSQLDbHepler<DapperTest2DbContext>()
+                .AddPostgreSQLRepositories();
             }
             else
             {

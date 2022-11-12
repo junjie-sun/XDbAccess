@@ -385,5 +385,63 @@
             <param name="sqlConditionPart">WHERE部分的SQL，当isDeleteByPrimaryKey=false时有效</param>
             <returns></returns>
         </member>
+        <member name="T:XDbAccess.Common.PostgreSQLBuilder">
+            <summary>
+            PostgreSQL语句构造器接口
+            </summary>
+        </member>
+        <member name="M:XDbAccess.Common.PostgreSQLBuilder.BuildInsertSql(XDbAccess.Common.MapInfo,System.Boolean)">
+            <summary>
+            构造INSERT语句
+            </summary>
+            <param name="meta">映射信息</param>
+            <param name="isBuildIdentitySql">是否生成查询自动生成ID的SQL</param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Common.PostgreSQLBuilder.BuildUpdateSql(XDbAccess.Common.MapInfo,System.Boolean,System.String,System.String)">
+            <summary>
+            构造UPDATE语句
+            </summary>
+            <param name="meta">映射信息</param>
+            <param name="isUpdateByPrimaryKey">是否以主键作为条件进行更新</param>
+            <param name="sqlConditionPart">WHERE部分的SQL，当isUpdateByPrimaryKey=false时有效</param>
+            <param name="valuePropertyPrefix">为了避免与WHERE部分的参数有相同名称冲突，在SET部分的参数所添加的前缀，当isUpdateByPrimaryKey=false时有效</param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Common.PostgreSQLBuilder.BuildPagedQuerySql(XDbAccess.Common.PagedQueryOptions)">
+            <summary>
+            构造分页查询语句
+            </summary>
+            <param name="options">分页查询参数</param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Common.PostgreSQLBuilder.BuildQueryCountSql(System.String,System.String,System.String)">
+            <summary>
+            构造SELECT COUNT语句
+            </summary>
+            <param name="sqlFromPart">FROM部分的SQL</param>
+            <param name="sqlConditionPart">WHERE部分的SQL</param>
+            <param name="sqlGroupPart">GROUP部分的SQL</param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Common.PostgreSQLBuilder.BuildSelectSql(XDbAccess.Common.MapInfo,System.Boolean,System.String,System.String)">
+            <summary>
+            构造SELECT语句
+            </summary>
+            <param name="meta">映射信息</param>
+            <param name="isBuildFullSql">是否构造完整的SQL，如果为false则只构造SELECT部分的语句</param>
+            <param name="sqlConditionPart">WHERE部分的SQL</param>
+            <param name="sqlOrderPart">ORDER部分的SQL</param>
+            <returns></returns>
+        </member>
+        <member name="M:XDbAccess.Common.PostgreSQLBuilder.BuildDeleteSql(XDbAccess.Common.MapInfo,System.Boolean,System.String)">
+            <summary>
+            构造DELETE语句
+            </summary>
+            <param name="meta">映射信息</param>
+            <param name="isDeleteByPrimaryKey">是否以主键作为条件进行删除</param>
+            <param name="sqlConditionPart">WHERE部分的SQL，当isDeleteByPrimaryKey=false时有效</param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

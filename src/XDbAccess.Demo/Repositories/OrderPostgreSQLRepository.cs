@@ -1,21 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using System;
+using XDbAccess.Dapper;
 using XDbAccess.Demo.Interfaces;
 using XDbAccess.Demo.Models;
-using XDbAccess.Dapper;
+using System.Linq;
 
 namespace XDbAccess.Demo.Repositories
 {
-    public class OrderRepository : BaseRepository<DapperTest2DbContext>, IOrderRepository
+    public class OrderPostgreSQLRepository : BaseRepository<DapperTest2DbContext>, IOrderRepository
     {
-        public OrderRepository(IDbHelper<DapperTest2DbContext> dbHelper) : base(dbHelper) { }
+        public OrderPostgreSQLRepository(IDbHelper<DapperTest2DbContext> dbHelper) : base(dbHelper) { }
 
         public async Task<List<Order>> GetAllOrdersAsync()
         {
             IEnumerable<Order> data;
-            string sql = "select * from [Order]";
+            string sql = "select * from \"Order\"";
             data = await DbHelper.QueryAsync<Order>(sql);
             return data.ToList();
         }
@@ -28,8 +28,7 @@ namespace XDbAccess.Demo.Repositories
         public async Task InsertOrderProductRefAsync(int orderId, int productId)
         {
             string sql = $@"
-                insert into [OrderProductRef]([OrderId],[ProductId]) values(@OrderId,@ProductId);
-                SELECT CAST(SCOPE_IDENTITY() AS bigint) as Id;
+                insert into ""OrderProductRef""(""OrderId"",""ProductId"") values(@OrderId,@ProductId) RETURNING CAST(""Id"" AS BIGINT);
             ";
             await DbHelper.ExecuteScalarAsync(sql, new { OrderId = orderId, ProductId = productId });
         }

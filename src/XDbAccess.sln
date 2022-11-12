@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27703.2000
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XDbAccess.AutoTrans", "XDbAccess.AutoTrans\XDbAccess.AutoTrans.csproj", "{7979EAE1-47C7-4F61-92AE-E1126A5996ED}"
 EndProject
@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XDbAccess.Test", "XDbAccess
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XDbAccess.Demo", "XDbAccess.Demo\XDbAccess.Demo.csproj", "{C78E57CC-ADD6-4863-BCF6-6FC16E918258}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XDbAccess.Common", "XDbAccess.Common\XDbAccess.Common.csproj", "{41C3BDB1-91A5-4084-847D-441531DB643A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XDbAccess.Common", "XDbAccess.Common\XDbAccess.Common.csproj", "{41C3BDB1-91A5-4084-847D-441531DB643A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XDbAccess.PostgreSQL", "XDbAccess.PostgreSQL\XDbAccess.PostgreSQL.csproj", "{DBF7D412-367D-4B31-9DB7-FF629B67E926}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{41C3BDB1-91A5-4084-847D-441531DB643A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{41C3BDB1-91A5-4084-847D-441531DB643A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{41C3BDB1-91A5-4084-847D-441531DB643A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBF7D412-367D-4B31-9DB7-FF629B67E926}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBF7D412-367D-4B31-9DB7-FF629B67E926}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBF7D412-367D-4B31-9DB7-FF629B67E926}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBF7D412-367D-4B31-9DB7-FF629B67E926}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

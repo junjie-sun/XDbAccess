@@ -29,7 +29,7 @@ namespace XDbAccess.Demo.Repositories
         {
             string sql = $@"
                 insert into `OrderProductRef`(`OrderId`,`ProductId`) values(@OrderId,@ProductId);
-                SELECT @@IDENTITY;
+                SELECT CAST(LAST_INSERT_ID() AS SIGNED);
             ";
             await DbHelper.ExecuteScalarAsync(sql, new { OrderId = orderId, ProductId = productId });
         }

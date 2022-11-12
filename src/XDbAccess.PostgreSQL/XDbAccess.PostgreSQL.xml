@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>XDbAccess.PostgreSQL</name>
+    </assembly>
+    <members>
+        <member name="T:XDbAccess.PostgreSQL.PostgreSQLDbContextOptionsExtensions">
+            <summary>
+            PostgreSQL扩展类
+            </summary>
+        </member>
+        <member name="M:XDbAccess.PostgreSQL.PostgreSQLDbContextOptionsExtensions.UsePostgreSQL(XDbAccess.AutoTrans.DbContextOptionsBuilder,System.String)">
+            <summary>
+            为DbContext配置数据库为PostgreSQL
+            </summary>
+            <param name="optionsBuilder"></param>
+            <param name="connectionString"></param>
+            <returns></returns>
+        </member>
+        <member name="T:XDbAccess.PostgreSQL.PostgreSQLDbFactory">
+            <summary>
+            PostgreSQL工厂
+            </summary>
+        </member>
+        <member name="M:XDbAccess.PostgreSQL.PostgreSQLDbFactory.#ctor(System.String)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="connectionString"></param>
+        </member>
+        <member name="M:XDbAccess.PostgreSQL.PostgreSQLDbFactory.CreateConnection">
+            <summary>
+            创建连接对象
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

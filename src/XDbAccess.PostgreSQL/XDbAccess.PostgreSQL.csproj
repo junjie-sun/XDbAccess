@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>XDbAccess.PostgreSQL.xml</DocumentationFile>
+    <Version>1.6.0</Version>
+    <Authors>Sun junjie</Authors>
+    <Description>PostgreSQL extension for XDbAccess.</Description>
+    <PackageProjectUrl>https://github.com/junjie-sun/XDbAccess</PackageProjectUrl>
+    <PackageTags>xdbaccess</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Npgsql" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\XDbAccess.AutoTrans\XDbAccess.AutoTrans.csproj" />
+  </ItemGroup>
+
+</Project>

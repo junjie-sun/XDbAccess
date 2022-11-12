@@ -38,5 +38,17 @@ namespace XDbAccess.Dapper
             serviceCollection.AddSingleton<IDbHelper<DbContextImpl>, MySqlDbHelper<DbContextImpl>>();
             return serviceCollection;
         }
+
+        /// <summary>
+        /// 添加PostgreSQLHepler
+        /// </summary>
+        /// <typeparam name="DbContextImpl"></typeparam>
+        /// <param name="serviceCollection"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddPostgreSQLDbHepler<DbContextImpl>(this IServiceCollection serviceCollection) where DbContextImpl : IDbContext
+        {
+            serviceCollection.AddSingleton<IDbHelper<DbContextImpl>, PostgreSQLDbHelper<DbContextImpl>>();
+            return serviceCollection;
+        }
     }
 }

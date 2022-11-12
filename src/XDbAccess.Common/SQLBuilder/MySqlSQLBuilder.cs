@@ -82,12 +82,10 @@ namespace XDbAccess.Common
                 if (meta.HasIdentity)
                 {
                     sqlBuilder.Append(" SELECT CAST(LAST_INSERT_ID() AS SIGNED);");
-
                 }
                 else
                 {
                     sqlBuilder.Append(" SELECT CAST(0 AS SIGNED);");
-
                 }
             }
 

@@ -37,5 +37,14 @@ namespace XDbAccess.Demo
 
             return serviceCollection;
         }
+
+        public static IServiceCollection AddPostgreSQLRepositories(this IServiceCollection serviceCollection)
+        {
+            serviceCollection.AddSingleton<IUserRepository, UserPostgreSQLRepository>();
+            serviceCollection.AddSingleton<IOrderRepository, OrderPostgreSQLRepository>();
+            serviceCollection.AddSingleton<IProductRepository, ProductPostgreSQLRepository>();
+
+            return serviceCollection;
+        }
     }
 }

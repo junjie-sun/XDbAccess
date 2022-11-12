@@ -17,7 +17,7 @@ namespace XDbAccess.Demo.Repositories
         {
             string sql = $@"
                 insert into [user](Name,Birthday,Description,OrgId) values(@Name,@Birthday,@Description,@OrgId);
-                SELECT @@IDENTITY;
+                SELECT CAST(SCOPE_IDENTITY() AS bigint) as Id;
             ";
             user.Id = Convert.ToInt32(await DbHelper.ExecuteScalarAsync(sql, new { Name = user.Name, Birthday = user.Birthday, Description = user.Description, OrgId = user.OrgId }));
         }

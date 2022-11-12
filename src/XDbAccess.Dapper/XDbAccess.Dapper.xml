@@ -763,6 +763,14 @@
             <param name="serviceCollection"></param>
             <returns></returns>
         </member>
+        <member name="M:XDbAccess.Dapper.DbHelperServiceCollectionExtensions.AddPostgreSQLDbHepler``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            添加PostgreSQLHepler
+            </summary>
+            <typeparam name="DbContextImpl"></typeparam>
+            <param name="serviceCollection"></param>
+            <returns></returns>
+        </member>
         <member name="T:XDbAccess.Dapper.IDbHelper`1">
             <summary>
             DbHelper接口
@@ -1288,6 +1296,23 @@
             <param name="entity"></param>
             <param name="commandTimeout"></param>
             <returns></returns>
+        </member>
+        <member name="T:XDbAccess.Dapper.PostgreSQLDbHelper`1">
+            <summary>
+            PostgreSQLDbHelper
+            </summary>
+            <typeparam name="DbContextImpl"></typeparam>
+        </member>
+        <member name="M:XDbAccess.Dapper.PostgreSQLDbHelper`1.#ctor(`0)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="dbContext"></param>
+        </member>
+        <member name="P:XDbAccess.Dapper.PostgreSQLDbHelper`1.SQLBuilder">
+            <summary>
+            SQLBuilder
+            </summary>
         </member>
     </members>
 </doc>

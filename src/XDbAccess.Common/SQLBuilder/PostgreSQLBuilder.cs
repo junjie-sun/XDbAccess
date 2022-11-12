@@ -9,9 +9,9 @@ using System.Text;
 namespace XDbAccess.Common
 {
     /// <summary>
-    /// MSSQL语句构造器
+    /// PostgreSQL语句构造器接口
     /// </summary>
-    public class MSSqlSQLBuilder : ISQLBuilder
+    public class PostgreSQLBuilder : ISQLBuilder
     {
         /// <summary>
         /// 构造INSERT语句
@@ -27,33 +27,9 @@ namespace XDbAccess.Common
             }
 
             StringBuilder sqlBuilder = new StringBuilder();
-            sqlBuilder.AppendFormat("INSERT INTO [{0}] (", meta.TableName);
+            sqlBuilder.AppendFormat("INSERT INTO \"{0}\" (", meta.TableName);
 
             bool isFirst = true;
-            for(var i = 0; i < meta.Fields.Count; i++)
-            {
-                var field = meta.Fields[i];
-                if (field.IsIdentity)
-                {
-                    continue;
-                }
-
-                if (!isFirst)
-                {
-                    sqlBuilder.Append(",");
-                }
-                else
-                {
-                    isFirst = false;
-                }
-
-                sqlBuilder.Append("[");
-                sqlBuilder.Append(field.FieldName);
-                sqlBuilder.Append("]");
-            }
-
-            isFirst = true;
-            sqlBuilder.Append(") VALUES (");
             for (var i = 0; i < meta.Fields.Count; i++)
             {
                 var field = meta.Fields[i];
@@ -71,23 +47,53 @@ namespace XDbAccess.Common
                     isFirst = false;
                 }
 
+                sqlBuilder.Append("\"");
+                sqlBuilder.Append(field.FieldName);
+                sqlBuilder.Append("\"");
+            }
+
+            isFirst = true;
+            var identityFieldName = "";
+            sqlBuilder.Append(") VALUES (");
+            for (var i = 0; i < meta.Fields.Count; i++)
+            {
+                var field = meta.Fields[i];
+                if (field.IsIdentity)
+                {
+                    if (field.IsPrimaryKey)
+                    {
+                        identityFieldName = field.FieldName;
+                    }
+                    continue;
+                }
+
+                if (!isFirst)
+                {
+                    sqlBuilder.Append(",");
+                }
+                else
+                {
+                    isFirst = false;
+                }
+
                 sqlBuilder.Append("@");
                 sqlBuilder.Append(field.PropertyName);
             }
 
-            sqlBuilder.Append(");");
-
+            var identitySql = "";
             if (isBuildIdentitySql)
             {
                 if (meta.HasIdentity)
                 {
-                    sqlBuilder.Append(" SELECT CAST(SCOPE_IDENTITY() AS bigint) as Id;");
+                    identitySql = $" RETURNING CAST(\"{identityFieldName}\" AS BIGINT)";
                 }
                 else
                 {
-                    sqlBuilder.Append(" SELECT  CAST(0 AS bigint) as Id;");
+                    sqlBuilder.Append(" RETURNING CAST(0 AS BIGINT)");
                 }
             }
+
+            sqlBuilder.Append($"){identitySql};");
 
             return sqlBuilder.ToString();
         }
@@ -113,7 +119,7 @@ namespace XDbAccess.Common
             }
 
             StringBuilder sqlBuilder = new StringBuilder();
-            sqlBuilder.AppendFormat("UPDATE [{0}] SET ", meta.TableName);
+            sqlBuilder.AppendFormat("UPDATE \"{0}\" SET ", meta.TableName);
 
             bool isFirst = true;
             for (var i = 0; i < meta.Fields.Count; i++)
@@ -133,9 +139,9 @@ namespace XDbAccess.Common
                     isFirst = false;
                 }
 
-                sqlBuilder.Append("[");
+                sqlBuilder.Append("\"");
                 sqlBuilder.Append(field.FieldName);
-                sqlBuilder.Append("]=@");
+                sqlBuilder.Append("\"=@");
                 sqlBuilder.Append(isUpdateByPrimaryKey ? field.PropertyName : valuePropertyPrefix + field.PropertyName);
             }
 
@@ -146,9 +152,9 @@ namespace XDbAccess.Common
                 foreach (var conditionField in conditionFields)
                 {
                     sqlBuilder.Append(" AND ");
-                    sqlBuilder.Append("[");
+                    sqlBuilder.Append("\"");
                     sqlBuilder.Append(conditionField.FieldName);
-                    sqlBuilder.Append("]=@");
+                    sqlBuilder.Append("\"=@");
                     sqlBuilder.Append(conditionField.PropertyName);
                 }
             }
@@ -184,17 +190,15 @@ namespace XDbAccess.Common
                 throw new ArgumentNullException("Need to specify SqlOrderPart");
             }
 
-            int pageStartIndex = options.PageSize * options.PageIndex + 1;
-            int pageEndIndex = options.PageSize * (options.PageIndex + 1);
+            int pageStartIndex = options.PageSize * options.PageIndex;
+            int currentPageCount = options.PageSize;
 
-            var sql = string.Format(@"SELECT * FROM (
-                    SELECT {0},ROW_NUMBER() OVER(ORDER BY {1}) AS RowNumber FROM {2}
-                    {3} {4}
-                ) as PageTable where RowNumber>={5} and RowNumber<={6};",
-                options.SqlFieldsPart, options.SqlOrderPart, options.SqlFromPart,
+            var sql = string.Format(@"SELECT {0} FROM {1} {2} {3} {4} LIMIT {6} OFFSET {5};",
+                options.SqlFieldsPart, options.SqlFromPart,
                 string.IsNullOrEmpty(options.SqlConditionPart) ? string.Empty : "WHERE " + options.SqlConditionPart,
                 string.IsNullOrEmpty(options.SqlGroupPart) ? string.Empty : "GROUP BY " + options.SqlGroupPart,
-                pageStartIndex, pageEndIndex);
+                string.IsNullOrEmpty(options.SqlOrderPart) ? string.Empty : "ORDER BY " + options.SqlOrderPart,
+                pageStartIndex, currentPageCount);
 
             return sql;
         }
@@ -203,7 +207,7 @@ namespace XDbAccess.Common
         /// 构造SELECT COUNT语句
         /// </summary>
         /// <param name="sqlFromPart">FROM部分的SQL</param>
-        /// <param name="sqlConditionPart">>WHERE部分的SQL</param>
+        /// <param name="sqlConditionPart">WHERE部分的SQL</param>
         /// <param name="sqlGroupPart">GROUP部分的SQL</param>
         /// <returns></returns>
         public string BuildQueryCountSql(string sqlFromPart, string sqlConditionPart = null, string sqlGroupPart = null)
@@ -258,15 +262,15 @@ namespace XDbAccess.Common
                     isFirst = false;
                 }
 
-                sqlBuilder.Append("[");
+                sqlBuilder.Append("\"");
                 sqlBuilder.Append(field.FieldName);
-                sqlBuilder.Append("] ");
+                sqlBuilder.Append("\" ");
                 sqlBuilder.Append(field.PropertyName);
             }
 
             if (isBuildFullSql)
             {
-                sqlBuilder.AppendFormat(" FROM [{0}]", meta.TableName);
+                sqlBuilder.AppendFormat(" FROM \"{0}\"", meta.TableName);
 
                 if (!string.IsNullOrWhiteSpace(sqlConditionPart))
                 {
@@ -302,7 +306,7 @@ namespace XDbAccess.Common
             }
 
             StringBuilder sqlBuilder = new StringBuilder();
-            sqlBuilder.AppendFormat("DELETE FROM [{0}]", meta.TableName);
+            sqlBuilder.AppendFormat("DELETE FROM \"{0}\"", meta.TableName);
 
             if (isDeleteByPrimaryKey)
             {
@@ -311,9 +315,9 @@ namespace XDbAccess.Common
                 foreach (var conditionField in conditionFields)
                 {
                     sqlBuilder.Append(" AND ");
-                    sqlBuilder.Append("[");
+                    sqlBuilder.Append("\"");
                     sqlBuilder.Append(conditionField.FieldName);
-                    sqlBuilder.Append("]=@");
+                    sqlBuilder.Append("\"=@");
                     sqlBuilder.Append(conditionField.PropertyName);
                 }
             }

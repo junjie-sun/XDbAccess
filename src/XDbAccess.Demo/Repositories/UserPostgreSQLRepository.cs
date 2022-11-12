@@ -1,23 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System;
+using XDbAccess.Common;
+using XDbAccess.Dapper;
 using XDbAccess.Demo.Interfaces;
 using XDbAccess.Demo.Models;
-using XDbAccess.Dapper;
-using XDbAccess.Common;
 
 namespace XDbAccess.Demo.Repositories
 {
-    public class UserMySqlRepository : BaseRepository<DapperTestDbContext>, IUserRepository
+    public class UserPostgreSQLRepository : BaseRepository<DapperTestDbContext>, IUserRepository
     {
-        public UserMySqlRepository(IDbHelper<DapperTestDbContext> dbHelper) : base(dbHelper) { }
+        public UserPostgreSQLRepository(IDbHelper<DapperTestDbContext> dbHelper) : base(dbHelper) { }
 
         public async Task InsertUserAsync(User user)
         {
             string sql = $@"
-                insert into `user`(Name,Birthday,Description,OrgId) values(@Name,@Birthday,@Description,@OrgId);
-                SELECT CAST(LAST_INSERT_ID() AS SIGNED);
+                insert into ""User""(""Name"",""Birthday"",""Description"",""OrgId"") values(@Name,@Birthday,@Description,@OrgId) RETURNING CAST(""Id"" AS BIGINT);
             ";
             user.Id = Convert.ToInt32(await DbHelper.ExecuteScalarAsync(sql, new { Name = user.Name, Birthday = user.Birthday, Description = user.Description, OrgId = user.OrgId }));
         }
@@ -33,26 +32,26 @@ namespace XDbAccess.Demo.Repositories
             //data = await DbHelper.QueryAsync<User>(sql, new { Name = "%" + name + "%" });
             //return data.ToList();
 
-            var data = await DbHelper.QuerySingleTableAsync<User>("name like @Name", new { Name = "%" + name + "%" });
+            var data = await DbHelper.QuerySingleTableAsync<User>("\"Name\" like @Name", new { Name = "%" + name + "%" });
             return data.ToList();
         }
 
         public async Task<User> GetUserAsync(int id)
         {
-            string sql = "select * from `user` where Id=@Id";
+            string sql = "select * from \"User\" where \"Id\"=@Id";
             return await DbHelper.QuerySingleAsync<User>(sql, new { Id = id });
         }
 
         public async Task<int> UpdateUserAsync(User user)
         {
             string sql = $@"
-                update `user` set Name=@Name,Birthday=@Birthday,Description=@Description
-                where Id=@Id
+                update ""User"" set ""Name""=@Name,""Birthday""=@Birthday,""Description""=@Description
+                where ""Id""=@Id
             ";
             return await DbHelper.ExecuteAsync(sql, new
             {
                 Name = user.Name,
-                Birthday = user.Birthday.ToString("yyyy-MM-dd"),
+                Birthday = Convert.ToDateTime(user.Birthday.ToString("yyyy-MM-dd")),
                 Description = user.Description,
                 Id = user.Id
             });
@@ -81,10 +80,10 @@ namespace XDbAccess.Demo.Repositories
             {
                 PageIndex = pageIndex,
                 PageSize = pageSize,
-                SqlFieldsPart = "`Id`,`Name`,`Birthday`,`Description`",
-                SqlFromPart = "`User`",
-                SqlConditionPart = "`Name` like @Name",
-                SqlOrderPart = "`Birthday` desc,`Id`"
+                SqlFieldsPart = "\"Id\",\"Name\",\"Birthday\",\"Description\"",
+                SqlFromPart = "\"User\"",
+                SqlConditionPart = "\"Name\" like @Name",
+                SqlOrderPart = "\"Birthday\" desc,\"Id\""
             };
 
             return await DbHelper.PagedQueryAsync<User>(opt, new { Name = "%" + name + "%" });

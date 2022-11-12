@@ -179,7 +179,7 @@ XDbAccess.AutoTrans
 
 --------------------------------------------------------------------------------
 
-2022-11-12
+2022-11-13
 XDbAccess Tag：1.6.0
 
 XDbAccess.Dapper
@@ -190,3 +190,6 @@ XDbAccess.MSSql
 
 XDbAccess.MSSql
 更新MySql.Data版本至8.0.31
+
+XDbAccess.PostgreSQL
+新增对PostgreSQL的支持
