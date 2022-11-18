@@ -89,7 +89,7 @@ namespace XDbAccess.Common
                 }
                 else
                 {
-                    sqlBuilder.Append(" RETURNING CAST(0 AS BIGINT)");
+                    identitySql = " RETURNING CAST(0 AS BIGINT)";
                 }
             }
 

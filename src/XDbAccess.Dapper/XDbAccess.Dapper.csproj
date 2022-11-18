@@ -7,7 +7,7 @@
     <PackageLicenseUrl>https://github.com/junjie-sun/XDbAccess/blob/master/LICENSE.txt</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/junjie-sun/XDbAccess</PackageProjectUrl>
     <PackageTags>xdbaccess,db,dapper</PackageTags>
-    <Version>1.6.0</Version>
+    <Version>1.6.1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

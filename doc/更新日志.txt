@@ -193,3 +193,12 @@ XDbAccess.MSSql
 
 XDbAccess.PostgreSQL
 新增对PostgreSQL的支持
+
+
+--------------------------------------------------------------------------------
+
+2022-11-19
+XDbAccess Tag：1.6.1
+
+XDbAccess.Common
+修复PostgreSQL数据库生成Insert语句出现语法错误的问题
